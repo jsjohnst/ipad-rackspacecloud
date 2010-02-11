@@ -20,6 +20,7 @@
 		
 		// place the text field where the text label belongs	
 		CGRect rect = CGRectInset(self.contentView.bounds, 18, 12);
+		rect.size.width += 220; // to account for ipad modal width
 		//rect.origin.x += 75;
 		//rect.size.width -= 75; // to prevent scrolling off the side
 		//rect.size.height
@@ -27,6 +28,9 @@
 				
 		self.textField = [[UITextField alloc] initWithFrame:rect];
 		self.textField.returnKeyType = UIReturnKeyDone;
+		self.textField.adjustsFontSizeToFitWidth = NO;
+		self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+		self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		self.textField.font = [UIFont fontWithName:self.textField.font.fontName size:17.0];
 		[self addSubview:self.textField];		
     }
