@@ -9,11 +9,24 @@
 #import "RebootServerViewController.h"
 #import "ServerDetailViewController.h"
 #import "ASICloudServersServerRequest.h"
+#import "ASICloudServersServer.h"
+#import "UIViewController+SpinnerView.h"
 
 
 @implementation RebootServerViewController
 
 @synthesize serverDetailViewController;
+
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+-(void)rebootRequestFinished:(ASICloudServersServerRequest *)request {
+}
+
+-(void)rebootRequestFailed:(ASICloudServersServerRequest *)request {
+	NSLog(@"Reboot request failed.");
+	// TODO: handle
+}
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -118,15 +131,23 @@
 #pragma mark -
 #pragma mark Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+- (void)performReboot:(NSString *)rebootType {
+	// TODO: build request here
+	// TODO: perhaps write a generic finish/fail handler?
+	[self showSpinnerView:@"Rebooting..."];
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest rebootServerRequest:self.serverDetailViewController.server.serverId rebootType:rebootType];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(rebootRequestFinished:)];
+	[request setDidFailSelector:@selector(rebootRequestFailed:)];
+	[request startAsynchronous];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+	if (indexPath.section == 0) {
+		[self performReboot:@"SOFT"];
+	} else if (indexPath.section == 1) {
+		[self performReboot:@"HARD"];
+	}
 }
 
 

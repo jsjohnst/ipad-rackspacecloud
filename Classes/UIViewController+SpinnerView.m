@@ -27,12 +27,15 @@
 // actually removes all spinner views, but you shouldn't use more than one at a time anyway
 -(void) hideSpinnerView {
 	NSArray *subviews = self.view.subviews;
+	// TODO: this might be dangerous!  investigate a better way!
+	[[subviews lastObject] removeFromSuperview];
+	/*
 	for (int i = 0; i < [subviews count]; i++) {
 		id subview = [subviews objectAtIndex:i];
 		if ([subview class] == NSClassFromString(@"SpinnerViewController")) {
 			[((UIView *)subview) removeFromSuperview];
 		}
-	}
+	}*/
 }
 
 @end
