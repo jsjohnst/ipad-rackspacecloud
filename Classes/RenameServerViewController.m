@@ -17,8 +17,6 @@
 
 @implementation RenameServerViewController
 
-@synthesize serverDetailViewController;
-
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
@@ -74,10 +72,6 @@
 #pragma mark -
 #pragma mark Button Handlers
 
--(void)cancelButtonPressed:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
 -(void)saveButtonPressed:(id)sender {
 	if ([textField.text isEqualToString:@""]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter a new server name." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -100,12 +94,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	[textField becomeFirstResponder];
-}
-
-
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
 }
 
 #pragma mark -
@@ -162,7 +150,6 @@
 }
 
 - (void)dealloc {
-	[serverDetailViewController release];
     [super dealloc];
 }
 

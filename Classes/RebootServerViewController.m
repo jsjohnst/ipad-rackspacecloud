@@ -21,6 +21,8 @@
 #pragma mark HTTP Response Handlers
 
 -(void)rebootRequestFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"Reboot response: %i", [request responseStatusCode]);
+	[self hideSpinnerView];
 }
 
 -(void)rebootRequestFailed:(ASICloudServersServerRequest *)request {

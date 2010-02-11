@@ -8,9 +8,13 @@
 
 #import "UIViewController+SpinnerView.h"
 #import "SpinnerViewController.h"
+#import "ASICloudServersServerRequest.h"
 
 
 @implementation UIViewController (SpinnerView)
+
+#pragma mark -
+#pragma mark Spinner View
 
 -(void) showSpinnerView:(NSString *)text {
 	SpinnerViewController *vc = [[SpinnerViewController alloc] initWithNibName:@"SpinnerViewController" bundle:nil];

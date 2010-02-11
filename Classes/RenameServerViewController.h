@@ -6,18 +6,14 @@
 //  Copyright 2010 Apple Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CloudServersActionViewController.h"
 
 @class ServerDetailViewController, TextFieldCell;
 
-@interface RenameServerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	ServerDetailViewController *serverDetailViewController;
+@interface RenameServerViewController : CloudServersActionViewController <UITableViewDelegate, UITableViewDataSource> {
 	UITextField *textField;
 }
 
-@property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
-
--(void)cancelButtonPressed:(id)sender;
 -(void)saveButtonPressed:(id)sender;
 
 @end
