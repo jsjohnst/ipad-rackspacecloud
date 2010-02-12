@@ -8,7 +8,6 @@
 
 #import "UIViewController+SpinnerView.h"
 #import "SpinnerViewController.h"
-#import "ASICloudServersServerRequest.h"
 
 
 @implementation UIViewController (SpinnerView)

@@ -16,7 +16,7 @@
 #else
 @interface ASICloudServersImageXMLParserDelegate : NSObject {
 #endif
-		
+	
 	NSMutableArray *imageObjects;
 	
 	// Internally used while parsing the response

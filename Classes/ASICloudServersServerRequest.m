@@ -7,13 +7,15 @@
 //
 
 #import "ASICloudServersServerRequest.h"
-#import "ASICloudServersServerXMLParserDelegate.h"
 #import "ASICloudServersServer.h"
+#import "ASICloudServersServerXMLParserDelegate.h"
+#import "ASICloudServersBackupSchedule.h"
+#import "ASICloudServersBackupScheduleXMLParserDelegate.h"
 
 
 @implementation ASICloudServersServerRequest
 
-@synthesize xmlParserDelegate;
+@synthesize serverXMLParserDelegate, backupScheduleXMLParserDelegate;
 
 #pragma mark -
 #pragma mark Constructors
@@ -41,22 +43,22 @@
 }
 
 - (NSArray *)servers {
-	if (xmlParserDelegate.serverObjects) {
-		return xmlParserDelegate.serverObjects;
+	if (serverXMLParserDelegate.serverObjects) {
+		return serverXMLParserDelegate.serverObjects;
 	}
 	
 	NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:[self responseData]] autorelease];
-	if (xmlParserDelegate == nil) {
-		xmlParserDelegate = [[ASICloudServersServerXMLParserDelegate alloc] init];
+	if (serverXMLParserDelegate == nil) {
+		serverXMLParserDelegate = [[ASICloudServersServerXMLParserDelegate alloc] init];
 	}
 	
-	[parser setDelegate:xmlParserDelegate];
+	[parser setDelegate:serverXMLParserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
 	[parser setShouldResolveExternalEntities:NO];
 	[parser parse];
 	
-	return xmlParserDelegate.serverObjects;
+	return serverXMLParserDelegate.serverObjects;
 }
 
 #pragma mark -
@@ -145,11 +147,60 @@
 	return request;
 }
 
+// GET /servers/id/backup_schedule
+// List backup schedule
++ (id)listBackupScheduleRequest:(NSUInteger)serverId {
+	NSString *now = [[[NSDate date] description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *urlString = [NSString stringWithFormat:@"%@/servers/%u/backup_schedule.xml?now=%@", [ASICloudFilesRequest serverManagementURL], serverId, now];
+	ASICloudServersServerRequest *request = [[[ASICloudServersServerRequest alloc] initWithURL:[NSURL URLWithString:urlString]] autorelease];
+	[request setRequestMethod:@"GET"];
+	[request addRequestHeader:@"X-Auth-Token" value:[ASICloudFilesRequest authToken]];
+	return request;
+	
+	// response:
+	// <backupSchedule xmlns="http://docs.rackspacecloud.com/servers/api/v1.0" enabled="true" weekly="THURSDAY" daily="H_0400_0600" />
+}
+
+- (ASICloudServersBackupSchedule *)backupSchedule {
+	if (backupScheduleXMLParserDelegate.currentObject) {
+		return backupScheduleXMLParserDelegate.currentObject;
+	}
+	
+	NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:[self responseData]] autorelease];
+	if (backupScheduleXMLParserDelegate == nil) {
+		backupScheduleXMLParserDelegate = [[ASICloudServersBackupScheduleXMLParserDelegate alloc] init];
+	}
+	
+	[parser setDelegate:backupScheduleXMLParserDelegate];
+	[parser setShouldProcessNamespaces:NO];
+	[parser setShouldReportNamespacePrefixes:NO];
+	[parser setShouldResolveExternalEntities:NO];
+	[parser parse];
+	
+	return backupScheduleXMLParserDelegate.currentObject;
+}
+
+
+// POST /servers/id/backup_schedule
+// Create or update backup schedule
++ (id)updateBackupScheduleRequest:(NSUInteger)serverId daily:(NSString *)daily weekly:(NSString *)weekly {
+	return nil;
+}
+
+// DELETE /servers/id/backup_schedule
+// Disable the backup schedule
++ (id)disableBackupScheduleRequest:(NSUInteger)serverId {
+	return nil;
+}
+//<backupSchedule xmlns="http://docs.rackspacecloud.com/servers/api/v1.0" enabled="true" weekly="THURSDAY" daily="H_0400_0600" />
+// DISABLED for disabled :P
+
 #pragma mark -
 #pragma mark Memory Management
 
 - (void)dealloc {
-	[xmlParserDelegate release];
+	[serverXMLParserDelegate release];
+	[backupScheduleXMLParserDelegate release];
 	[super dealloc];
 }
 

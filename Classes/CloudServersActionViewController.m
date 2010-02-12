@@ -56,12 +56,33 @@
 		
 		[self dismissModalViewControllerAnimated:YES];
 	} else {
+		
 		NSString *title = @"Error";
 		NSString *errorMessage = @"There was a problem renaming your server.";
 		switch ([request responseStatusCode]) {
+			// in all:
+			/// 500, 400, others possible: cloudServersFault
+			/// 503: serviceUnavailable
+			/// 401: unauthorized
+			/// 413: overLimit
+			
+			// in some:
+			// 415: badMediaType
+			// 405: badMethod
+			// 404: itemNotFound
+			// 409: buildInProgress
+			/// 503: serverCapacityUnavailable
+			/// 409: backupOrResizeInProgress		
+			// 403: resizeNotAllowed		
+			// 501: notImplemented
+				
+				
+			// 400: badRequest
 			case 400: // cloudServersFault
+				errorMessage = @"There was a problem with your request.  Please verify the validity of the data you entered.";
 				break;
 			case 500: // cloudServersFault
+				errorMessage = @"There was a problem with your request.";
 				break;
 			case 503:
 				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";

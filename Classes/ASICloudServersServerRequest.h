@@ -8,13 +8,15 @@
 
 #import "ASICloudFilesRequest.h"
 
-@class ASICloudServersServerXMLParserDelegate, ASICloudServersServer;
+@class ASICloudServersServerXMLParserDelegate, ASICloudServersBackupScheduleXMLParserDelegate, ASICloudServersServer;
 
 @interface ASICloudServersServerRequest : ASICloudFilesRequest {
-	ASICloudServersServerXMLParserDelegate *xmlParserDelegate;
+	ASICloudServersServerXMLParserDelegate *serverXMLParserDelegate;
+	ASICloudServersBackupScheduleXMLParserDelegate *backupScheduleXMLParserDelegate;
 }
 
-@property (retain) ASICloudServersServerXMLParserDelegate *xmlParserDelegate;
+@property (retain) ASICloudServersServerXMLParserDelegate *serverXMLParserDelegate;
+@property (retain) ASICloudServersBackupScheduleXMLParserDelegate *backupScheduleXMLParserDelegate;
 
 // TODO: use hostId to tell the user if any other servers are on the same host
 
@@ -55,12 +57,16 @@
 
 // GET /servers/id/backup_schedule
 // List backup schedule
++ (id)listBackupScheduleRequest:(NSUInteger)serverId;
 
 // POST /servers/id/backup_schedule
 // Create or update backup schedule
++ (id)updateBackupScheduleRequest:(NSUInteger)serverId daily:(NSString *)daily weekly:(NSString *)weekly;
 
 // DELETE /servers/id/backup_schedule
 // Disable the backup schedule
-
++ (id)disableBackupScheduleRequest:(NSUInteger)serverId;
+//<backupSchedule xmlns="http://docs.rackspacecloud.com/servers/api/v1.0" enabled="true" weekly="THURSDAY" daily="H_0400_0600" />
+// DISABLED for disabled :P
 
 @end

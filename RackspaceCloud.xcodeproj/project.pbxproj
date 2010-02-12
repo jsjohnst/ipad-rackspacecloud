@@ -12,6 +12,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		273C74AE11249C48005F36C3 /* CloudServersActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */; };
+		273C75721125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */; };
+		273C75751125ED37005F36C3 /* ASICloudServersBackupSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -140,6 +142,10 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		273C74AC11249C48005F36C3 /* CloudServersActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudServersActionViewController.h; sourceTree = "<group>"; };
 		273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudServersActionViewController.m; sourceTree = "<group>"; };
+		273C75701125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersBackupScheduleXMLParserDelegate.h; sourceTree = "<group>"; };
+		273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersBackupScheduleXMLParserDelegate.m; sourceTree = "<group>"; };
+		273C75731125ED37005F36C3 /* ASICloudServersBackupSchedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersBackupSchedule.h; sourceTree = "<group>"; };
+		273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersBackupSchedule.m; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -481,6 +487,10 @@
 				27A90ABF111FE8A500407B55 /* ASICloudServersServerXMLParserDelegate.m */,
 				2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */,
 				2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */,
+				273C75701125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.h */,
+				273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */,
+				273C75731125ED37005F36C3 /* ASICloudServersBackupSchedule.h */,
+				273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */,
 			);
 			name = "Cloud Servers";
 			sourceTree = "<group>";
@@ -915,6 +925,8 @@
 				27B448BE1123B11D008A3BA6 /* ContainerRootViewController.m in Sources */,
 				27B449CD1123CBAE008A3BA6 /* UIViewController+SpinnerView.m in Sources */,
 				273C74AE11249C48005F36C3 /* CloudServersActionViewController.m in Sources */,
+				273C75721125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m in Sources */,
+				273C75751125ED37005F36C3 /* ASICloudServersBackupSchedule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
