@@ -9,11 +9,31 @@
 #import "ResizeServerViewController.h"
 #import "ASICloudServersFlavor.h"
 #import "ASICloudServersFlavorRequest.h"
+#import "ASICloudServersServer.h"
+#import "ASICloudServersServerRequest.h"
+#import "UIViewController+SpinnerView.h"
+#import "ServerDetailViewController.h"
 
 
 @implementation ResizeServerViewController
 
 @synthesize serverDetailViewController;
+
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+-(void)resizeRequestFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"Resize response: %i", [request responseStatusCode]);
+	[self hideSpinnerView];
+	// TODO: handle error
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)resizeRequestFailed:(ASICloudServersServerRequest *)request {
+	NSLog(@"Resize request failed.");
+	// TODO: handle
+}
+
 
 #pragma mark -
 #pragma mark Button Handlers
@@ -22,20 +42,28 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
+-(void)saveButtonPressed:(id)sender {
+	[self showSpinnerView];
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest resizeServerRequest:self.serverDetailViewController.server.serverId flavorId:selectedFlavorId];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(resizeRequestFinished:)];
+	[request setDidFailSelector:@selector(resizeRequestFailed:)];
+	[request startAsynchronous];	
+}
+
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
+    // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	selectedFlavorId = self.serverDetailViewController.server.flavorId;
 }
-*/
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -119,6 +147,11 @@
 	cell.textLabel.text = flavor.name;
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%iMB RAM, %iGB Disk", flavor.ram, flavor.disk];
 	
+	if (flavor.flavorId == selectedFlavorId) {
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
     
     return cell;
 }
@@ -168,14 +201,8 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+	selectedFlavorId = ((ASICloudServersFlavor *)[[ASICloudServersFlavorRequest flavors] objectAtIndex:indexPath.row]).flavorId;
+	[tableView reloadData];
 }
 
 

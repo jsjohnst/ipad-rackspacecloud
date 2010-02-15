@@ -23,6 +23,8 @@
 -(void)rebootRequestFinished:(ASICloudServersServerRequest *)request {
 	NSLog(@"Reboot response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
+	// TODO: handle error
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)rebootRequestFailed:(ASICloudServersServerRequest *)request {

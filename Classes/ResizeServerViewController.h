@@ -12,10 +12,12 @@
 
 @interface ResizeServerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	ServerDetailViewController *serverDetailViewController;
+	NSUInteger selectedFlavorId;
 }
 
 @property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
 
 -(void)cancelButtonPressed:(id)sender;
+-(void)saveButtonPressed:(id)sender;
 
 @end

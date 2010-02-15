@@ -11,6 +11,7 @@
 #import "ASICloudServersServerRequest.h"
 #import "ASICloudServersServer.h"
 #import "TextFieldCell.h"
+#import "UIViewController+SpinnerView.h"
 
 
 @implementation ResetServerAdminPasswordViewController
@@ -20,11 +21,13 @@
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
--(void)renameServerRequestFinished:(ASICloudServersServerRequest *)request {
+-(void)updatePasswordRequestFinished:(ASICloudServersServerRequest *)request {
+	[self hideSpinnerView];
 	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
 	
 	if ([request responseStatusCode] == 204) {
-		self.serverDetailViewController.server.name = textField.text;
+		[self dismissModalViewControllerAnimated:YES];
+		//self.serverDetailViewController.server.name = textField.text;
 		[self.serverDetailViewController.tableView reloadData];
 		[self dismissModalViewControllerAnimated:YES];
 	} else {
@@ -32,7 +35,7 @@
 	}
 }
 
--(void)renameServerRequestFailed:(ASICloudServersServerRequest *)request {
+-(void)updatePasswordRequestFailed:(ASICloudServersServerRequest *)request {
 	NSLog(@"Rename Server Request Failed");
 	// TODO: UIAlertView based on data entered?
 }
@@ -43,11 +46,13 @@
 -(void)cancelButtonPressed:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
+
 -(void)saveButtonPressed:(id)sender {
+	[self showSpinnerView];
 	ASICloudServersServerRequest *request = [ASICloudServersServerRequest updateServerAdminPasswordRequest:self.serverDetailViewController.server.serverId adminPass:textField.text];
 	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(renameServerRequestFinished:)];
-	[request setDidFailSelector:@selector(renameServerRequestFailed:)];
+	[request setDidFinishSelector:@selector(updatePasswordRequestFinished:)];
+	[request setDidFailSelector:@selector(updatePasswordRequestFailed:)];
 	[request startAsynchronous];
 }
 
@@ -120,6 +125,7 @@
         cell = [[[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		textField = cell.textField;
 		textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+		textField.secureTextEntry = YES;
     }
     
     // Configure the cell...

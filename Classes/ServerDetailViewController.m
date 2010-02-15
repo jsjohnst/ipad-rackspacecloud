@@ -28,6 +28,8 @@
 #import "CreateServerSnapshotViewController.h"
 #import "ManageBackupSchedulesViewController.h"
 #import "RebuildServerViewController.h"
+#import "UIViewController+SpinnerView.h"
+#import "ASICloudServersServerRequest.h"
 
 
 #import "ServersListViewController.h"
@@ -47,6 +49,48 @@
 @synthesize tableView;
 @synthesize server;
 @synthesize logoImageView, backgroundImageView;
+
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+- (void)listBackupScheduleFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
+	[self hideSpinnerView];
+	
+	if ([request responseStatusCode] == 204) {
+		//self.serverDetailViewController.server.name = textField.text;
+		//[self.serverDetailViewController.tableView reloadData];
+		//[self dismissModalViewControllerAnimated:YES];
+	} else {
+		NSString *title = @"Error";
+		NSString *errorMessage = @"There was a problem renaming your server.";
+		switch ([request responseStatusCode]) {
+			case 400: // cloudServersFault
+				break;
+			case 500: // cloudServersFault
+				break;
+			case 503:
+				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
+				break;				
+			case 401:
+				title = @"Authentication Failure";
+				errorMessage = @"Please check your User Name and API Key.";
+				break;
+			case 409:
+				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
+				break;
+			case 413:
+				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
+				break;
+			default:
+				break;
+		}
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+}
 
 #pragma mark -
 #pragma mark Managing the popover controller

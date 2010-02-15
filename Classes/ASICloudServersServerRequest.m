@@ -103,7 +103,7 @@
 
 + (id)rebootServerRequest:(NSUInteger)serverId rebootType:(NSString *)rebootType {
 	NSString *body = [NSString stringWithFormat:@"<reboot xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" type=\"%@\"/>", rebootType];
-	ASICloudServersServerRequest *request = [ASICloudServersServerRequest serverRequestWithMethod:@"PUT" path:[NSString stringWithFormat:@"/servers/%i/action.xml", serverId]];
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest serverRequestWithMethod:@"POST" path:[NSString stringWithFormat:@"/servers/%i/action.xml", serverId]];
 	NSData *data = [body dataUsingEncoding:NSASCIIStringEncoding];
 	[request setPostBody:[NSMutableData dataWithData:data]];
 	return request;
