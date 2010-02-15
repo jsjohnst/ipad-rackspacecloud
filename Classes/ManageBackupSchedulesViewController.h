@@ -16,9 +16,12 @@
 	NSArray *days;
 	
 	ASICloudServersBackupSchedule *backupSchedule;
+	IBOutlet UITableView *tableView;
 }
 
 @property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+
 
 -(void)cancelButtonPressed:(id)sender;
 
