@@ -25,11 +25,8 @@
 	// an update on the status of the rackspace cloud
 	// pre-select a System Status row on the master view
 	// also consider feed://twitter.com/statuses/user_timeline/6979812.rss
-	
-	// TODO: there are multiple status feeds...
-	// feed://status.mosso.com/rss.xml
-	// feed://status.rackspacecloud.com/cloudservers/rss.xml
-	// feed://status.clouddrive.com/?feed=rss2
+
+	// TODO: show without requiring login
 	
 	NSMutableArray *feedItems;
 	NSMutableArray *sitesFeedItems;
