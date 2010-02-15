@@ -9,11 +9,31 @@
 #import "RebuildServerViewController.h"
 #import "ASICloudServersImage.h"
 #import "ASICloudServersImageRequest.h"
+#import "ASICloudServersServer.h"
+#import "ASICloudServersServerRequest.h"
+#import "ServerDetailViewController.h"
+#import "UIViewController+SpinnerView.h"
 
 
 @implementation RebuildServerViewController
 
 @synthesize serverDetailViewController;
+
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+-(void)rebuildRequestFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"Rebuild response: %i", [request responseStatusCode]);
+	[self hideSpinnerView];
+	// TODO: handle error
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)rebuildRequestFailed:(ASICloudServersServerRequest *)request {
+	NSLog(@"Rebuild request failed.");
+	// TODO: handle
+}
+
 
 #pragma mark -
 #pragma mark Button Handlers
@@ -22,20 +42,22 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
+-(void)saveButtonPressed:(id)sender {
+	[self showSpinnerView];	
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest rebuildServerRequest:self.serverDetailViewController.server.serverId imageId:selectedImageId];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(rebuildRequestFinished:)];
+	[request setDidFailSelector:@selector(rebuildRequestFailed:)];
+	[request startAsynchronous];	
+}
+
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	selectedImageId = self.serverDetailViewController.server.imageId;
 }
-*/
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,6 +140,12 @@
 	cell.detailTextLabel.text = @"";
     cell.imageView.image = [ASICloudServersImage iconForImageId:image.imageId];
 	
+	if (selectedImageId == image.imageId) {
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+	
     return cell;
 }
 
@@ -166,14 +194,11 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+	
+	ASICloudServersImage *image = [[ASICloudServersImageRequest images] objectAtIndex:indexPath.row];
+	selectedImageId = image.imageId;
+	[tableView reloadData];
+
 }
 
 

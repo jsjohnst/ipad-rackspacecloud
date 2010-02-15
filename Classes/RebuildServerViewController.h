@@ -12,10 +12,12 @@
 
 @interface RebuildServerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	ServerDetailViewController *serverDetailViewController;
+	NSUInteger selectedImageId;
 }
 
 @property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
 
 -(void)cancelButtonPressed:(id)sender;
+-(void)saveButtonPressed:(id)sender;
 
 @end
