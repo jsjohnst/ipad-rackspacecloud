@@ -37,7 +37,7 @@
 
 -(void)updatePasswordRequestFailed:(ASICloudServersServerRequest *)request {
 	NSLog(@"Rename Server Request Failed");
-	// TODO: UIAlertView based on data entered?
+	// TODO: alert based on data entered?
 }
 
 #pragma mark -

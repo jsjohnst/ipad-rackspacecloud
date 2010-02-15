@@ -12,11 +12,11 @@
 
 @interface UIViewController (SpinnerView)
 
--(void) showSpinnerView:(NSString *)text;
--(void) showSpinnerView;
--(void) hideSpinnerView;
-	
-// TODO: alert(title, message) for UIAlertView
+-(void)showSpinnerView:(NSString *)text;
+-(void)showSpinnerView;
+-(void)hideSpinnerView;
+
+-(void)alert:(NSString *)title message:(NSString *)message;
 // TODO: standard error messages for api faults
 
 @end

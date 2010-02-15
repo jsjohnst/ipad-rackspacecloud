@@ -86,9 +86,7 @@
 				break;
 		}
 		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[self alert:title message:errorMessage];
 	}
 }
 
@@ -125,10 +123,7 @@
 			default:
 				break;
 		}
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[self alert:title message:errorMessage];
 	}
 }
 
@@ -375,7 +370,12 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	NSLog(@"buttonIndex: %i", buttonIndex);
 	if (buttonIndex	== 0) {
-		
+		[self showSpinnerView:@"Deleting..."];
+		ASICloudServersServerRequest *request = [ASICloudServersServerRequest deleteServerRequest:self.server.serverId];
+		[request setDelegate:self];
+		[request setDidFinishSelector:@selector(deleteServerRequestFinished:)];
+		[request setDidFailSelector:@selector(deleteServerRequestFailed:)];
+		[request startAsynchronous];
 	}
 }
 

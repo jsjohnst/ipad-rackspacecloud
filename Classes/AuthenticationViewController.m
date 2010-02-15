@@ -11,6 +11,7 @@
 #import "RackspaceCloudAppDelegate.h"
 #import "ASICloudServersImageRequest.h"
 #import "ASICloudServersFlavorRequest.h"
+#import "UIViewController+SpinnerView.h"
 
 
 // TODO: try to hide scroll bars
@@ -200,11 +201,7 @@
 		message = @"Please check your connection and try again.";
 	}
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-												message:message
-												delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-	[alert show];
-	[alert release];
+	[self alert:title message:message];
 	
 }
 
@@ -218,13 +215,7 @@
 	apiKey = self.apiKeyTextField.text;
 	
 	if ([username isEqualToString:@""] || [apiKey isEqualToString:@""]) {
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields Missing" 
-													message:@"Please enter your Rackspace Cloud User Name and API Key." 
-													delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-		
+		[self alert:@"Required Fields Missing" message:@"Please enter your Rackspace Cloud User Name and API Key."];
 	} else {
 		
 		// save to defaults

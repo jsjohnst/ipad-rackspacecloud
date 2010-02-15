@@ -100,10 +100,7 @@
 			default:
 				break;
 		}
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[self alert:title message:errorMessage];
 	}
 }
 
@@ -112,9 +109,7 @@
 	[self hideSpinnerView];
 	NSString *title = @"Connection Failure";
 	NSString *errorMessage = @"Please check your connection and try again.";
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+	[self alert:title message:errorMessage];
 }
 
 

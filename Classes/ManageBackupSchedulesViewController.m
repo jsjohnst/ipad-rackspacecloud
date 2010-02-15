@@ -58,10 +58,7 @@
 			default:
 				break;
 		}
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[self alert:title message:errorMessage];
 	}
 }
 
@@ -103,10 +100,7 @@
 			default:
 				break;
 		}
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[self alert:title message:errorMessage];
 	}
 }
 

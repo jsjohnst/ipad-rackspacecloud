@@ -41,4 +41,13 @@
 	}*/
 }
 
+#pragma mark -
+#pragma mark Alert Helper
+
+-(void)alert:(NSString *)title message:(NSString *)message {
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
 @end
