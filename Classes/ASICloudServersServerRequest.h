@@ -28,7 +28,6 @@
 
 // POST /servers
 // Create a server
-// TODO: metadata and shared ip groups?
 + (id)createServerRequest:(ASICloudServersServer *)server;
 
 // PUT /servers/id

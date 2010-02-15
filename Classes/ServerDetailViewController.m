@@ -159,8 +159,6 @@
 	return 6;
 }
 
-// TODO: metadata CRUD
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == kActionSection) {
 		return 8;
