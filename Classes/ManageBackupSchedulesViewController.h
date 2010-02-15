@@ -24,5 +24,6 @@
 
 
 -(void)cancelButtonPressed:(id)sender;
+-(void)saveButtonPressed:(id)sender;
 
 @end

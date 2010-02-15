@@ -68,6 +68,50 @@
 	// TODO: handle
 }
 
+-(void)updateBackupScheduleRequestFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
+	[self hideSpinnerView];
+	
+	if ([request responseStatusCode] == 200) {
+		backupSchedule = [request backupSchedule];
+		[tableView reloadData];
+		[self dismissModalViewControllerAnimated:YES];
+	} else {
+		NSString *title = @"Error";
+		NSString *errorMessage = @"There was a problem renaming your server.";
+		switch ([request responseStatusCode]) {
+			case 400: // cloudServersFault
+				break;
+			case 500: // cloudServersFault
+				break;
+			case 503:
+				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
+				break;				
+			case 401:
+				title = @"Authentication Failure";
+				errorMessage = @"Please check your User Name and API Key.";
+				break;
+			case 409:
+				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
+				break;
+			case 413:
+				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
+				break;
+			default:
+				break;
+		}
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+}
+
+-(void)updateBackupScheduleRequestFailed:(ASICloudServersServerRequest *)request {
+	NSLog(@"update backup request failed - %i", [request responseStatusCode]);
+	// TODO: handle
+}
+
 // TODO: save
 
 #pragma mark -
@@ -75,6 +119,15 @@
 
 -(void)cancelButtonPressed:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)saveButtonPressed:(id)sender {
+	[self showSpinnerView];
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest updateBackupScheduleRequest:self.serverDetailViewController.server.serverId daily:backupSchedule.daily weekly:backupSchedule.weekly];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(updateBackupScheduleRequestFinished:)];
+	[request setDidFailSelector:@selector(updateBackupScheduleRequestFailed:)];
+	[request startAsynchronous];
 }
 
 #pragma mark -
@@ -90,6 +143,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	hours = [[NSArray arrayWithObjects:@"No Daily Backup", @"0000-0200", @"0200-0400", @"0400-0600", @"0600-0800", @"0800-1000", @"1000-1200", @"1200-1400", @"1400-1600", @"1800-2000", @"2000-2200", @"2200-0000", nil] retain];
 	days = [[NSArray arrayWithObjects:@"No Weekly Backup", @"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", nil] retain];
+	
+	backupSchedule = [[ASICloudServersBackupSchedule alloc] init];
 	
 	//+ (id)listBackupScheduleRequest:(NSUInteger)serverId
 	ASICloudServersServerRequest *request = [ASICloudServersServerRequest listBackupScheduleRequest:self.serverDetailViewController.server.serverId];
@@ -182,7 +237,9 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
+  
+	NSLog(@"backup: %@ %@", backupSchedule.daily, backupSchedule.weekly);
+	
     // Configure the cell...
 	if (indexPath.section == kDailySection) {
 		cell.textLabel.text = [hours objectAtIndex:indexPath.row];
@@ -252,14 +309,18 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+	if (indexPath.section == kDailySection) {
+		backupSchedule.daily = [hours objectAtIndex:indexPath.row];
+		if ([backupSchedule.daily isEqualToString:@"No Daily Backup"]) {
+			backupSchedule.daily = @"DISABLED";
+		}
+	} else if (indexPath.section == kWeeklySection) {
+		backupSchedule.weekly = [days objectAtIndex:indexPath.row];
+		if ([backupSchedule.weekly isEqualToString:@"No Weekly Backup"]) {
+			backupSchedule.weekly = @"DISABLED";
+		}		
+	}
+	[aTableView reloadData];
 }
 
 
