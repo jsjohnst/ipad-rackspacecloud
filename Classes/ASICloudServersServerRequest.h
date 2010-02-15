@@ -8,7 +8,7 @@
 
 #import "ASICloudFilesRequest.h"
 
-@class ASICloudServersServerXMLParserDelegate, ASICloudServersBackupScheduleXMLParserDelegate, ASICloudServersServer;
+@class ASICloudServersServerXMLParserDelegate, ASICloudServersBackupScheduleXMLParserDelegate, ASICloudServersServer, ASICloudServersBackupSchedule;
 
 @interface ASICloudServersServerRequest : ASICloudFilesRequest {
 	ASICloudServersServerXMLParserDelegate *serverXMLParserDelegate;
@@ -58,6 +58,7 @@
 // GET /servers/id/backup_schedule
 // List backup schedule
 + (id)listBackupScheduleRequest:(NSUInteger)serverId;
+- (ASICloudServersBackupSchedule *)backupSchedule;
 
 // POST /servers/id/backup_schedule
 // Create or update backup schedule

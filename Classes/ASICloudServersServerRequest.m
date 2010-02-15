@@ -152,6 +152,7 @@
 + (id)listBackupScheduleRequest:(NSUInteger)serverId {
 	NSString *now = [[[NSDate date] description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *urlString = [NSString stringWithFormat:@"%@/servers/%u/backup_schedule.xml?now=%@", [ASICloudFilesRequest serverManagementURL], serverId, now];
+	NSLog(@"URL: %@", urlString);
 	ASICloudServersServerRequest *request = [[[ASICloudServersServerRequest alloc] initWithURL:[NSURL URLWithString:urlString]] autorelease];
 	[request setRequestMethod:@"GET"];
 	[request addRequestHeader:@"X-Auth-Token" value:[ASICloudFilesRequest authToken]];

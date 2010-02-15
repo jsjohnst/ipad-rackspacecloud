@@ -7,6 +7,13 @@
 //
 
 #import "ManageBackupSchedulesViewController.h"
+#import "ASICloudServersServerRequest.h"
+#import "ServerDetailViewController.h"
+#import "ASICloudServersServer.h"
+#import "UIViewController+SpinnerView.h"
+#import "ASICloudServersBackupSchedule.h"
+
+
 
 #define kHeaderSection 0
 #define kDailySection 1
@@ -15,6 +22,53 @@
 @implementation ManageBackupSchedulesViewController
 
 @synthesize serverDetailViewController;
+
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+-(void)listBackupScheduleRequestFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
+	
+	if ([request responseStatusCode] == 200) {
+		backupSchedule = [request backupSchedule];
+		[self.serverDetailViewController.tableView reloadData];
+	} else {
+		NSString *title = @"Error";
+		NSString *errorMessage = @"There was a problem renaming your server.";
+		switch ([request responseStatusCode]) {
+			case 400: // cloudServersFault
+				break;
+			case 500: // cloudServersFault
+				break;
+			case 503:
+				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
+				break;				
+			case 401:
+				title = @"Authentication Failure";
+				errorMessage = @"Please check your User Name and API Key.";
+				break;
+			case 409:
+				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
+				break;
+			case 413:
+				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
+				break;
+			default:
+				break;
+		}
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+}
+
+-(void)listBackupScheduleRequestFailed:(ASICloudServersServerRequest *)request {
+	NSLog(@"list backup request failed - %i", [request responseStatusCode]);
+	// TODO: handle
+}
+
+// TODO: save
 
 #pragma mark -
 #pragma mark Button Handlers
@@ -36,6 +90,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	hours = [[NSArray arrayWithObjects:@"No Daily Backup", @"0000-0200", @"0200-0400", @"0400-0600", @"0600-0800", @"0800-1000", @"1000-1200", @"1200-1400", @"1400-1600", @"1800-2000", @"2000-2200", @"2200-0000", nil] retain];
 	days = [[NSArray arrayWithObjects:@"No Weekly Backup", @"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", nil] retain];
+	
+	//+ (id)listBackupScheduleRequest:(NSUInteger)serverId
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest listBackupScheduleRequest:self.serverDetailViewController.server.serverId];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(listBackupScheduleRequestFinished:)];
+	[request setDidFailSelector:@selector(listBackupScheduleRequestFailed:)];
+	[request startAsynchronous];
 }
 
 
@@ -125,8 +186,22 @@
     // Configure the cell...
 	if (indexPath.section == kDailySection) {
 		cell.textLabel.text = [hours objectAtIndex:indexPath.row];
+		if ([cell.textLabel.text isEqualToString:backupSchedule.daily]) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		} else if ([cell.textLabel.text isEqualToString:@"No Daily Backup"] && [backupSchedule.daily isEqualToString:@"DISABLED"]) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		} else {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}
 	} else if (indexPath.section == kWeeklySection) {
 		cell.textLabel.text = [days objectAtIndex:indexPath.row];
+		if ([cell.textLabel.text isEqualToString:backupSchedule.weekly]) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		} else if ([cell.textLabel.text isEqualToString:@"No Weekly Backup"] && [backupSchedule.weekly isEqualToString:@"DISABLED"]) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		} else {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}
 	}
     
     return cell;
@@ -208,6 +283,7 @@
 	[serverDetailViewController release];
 	[hours release];
 	[days release];
+	[backupSchedule release];
     [super dealloc];
 }
 

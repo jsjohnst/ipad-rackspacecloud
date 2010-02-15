@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class ServerDetailViewController;
+@class ServerDetailViewController, ASICloudServersBackupSchedule;
 
 @interface ManageBackupSchedulesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	ServerDetailViewController *serverDetailViewController;
 	NSArray *hours;
 	NSArray *days;
+	
+	ASICloudServersBackupSchedule *backupSchedule;
 }
 
 @property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
