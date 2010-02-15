@@ -60,8 +60,25 @@
 		case 400:
 			explanation = @"Please verify the validity of the data you entered.";
 			break;
+//		case 500: // cloudServersFault
+//			errorMessage = @"There was a problem with your request.";
+//			break;
+		case 503:
+			errorMessage = @"The service is currently unavailable.  Please try again later.";
+			break;				
+		case 401:
+			title = @"Authentication Failure";
+			errorMessage = @"Please check your User Name and API Key.";
+			break;
+//		case 409:
+//			errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
+//			break;
+		case 413:
+			errorMessage = @"You have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
+			break;
 		default:
 			break;
+			
 	}
 	[self alert:title message:[NSString stringWithFormat:@"%@ %@", message, explanation]];
 }
@@ -87,28 +104,6 @@
  // 501: notImplemented
  
  
- // 400: badRequest
- case 400: // cloudServersFault
- errorMessage = @"There was a problem with your request.  Please verify the validity of the data you entered.";
- break;
- case 500: // cloudServersFault
- errorMessage = @"There was a problem with your request.";
- break;
- case 503:
- errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
- break;				
- case 401:
- title = @"Authentication Failure";
- errorMessage = @"Please check your User Name and API Key.";
- break;
- case 409:
- errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
- break;
- case 413:
- errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
- break;
- default:
- break;
  }
  [self alert:title message:errorMessage];
  
