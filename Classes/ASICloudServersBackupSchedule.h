@@ -22,5 +22,6 @@
 @property (retain) NSString *daily;
 
 + (id)backupSchedule;
+- (NSString *)toXML;
 
 @end

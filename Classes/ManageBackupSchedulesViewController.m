@@ -30,7 +30,8 @@
 	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
 	
 	if ([request responseStatusCode] == 200) {
-		backupSchedule = [request backupSchedule];
+		backupSchedule = [[request backupSchedule] retain];
+		NSLog(@"Returned backup schedule: %@ %@", backupSchedule.daily, backupSchedule.weekly);
 		[tableView reloadData];
 	} else {
 		NSString *title = @"Error";
@@ -72,13 +73,14 @@
 	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
 	[self hideSpinnerView];
 	
-	if ([request responseStatusCode] == 200) {
-		backupSchedule = [request backupSchedule];
+	if ([request responseStatusCode] == 202 || [request responseStatusCode] == 204) {
+		backupSchedule = [[request backupSchedule] retain];
 		[tableView reloadData];
 		[self dismissModalViewControllerAnimated:YES];
 	} else {
+		// TODO: better error messages
 		NSString *title = @"Error";
-		NSString *errorMessage = @"There was a problem renaming your server.";
+		NSString *errorMessage = @"There was a problem saving your backup schedule.";
 		switch ([request responseStatusCode]) {
 			case 400: // cloudServersFault
 				break;
@@ -141,9 +143,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	hours = [[NSArray arrayWithObjects:@"No Daily Backup", @"0000-0200", @"0200-0400", @"0400-0600", @"0600-0800", @"0800-1000", @"1000-1200", @"1200-1400", @"1400-1600", @"1800-2000", @"2000-2200", @"2200-0000", nil] retain];
-	days = [[NSArray arrayWithObjects:@"No Weekly Backup", @"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", nil] retain];
 	
+	
+	hourValues = [[NSArray alloc] initWithObjects:@"No Daily Backup", @"0000-0200", @"0200-0400", @"0400-0600", @"0600-0800", @"0800-1000", @"1000-1200", @"1200-1400", @"1400-1600", @"1800-2000", @"2000-2200", @"2200-0000", nil];
+	hourKeys = [[NSArray alloc] initWithObjects:@"DISABLED", @"H_0000_0200", @"H_0200_0400", @"H_0400_0600", @"H_0600_0800", @"H_0800_1000", @"H_1000_1200", @"H_1200_1400", @"H_1400_1600", @"H_1800_2000", @"H_2000_2200", @"H_2200_0000", nil];
+	hours = [[NSDictionary alloc] initWithObjects:hourKeys forKeys:hourValues];
+	dayValues = [[NSArray alloc] initWithObjects:@"No Weekly Backup", @"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", nil];
+	dayKeys = [[NSArray alloc] initWithObjects:@"DISABLED", @"SUNDAY", @"MONDAY", @"TUESDAY", @"WEDNESDAY", @"THURSDAY", @"FRIDAY", @"SATURDAY", nil];
+	days = [[NSDictionary alloc] initWithObjects:dayKeys forKeys:dayValues];
+		
 	backupSchedule = [[ASICloudServersBackupSchedule alloc] init];
 	
 	//+ (id)listBackupScheduleRequest:(NSUInteger)serverId
@@ -238,23 +246,25 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
   
-	NSLog(@"backup: %@ %@", backupSchedule.daily, backupSchedule.weekly);
+	//NSLog(@"backup: %@ %@", backupSchedule.daily, backupSchedule.weekly);
 	
     // Configure the cell...
 	if (indexPath.section == kDailySection) {
-		cell.textLabel.text = [hours objectAtIndex:indexPath.row];
-		if ([cell.textLabel.text isEqualToString:backupSchedule.daily]) {
-			cell.accessoryType = UITableViewCellAccessoryCheckmark;
-		} else if ([cell.textLabel.text isEqualToString:@"No Daily Backup"] && [backupSchedule.daily isEqualToString:@"DISABLED"]) {
+		NSString *key = [hourKeys objectAtIndex:indexPath.row];
+		NSString *value = [hourValues objectAtIndex:indexPath.row];
+		
+		cell.textLabel.text = value;
+		if ([key isEqualToString:backupSchedule.daily]) {
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
 		} else {
 			cell.accessoryType = UITableViewCellAccessoryNone;
 		}
 	} else if (indexPath.section == kWeeklySection) {
-		cell.textLabel.text = [days objectAtIndex:indexPath.row];
-		if ([cell.textLabel.text isEqualToString:backupSchedule.weekly]) {
-			cell.accessoryType = UITableViewCellAccessoryCheckmark;
-		} else if ([cell.textLabel.text isEqualToString:@"No Weekly Backup"] && [backupSchedule.weekly isEqualToString:@"DISABLED"]) {
+		NSString *key = [dayKeys objectAtIndex:indexPath.row];
+		NSString *value = [dayValues objectAtIndex:indexPath.row];
+
+		cell.textLabel.text = value;
+		if ([key isEqualToString:backupSchedule.weekly]) {
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
 		} else {
 			cell.accessoryType = UITableViewCellAccessoryNone;
@@ -310,15 +320,11 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == kDailySection) {
-		backupSchedule.daily = [hours objectAtIndex:indexPath.row];
-		if ([backupSchedule.daily isEqualToString:@"No Daily Backup"]) {
-			backupSchedule.daily = @"DISABLED";
-		}
+		NSString *key = [hourKeys objectAtIndex:indexPath.row];
+		backupSchedule.daily = key;
 	} else if (indexPath.section == kWeeklySection) {
-		backupSchedule.weekly = [days objectAtIndex:indexPath.row];
-		if ([backupSchedule.weekly isEqualToString:@"No Weekly Backup"]) {
-			backupSchedule.weekly = @"DISABLED";
-		}		
+		NSString *key = [dayKeys objectAtIndex:indexPath.row];
+		backupSchedule.weekly = key;
 	}
 	[aTableView reloadData];
 }
@@ -344,8 +350,12 @@
 	[serverDetailViewController release];
 	[hours release];
 	[days release];
+	[hourKeys release];
+	[dayKeys release];
 	[backupSchedule release];
 	[tableView release];
+	[hourValues release];
+	[dayValues release];
     [super dealloc];
 }
 

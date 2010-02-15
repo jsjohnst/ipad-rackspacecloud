@@ -24,7 +24,7 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 	[self setCurrentElement:elementName];
 	
-	if ([elementName isEqualToString:@"image"]) {
+	if ([elementName isEqualToString:@"backupSchedule"]) {
 		[self setCurrentObject:[ASICloudServersBackupSchedule backupSchedule]];
 		currentObject.enabled = [[attributeDict objectForKey:@"enabled"] boolValue];
 		currentObject.weekly = [attributeDict objectForKey:@"weekly"];

@@ -12,8 +12,12 @@
 
 @interface ManageBackupSchedulesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	ServerDetailViewController *serverDetailViewController;
-	NSArray *hours;
-	NSArray *days;
+	NSDictionary *hours;
+	NSDictionary *days;
+	NSArray *hourKeys;
+	NSArray *hourValues;
+	NSArray *dayKeys;
+	NSArray *dayValues;
 	
 	ASICloudServersBackupSchedule *backupSchedule;
 	IBOutlet UITableView *tableView;
