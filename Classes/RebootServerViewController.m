@@ -24,6 +24,7 @@
 	NSLog(@"Reboot response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
 	// TODO: handle error
+	
 	[self dismissModalViewControllerAnimated:YES];
 }
 

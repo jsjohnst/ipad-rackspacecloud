@@ -57,6 +57,10 @@
 	NSString *explanation = @"";
 	
 	switch (responseStatusCode) {
+		case 0:
+			title = @"Connection Failure";
+			explanation = @"Please check your Internet connection and try again.";
+			break;
 		case 400:
 			explanation = @"Please verify the validity of the data you entered.";
 			break;
@@ -64,17 +68,17 @@
 //			errorMessage = @"There was a problem with your request.";
 //			break;
 		case 503:
-			errorMessage = @"The service is currently unavailable.  Please try again later.";
+			explanation = @"The service is currently unavailable.  Please try again later.";
 			break;				
 		case 401:
 			title = @"Authentication Failure";
-			errorMessage = @"Please check your User Name and API Key.";
+			explanation = @"Please check your User Name and API Key.";
 			break;
-//		case 409:
-//			errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
-//			break;
+		case 409:
+			explanation = @"The server is currently being built.  Please try again later.";
+			break;
 		case 413:
-			errorMessage = @"You have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
+			explanation = @"You have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
 			break;
 		default:
 			break;

@@ -31,13 +31,13 @@
 		[self.serverDetailViewController.tableView reloadData];
 		[self dismissModalViewControllerAnimated:YES];
 	} else {
-		// TODO: show an error
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resetting your password"];
 	}
 }
 
 -(void)updatePasswordRequestFailed:(ASICloudServersServerRequest *)request {
 	NSLog(@"Rename Server Request Failed");
-	// TODO: alert based on data entered?
+	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resetting your password"];
 }
 
 #pragma mark -

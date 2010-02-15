@@ -17,5 +17,6 @@
 -(void)hideSpinnerView;
 
 -(void)alert:(NSString *)title message:(NSString *)message;
+-(void)alertForCloudServersResponseStatusCode:(NSUInteger)responseStatusCode behavior:(NSString *)behavior;
 
 @end
