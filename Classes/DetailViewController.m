@@ -187,12 +187,11 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	tableView.backgroundView = nil;
 }
- */
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];	
@@ -274,9 +273,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	// transparent background.  TODO: put this in a better place
-	aTableView.backgroundView = nil;
-	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedItemCell"];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"FeedItemCell" owner:self options:NULL]; 

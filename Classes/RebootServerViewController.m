@@ -136,7 +136,6 @@
 #pragma mark Table view delegate
 
 - (void)performReboot:(NSString *)rebootType {
-	// TODO: build request here
 	// TODO: perhaps write a generic finish/fail handler?
 	[self showSpinnerView:@"Rebooting..."];
 	ASICloudServersServerRequest *request = [ASICloudServersServerRequest rebootServerRequest:self.serverDetailViewController.server.serverId rebootType:rebootType];
