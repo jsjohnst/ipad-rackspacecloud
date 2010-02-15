@@ -72,7 +72,7 @@ hostId="e4d909c290d0fb1ca068ffaddf22cbd0" progress="0" status="BUILD" adminPass=
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	
 	if ([elementName isEqualToString:@"meta"]) {
-		// TODO: <meta key="My Server Name">Apache1</meta>
+		// <meta key="My Server Name">Apache1</meta>
 		[[self currentObject].metadata setObject:[self currentContent] forKey:currentMetadataKey];
 	} else if ([elementName isEqualToString:@"addresses"]) {
 		//[self currentObject].name = [self currentContent];

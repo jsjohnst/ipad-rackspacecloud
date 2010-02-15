@@ -17,6 +17,5 @@
 -(void)hideSpinnerView;
 
 -(void)alert:(NSString *)title message:(NSString *)message;
-// TODO: standard error messages for api faults
 
 @end
