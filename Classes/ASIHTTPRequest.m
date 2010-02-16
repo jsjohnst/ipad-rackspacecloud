@@ -2920,6 +2920,14 @@ static BOOL isiPhoneOS2;
 	[[self class] setSessionCookies:nil];
 }
 
+#pragma mark -
+#pragma mark Utilities
+
+- (BOOL)isSuccess {
+	return 200 <= [self responseStatusCode] <= 299;
+}
+
+
 #pragma mark gzip decompression
 
 //

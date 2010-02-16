@@ -18,8 +18,6 @@
 @property (retain) ASICloudServersServerXMLParserDelegate *serverXMLParserDelegate;
 @property (retain) ASICloudServersBackupScheduleXMLParserDelegate *backupScheduleXMLParserDelegate;
 
-- (BOOL)isSuccess;
-
 // TODO: use hostId to tell the user if any other servers are on the same host
 
 // GET /servers

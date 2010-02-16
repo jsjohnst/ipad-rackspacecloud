@@ -31,6 +31,9 @@
 	// Data for the rest of the app
 	NSArray *images;
 	NSArray *flavors;
+	
+	NSUInteger imageLoadAttempts;
+	NSUInteger flavorLoadAttempts;
 }
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *smallSpinner;

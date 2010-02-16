@@ -36,12 +36,16 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	// we'll try up to three times to load flavors and images
+	imageLoadAttempts = 0;
+	flavorLoadAttempts = 0;
+
 }
-*/
 
 - (void)viewWillAppear:(BOOL)animated {	
 	[self loadSettings];
@@ -128,32 +132,9 @@
 }
 
 #pragma mark -
-#pragma mark HTTP Response Handlers
+#pragma mark HTTP Requests
 
--(void)flavorListRequestFinished:(ASICloudServersFlavorRequest *)request {
-	NSLog(@"flavor list status: %i", [request responseStatusCode]);
-	NSLog(@"%@", [request responseString]);
-	[self hideSpinners];
-	
-	[ASICloudServersFlavorRequest setFlavors:[request flavors]];
-	
-	// we're done.  now let's get to the app
-	[self transitionToAppView];
-}
-
--(void)flavorListRequestFailed:(ASIHTTPRequest *)request {
-	NSLog(@"List Flavors Failed");
-	// TODO: show alert or try again
-}
-
--(void)imageListRequestFinished:(ASICloudServersImageRequest *)request {
-	NSLog(@"image list status: %i", [request responseStatusCode]);
-	NSLog(@"%@", [request responseString]);
-		
-	[ASICloudServersImageRequest setImages:[request images]];
-	
-	self.smallAuthenticatingLabel.text = @"Loading server flavors...";
-	
+-(void)loadFlavors {
 	ASICloudServersFlavorRequest *flavorRequest = [ASICloudServersFlavorRequest listRequest];
 	[flavorRequest setDelegate:self];
 	[flavorRequest setDidFinishSelector:@selector(flavorListRequestFinished:)];
@@ -161,24 +142,7 @@
 	[flavorRequest startAsynchronous];
 }
 
--(void)imageListRequestFailed:(ASIHTTPRequest *)request {
-	NSLog(@"List Images Failed");
-	// TODO: show alert or try again
-}
-
--(void)authenticationRequestFinished:(ASIHTTPRequest *)request {
-	NSLog(@"auth response status: %i", [request responseStatusCode]);
-	
-	// TODO: handle error responses
-	
-	NSDictionary *responseHeaders = [request responseHeaders];
-	[ASICloudFilesRequest setAuthToken:[responseHeaders objectForKey:@"X-Auth-Token"]];
-	[ASICloudFilesRequest setStorageURL:[responseHeaders objectForKey:@"X-Storage-Url"]];
-	[ASICloudFilesRequest setCdnManagementURL:[responseHeaders objectForKey:@"X-Cdn-Management-Url"]];
-	[ASICloudFilesRequest setServerManagementURL:[responseHeaders objectForKey:@"X-Server-Management-Url"]];
-	
-	self.smallAuthenticatingLabel.text = @"Loading server images...";
-	
+-(void)loadImages {
 	ASICloudServersImageRequest *imageRequest = [ASICloudServersImageRequest listRequest];
 	[imageRequest setDelegate:self];
 	[imageRequest setDidFinishSelector:@selector(imageListRequestFinished:)];
@@ -186,8 +150,61 @@
 	[imageRequest startAsynchronous];
 }
 
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+-(void)flavorListRequestFinished:(ASICloudServersFlavorRequest *)request {
+	[self hideSpinners];	
+	[ASICloudServersFlavorRequest setFlavors:[request flavors]];
+	
+	// we're done.  now let's get to the app
+	[self transitionToAppView];
+}
+
+-(void)flavorListRequestFailed:(ASIHTTPRequest *)request {
+	flavorLoadAttempts++;
+	if (flavorLoadAttempts < 3) {
+		// try again
+		[self loadFlavors];
+	} else {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading flavors"];
+	}
+}
+
+-(void)imageListRequestFinished:(ASICloudServersImageRequest *)request {
+	[ASICloudServersImageRequest setImages:[request images]];
+	self.smallAuthenticatingLabel.text = @"Loading server flavors...";
+	[self loadFlavors];
+}
+
+-(void)imageListRequestFailed:(ASIHTTPRequest *)request {
+	imageLoadAttempts++;
+	if (imageLoadAttempts < 3) {
+		// try again
+		[self loadImages];
+	} else {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading images"];
+	}
+	
+}
+
+-(void)authenticationRequestFinished:(ASICloudFilesRequest *)request {
+	if ([request isSuccess]) {
+		NSDictionary *responseHeaders = [request responseHeaders];
+		[ASICloudFilesRequest setAuthToken:[responseHeaders objectForKey:@"X-Auth-Token"]];
+		[ASICloudFilesRequest setStorageURL:[responseHeaders objectForKey:@"X-Storage-Url"]];
+		[ASICloudFilesRequest setCdnManagementURL:[responseHeaders objectForKey:@"X-Cdn-Management-Url"]];
+		[ASICloudFilesRequest setServerManagementURL:[responseHeaders objectForKey:@"X-Server-Management-Url"]];	
+		self.smallAuthenticatingLabel.text = @"Loading server images...";
+		[self loadImages];
+	} else {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"authenticating"];
+	}	
+}
+
 -(void)authenticationRequestFailed:(ASIHTTPRequest *)request {
 
+	// TODO: make sure this is good
 	[self hideSpinners];
 	
 	NSString *title = @"";

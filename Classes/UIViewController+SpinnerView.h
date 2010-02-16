@@ -12,7 +12,6 @@
 
 @interface UIViewController (SpinnerView)
 
--(void) showSpinnerView:(NSString *)text pixelsFromTop:(CGFloat)pixels;
 -(void)showSpinnerView:(NSString *)text;
 -(void)showSpinnerView;
 -(void)hideSpinnerView;

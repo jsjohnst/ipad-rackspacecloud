@@ -52,6 +52,7 @@
     [super viewDidLoad];
 
 	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadServers)];
+	refreshButton.style = UIBarStyleBlackOpaque;
 	refreshButton.enabled = YES;
 	self.navigationItem.rightBarButtonItem = refreshButton;
 	[refreshButton release];

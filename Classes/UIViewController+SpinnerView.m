@@ -9,28 +9,21 @@
 #import "UIViewController+SpinnerView.h"
 #import "SpinnerViewController.h"
 
+#define kSpinnerTag 777
 
 @implementation UIViewController (SpinnerView)
 
 #pragma mark -
 #pragma mark Spinner View
 
--(void) showSpinnerView:(NSString *)text pixelsFromTop:(CGFloat)pixels {
+-(void)showSpinnerView:(NSString *)text {
 	SpinnerViewController *vc = [[SpinnerViewController alloc] initWithNibName:@"SpinnerViewController" bundle:nil];
-	//vc.view.center = self.view.center;
-	CGRect rect = self.view.superview.frame;
-	rect.origin.y = self.view.superview.frame.origin.y + pixels;
-	NSLog(@"y = %f", rect.origin.y);
-	self.view.frame = rect;
+	CGPoint center = self.view.center;
+	NSLog(@"center: %f, %f", center.x, center.y);
+	center.y = center.y / 3; // move it up a bit
+	vc.view.center = center;
 	vc.label.text = text;
-	[self.view addSubview:vc.view];	
-	[vc release];
-}
-
--(void) showSpinnerView:(NSString *)text {
-	SpinnerViewController *vc = [[SpinnerViewController alloc] initWithNibName:@"SpinnerViewController" bundle:nil];
-	vc.view.center = self.view.center;
-	vc.label.text = text;
+	vc.view.tag = kSpinnerTag;
 	[self.view addSubview:vc.view];	
 	[vc release];
 }
@@ -39,18 +32,11 @@
 	[self showSpinnerView:@"Saving..."];
 }
 
-// actually removes all spinner views, but you shouldn't use more than one at a time anyway
--(void) hideSpinnerView {
-	NSArray *subviews = self.view.subviews;
-	// TODO: this might be dangerous!  investigate a better way!
-	[[subviews lastObject] removeFromSuperview];
-	/*
-	for (int i = 0; i < [subviews count]; i++) {
-		id subview = [subviews objectAtIndex:i];
-		if ([subview class] == NSClassFromString(@"SpinnerViewController")) {
-			[((UIView *)subview) removeFromSuperview];
-		}
-	}*/
+-(void)hideSpinnerView {
+	UIView *spinner = [self.view viewWithTag:kSpinnerTag];
+	if (spinner != nil) {
+		[spinner removeFromSuperview];
+	}
 }
 
 #pragma mark -
@@ -94,34 +80,33 @@
 			break;
 		default:
 			break;
-			
 	}
 	[self alert:title message:[NSString stringWithFormat:@"%@ %@", message, explanation]];
 }
 
 /*
- NSString *title = @"Error";
- NSString *errorMessage = @"There was a problem renaming your server.";
- switch ([request responseStatusCode]) {
- // in all:
- /// 500, 400, others possible: cloudServersFault
- /// 503: serviceUnavailable
- /// 401: unauthorized
- /// 413: overLimit
- 
- // in some:
- // 415: badMediaType
- // 405: badMethod
- // 404: itemNotFound
- // 409: buildInProgress
- /// 503: serverCapacityUnavailable
- /// 409: backupOrResizeInProgress		
- // 403: resizeNotAllowed		
- // 501: notImplemented
- 
- 
- }
- [self alert:title message:errorMessage];
+NSString *title = @"Error";
+NSString *errorMessage = @"There was a problem renaming your server.";
+switch ([request responseStatusCode]) {
+// in all:
+/// 500, 400, others possible: cloudServersFault
+/// 503: serviceUnavailable
+/// 401: unauthorized
+/// 413: overLimit
+
+// in some:
+// 415: badMediaType
+// 405: badMethod
+// 404: itemNotFound
+// 409: buildInProgress
+/// 503: serverCapacityUnavailable
+/// 409: backupOrResizeInProgress		
+// 403: resizeNotAllowed		
+// 501: notImplemented
+
+
+}
+[self alert:title message:errorMessage];
  
 */
 

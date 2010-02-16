@@ -365,6 +365,9 @@ extern unsigned long const ASIWWANBandwidthThrottleAmount;
 	BOOL shouldUseRFC2616RedirectBehaviour;
 }
 
+- (BOOL)isSuccess;
+
+
 #pragma mark init / dealloc
 
 // Should be an HTTP or HTTPS url, may include username and password if appropriate
