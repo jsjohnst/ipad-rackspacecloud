@@ -76,40 +76,14 @@
 		[tableView reloadData];
 		[self dismissModalViewControllerAnimated:YES];
 	} else {
-		// TODO: better error messages
-		NSString *title = @"Error";
-		NSString *errorMessage = @"There was a problem saving your backup schedule.";
-		switch ([request responseStatusCode]) {
-			case 400: // cloudServersFault
-				break;
-			case 500: // cloudServersFault
-				break;
-			case 503:
-				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
-				break;				
-			case 401:
-				title = @"Authentication Failure";
-				errorMessage = @"Please check your User Name and API Key.";
-				break;
-			case 409:
-				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
-				break;
-			case 413:
-				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
-				break;
-			default:
-				break;
-		}
-		[self alert:title message:errorMessage];
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"saving your server's backup schedule"];		
 	}
 }
 
 -(void)updateBackupScheduleRequestFailed:(ASICloudServersServerRequest *)request {
 	NSLog(@"update backup request failed - %i", [request responseStatusCode]);
-	// TODO: handle
+	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"saving your server's backup schedule"];
 }
-
-// TODO: save
 
 #pragma mark -
 #pragma mark Button Handlers
@@ -140,6 +114,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
 	
+	// NSTimeZone* destinationTimeZone = [NSTimeZone defaultTimeZone];
+	// [tz secondsFromGMT];
+
 	hourValues = [[NSArray alloc] initWithObjects:@"No Daily Backup", @"0000-0200", @"0200-0400", @"0400-0600", @"0600-0800", @"0800-1000", @"1000-1200", @"1200-1400", @"1400-1600", @"1800-2000", @"2000-2200", @"2200-0000", nil];
 	hourKeys = [[NSArray alloc] initWithObjects:@"DISABLED", @"H_0000_0200", @"H_0200_0400", @"H_0400_0600", @"H_0600_0800", @"H_0800_1000", @"H_1000_1200", @"H_1200_1400", @"H_1400_1600", @"H_1800_2000", @"H_2000_2200", @"H_2200_0000", nil];
 	hours = [[NSDictionary alloc] initWithObjects:hourKeys forKeys:hourValues];
@@ -227,7 +204,10 @@
 
 // hours (GMT): No Daily Backup, 0000-0200, 0200-0400 ... 2200-0000
 // TODO: convert to local time?
+// NSTimeZone* destinationTimeZone = [NSTimeZone defaultTimeZone];
+// [tz secondsFromGMT];
 // days: No Weekly Backup sunday-saturday
+
 
 
 

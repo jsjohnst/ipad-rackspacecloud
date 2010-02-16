@@ -25,13 +25,15 @@
 -(void)resizeRequestFinished:(ASICloudServersServerRequest *)request {
 	NSLog(@"Resize response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
-	// TODO: handle error
-	[self dismissModalViewControllerAnimated:YES];
+	if ([request isSuccess]) {
+		[self dismissModalViewControllerAnimated:YES];
+	} else {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resizing your server"];
+	}
 }
 
 -(void)resizeRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Resize request failed.");
-	// TODO: handle
+	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resizing your server"];
 }
 
 

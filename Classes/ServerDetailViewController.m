@@ -99,37 +99,12 @@
 		//[self.serverDetailViewController.tableView reloadData];
 		//[self dismissModalViewControllerAnimated:YES];
 	} else {
-		// TODO: better error message names
-		NSString *title = @"Error";
-		NSString *errorMessage = @"There was a problem renaming your server.";
-		switch ([request responseStatusCode]) {
-			case 400: // cloudServersFault
-				break;
-			case 500: // cloudServersFault
-				break;
-			case 503:
-				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
-				break;				
-			case 401:
-				title = @"Authentication Failure";
-				errorMessage = @"Please check your User Name and API Key.";
-				break;
-			case 409:
-				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
-				break;
-			case 413:
-				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
-				break;
-			default:
-				break;
-		}
-		[self alert:title message:errorMessage];
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"deleting your server"];
 	}
 }
 
 -(void)deleteServerRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Delete server request failed.");
-	// TODO: handle it
+	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"deleting your server"];
 }
 
 #pragma mark -

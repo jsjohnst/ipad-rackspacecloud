@@ -31,6 +31,13 @@
 }
 
 #pragma mark -
+#pragma mark Utilities
+
+- (BOOL)isSuccess {
+	return 200 <= [self responseStatusCode] <= 299;
+}
+
+#pragma mark -
 #pragma mark GET - Server List
 
 + (id)listRequest {

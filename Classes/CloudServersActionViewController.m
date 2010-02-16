@@ -44,7 +44,7 @@
 	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
 	[self hideSpinnerView];
 	
-	if ([request responseStatusCode] == 204) { // TODO: this could vary depending on the request
+	if ([request isSuccess]) {
 		// call the success selector if it exists
 		NSString *finishSelectorString = [request.userInfo objectForKey:@"finishSelector"];
 		if (finishSelectorString) {

@@ -23,14 +23,15 @@
 -(void)rebootRequestFinished:(ASICloudServersServerRequest *)request {
 	NSLog(@"Reboot response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
-	// TODO: handle error
-	
-	[self dismissModalViewControllerAnimated:YES];
+	if ([request isSuccess]) {
+		[self dismissModalViewControllerAnimated:YES];
+	} else {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"rebooting your server"];	
+	}
 }
 
 -(void)rebootRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Reboot request failed.");
-	// TODO: handle
+	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"rebooting your server"];
 }
 
 #pragma mark -
@@ -137,7 +138,6 @@
 #pragma mark Table view delegate
 
 - (void)performReboot:(NSString *)rebootType {
-	// TODO: perhaps write a generic finish/fail handler?
 	[self showSpinnerView:@"Rebooting..."];
 	ASICloudServersServerRequest *request = [ASICloudServersServerRequest rebootServerRequest:self.serverDetailViewController.server.serverId rebootType:rebootType];
 	[request setDelegate:self];

@@ -12,6 +12,7 @@
 #import "ASICloudServersServerRequest.h"
 #import "ASICloudServersServer.h"
 #import "ASICloudServersImage.h"
+#import "UIViewController+SpinnerView.h"
 
 
 @implementation ServersListViewController
@@ -29,6 +30,7 @@
 #pragma mark HTTP Response Handlers
 
 - (void)listServersFinished:(ASICloudServersServerRequest *)request {
+	[self hideSpinnerView];
 	NSLog(@"GET /servers: %i", [request responseStatusCode]);
 	NSLog(@"%@", [request responseString]);
 	if ([request responseStatusCode] == 200 || [request responseStatusCode] == 203) {
@@ -42,24 +44,31 @@
 }
 
 - (void)listServersFailed:(ASICloudServersServerRequest *)request {
+	[self hideSpinnerView];
 	NSLog(@"List Servers Failed");
 }
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	self.navigationItem.title = @"Servers";
-	servers = [[NSMutableArray alloc] init];
-		
+- (void)loadServers {
+	[self showSpinnerView:@"Loading..."];
 	ASICloudFilesRequest *request = [ASICloudServersServerRequest listRequest];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(listServersFinished:)];
 	[request setDidFailSelector:@selector(listServersFailed:)];
 	[request startAsynchronous];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadServers)];
+	refreshButton.enabled = YES;
+	self.navigationItem.rightBarButtonItem = refreshButton;
+	[refreshButton release];
 	
+	self.navigationItem.title = @"Servers";
+	servers = [[NSMutableArray alloc] init];
+		
+	[self loadServers];
 }
 
 

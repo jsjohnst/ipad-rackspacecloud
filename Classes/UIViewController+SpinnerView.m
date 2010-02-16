@@ -15,6 +15,18 @@
 #pragma mark -
 #pragma mark Spinner View
 
+-(void) showSpinnerView:(NSString *)text pixelsFromTop:(CGFloat)pixels {
+	SpinnerViewController *vc = [[SpinnerViewController alloc] initWithNibName:@"SpinnerViewController" bundle:nil];
+	//vc.view.center = self.view.center;
+	CGRect rect = self.view.superview.frame;
+	rect.origin.y = self.view.superview.frame.origin.y + pixels;
+	NSLog(@"y = %f", rect.origin.y);
+	self.view.frame = rect;
+	vc.label.text = text;
+	[self.view addSubview:vc.view];	
+	[vc release];
+}
+
 -(void) showSpinnerView:(NSString *)text {
 	SpinnerViewController *vc = [[SpinnerViewController alloc] initWithNibName:@"SpinnerViewController" bundle:nil];
 	vc.view.center = self.view.center;
