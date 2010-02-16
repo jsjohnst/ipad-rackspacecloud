@@ -113,10 +113,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
-	
-	// NSTimeZone* destinationTimeZone = [NSTimeZone defaultTimeZone];
-	// [tz secondsFromGMT];
-
+		
 	hourValues = [[NSArray alloc] initWithObjects:@"No Daily Backup", @"0000-0200", @"0200-0400", @"0400-0600", @"0600-0800", @"0800-1000", @"1000-1200", @"1200-1400", @"1400-1600", @"1800-2000", @"2000-2200", @"2200-0000", nil];
 	hourKeys = [[NSArray alloc] initWithObjects:@"DISABLED", @"H_0000_0200", @"H_0200_0400", @"H_0400_0600", @"H_0600_0800", @"H_0800_1000", @"H_1000_1200", @"H_1200_1400", @"H_1400_1600", @"H_1800_2000", @"H_2000_2200", @"H_2200_0000", nil];
 	hours = [[NSDictionary alloc] initWithObjects:hourKeys forKeys:hourValues];
@@ -200,16 +197,6 @@
 		return @"";
 	}	
 }
-
-
-// hours (GMT): No Daily Backup, 0000-0200, 0200-0400 ... 2200-0000
-// TODO: convert to local time?
-// NSTimeZone* destinationTimeZone = [NSTimeZone defaultTimeZone];
-// [tz secondsFromGMT];
-// days: No Weekly Backup sunday-saturday
-
-
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
