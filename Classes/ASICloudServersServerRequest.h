@@ -18,13 +18,10 @@
 @property (retain) ASICloudServersServerXMLParserDelegate *serverXMLParserDelegate;
 @property (retain) ASICloudServersBackupScheduleXMLParserDelegate *backupScheduleXMLParserDelegate;
 
-// TODO: use hostId to tell the user if any other servers are on the same host
-
 // GET /servers
 // Create a request to list servers
 + (id)listRequest;
 - (NSArray *)servers;
-// TODO: limit and offset request
 
 // POST /servers
 // Create a server
@@ -38,8 +35,6 @@
 // DELETE /servers/id
 // Delete a server
 + (id)deleteServerRequest:(NSUInteger)serverId;
-
-// TODO: share/unshare IP?
 
 // POST /servers/id/action.xml
 // Reboot, Rebuild, Resize, Confirm Resize, Revert Resize

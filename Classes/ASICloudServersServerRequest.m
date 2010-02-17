@@ -109,8 +109,6 @@
 	return request;
 }
 
-// TODO: handle finish/fail selector no longer existing
-
 // POST <rebuild xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" imageId="2"/>
 + (id)rebuildServerRequest:(NSUInteger)serverId imageId:(NSUInteger)imageId {
 	NSString *body = [NSString stringWithFormat:@"<resize xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" imageId=\"%u\"/>", imageId];

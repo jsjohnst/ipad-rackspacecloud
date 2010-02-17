@@ -56,7 +56,6 @@
         // Custom initialization
 		self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
 		self.backgroundImageView.image = [ASICloudServersImage backgroundForImageId:server.imageId];
-		self.tableView.backgroundView = nil; // makes it clear
     }
     return self;
 }
@@ -186,6 +185,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+	self.tableView.backgroundView = nil; // makes it clear
 	self.detailItem = @"Server Details";
 	self.navigationItem.title = @"Server Details";
 	

@@ -118,7 +118,6 @@
     }
     
 	// TODO: make sure images and flavors are ACTIVE
-	// TODO: double check logos
 	
     // Set up the cell...
 	if (indexPath.section == 0) {

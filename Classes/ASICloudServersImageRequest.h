@@ -23,6 +23,5 @@
 // GET /images/detail.xml
 + (id)listRequest;
 - (NSArray *)images;
-// TODO: limit and offset
 
 @end

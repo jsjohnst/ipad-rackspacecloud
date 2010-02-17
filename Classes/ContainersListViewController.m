@@ -15,9 +15,6 @@
 #import "ASICloudFilesContainer.h"
 #import "ASICloudFilesCDNRequest.h"
 
-// TODO: handle pagination?  maybe... pages are 10,000 items long
-// TODO: social media sharing of cloud files?  with cinch, twitter, etc
-// TODO: for (2), by enabling the logs, they are uploaded into the client's account in a new container (.CDN_ACCESS_LOGS)
 // TODO: how to extract album art from mp3
 // TODO: preview icon as metadata?
 
@@ -85,7 +82,6 @@
 		[self.tableView reloadData];
 	} else {
 		// TODO: deal with it
-		// TODO: handle good responses in the 2xx block
 	}
 }
 

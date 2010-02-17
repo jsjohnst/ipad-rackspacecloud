@@ -23,6 +23,5 @@
 // GET /flavors/detail.xml
 + (id)listRequest;
 - (NSArray *)flavors;
-// TODO: limit and offset
 
 @end
