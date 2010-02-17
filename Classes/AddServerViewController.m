@@ -112,16 +112,11 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-		
-		//cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];		
     }
     
-	// TODO: make sure images and flavors are ACTIVE
-	
     // Set up the cell...
 	if (indexPath.section == 0) {
-		//return @"Server Name";
 		cell.textLabel.text = @"";
 		cell.detailTextLabel.text = @"";
 		cell.imageView.image = nil;

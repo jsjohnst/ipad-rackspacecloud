@@ -424,7 +424,6 @@
 #pragma mark Logs
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInLogsSection:(NSInteger)section {
-	// TODO: change to entries...
 	if (containerLogFileObjects != nil) {
 		return [logEntries count];
 	} else {

@@ -31,7 +31,9 @@ static NSRecursiveLock *accessDetailsLock = nil;
 	imageDict = [[NSMutableDictionary alloc] initWithCapacity:[newImages count]];
 	for (int i = 0; i < [images count]; i++) {
 		ASICloudServersImage *image = [images objectAtIndex:i];
-		[imageDict setObject:image forKey:[NSNumber numberWithInt:image.imageId]];
+		if ([image.status isEqualToString:@"ACTIVE"]) {
+			[imageDict setObject:image forKey:[NSNumber numberWithInt:image.imageId]];
+		}
 	}
 	[accessDetailsLock unlock];
 }

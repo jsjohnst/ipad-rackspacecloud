@@ -97,9 +97,6 @@
     return 2;
 }
 
-// TODO: verify images are active
-// TODO: verify flavors are active
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	if (section == 0) {

@@ -54,8 +54,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
-		self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
-		self.backgroundImageView.image = [ASICloudServersImage backgroundForImageId:server.imageId];
     }
     return self;
 }
@@ -146,7 +144,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == kActionSection) {
-		return 8;
+		return 7;
 	} else if (section == kNameSection) {
 		return 3;
 	} else if (section == kDetailsSection) {
@@ -184,7 +182,9 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+	
+	self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
+	self.backgroundImageView.image = [ASICloudServersImage backgroundForImageId:server.imageId];
 	self.tableView.backgroundView = nil; // makes it clear
 	self.detailItem = @"Server Details";
 	self.navigationItem.title = @"Server Details";
@@ -239,14 +239,10 @@
 		} else if (indexPath.row == 3) {
 			actionCell.textLabel.text = @"Change the Root Password";
 		} else if (indexPath.row == 4) {
-			// POST /images
-			// TODO: clone this server?  (create snapshot + create new server)
-			actionCell.textLabel.text = @"Create a Snapshot Backup Image of This Server";
-		} else if (indexPath.row == 5) {
 			actionCell.textLabel.text = @"Manage Backup Schedules";
-		} else if (indexPath.row == 6) {
+		} else if (indexPath.row == 5) {
 			actionCell.textLabel.text = @"Rebuild This Server"; // From Scratch" ?
-		} else if (indexPath.row == 7) {
+		} else if (indexPath.row == 6) {
 			actionCell.textLabel.text = @"Delete This Server";
 		}
 		return actionCell;
@@ -288,12 +284,9 @@
 				className = @"ResetServerAdminPasswordViewController";
 				break;
 			case 4:
-				className = @"CreateServerSnapshotViewController";
-				break;
-			case 5:
 				className = @"ManageBackupSchedulesViewController";
 				break;
-			case 6:
+			case 5:
 				className = @"RebuildServerViewController";
 				break;
 			default:
