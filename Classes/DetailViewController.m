@@ -287,7 +287,6 @@
 	UILabel *dateLabel = (UILabel *) [cell viewWithTag:kDateTag];
 	dateLabel.text = [self dateToString:item.pubDate]; //[item.pubDate description];
 	
-	
 	UILabel *titleLabel = (UILabel *) [cell viewWithTag:kTitleTag];
 	titleLabel.text = item.title;
 	
@@ -297,7 +296,6 @@
 	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
 	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
 	
-
 	// set the height of the title label to fit the size of the string
 	CGFloat originalTitleHeight = titleLabel.frame.size.height;	
 	CGFloat titleHeight = [[self class] findLabelHeight:item.title font:titleLabel.font label:titleLabel];

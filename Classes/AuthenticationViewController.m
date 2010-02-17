@@ -14,8 +14,6 @@
 #import "UIViewController+SpinnerView.h"
 
 
-// TODO: try to hide scroll bars
-
 @implementation AuthenticationViewController
 
 @synthesize smallSpinner, largeSpinner;
@@ -168,6 +166,7 @@
 		[self loadFlavors];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading flavors"];
+		self.smallAuthenticatingLabel.text = @"";
 	}
 }
 
@@ -184,6 +183,7 @@
 		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading images"];
+		self.smallAuthenticatingLabel.text = @"";
 	}
 	
 }
@@ -199,12 +199,12 @@
 		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"authenticating"];
+		self.smallAuthenticatingLabel.text = @"";
 	}	
 }
 
 -(void)authenticationRequestFailed:(ASIHTTPRequest *)request {
 
-	// TODO: make sure this is good
 	[self hideSpinners];
 	
 	NSString *title = @"";
@@ -219,6 +219,7 @@
 	}
 	
 	[self alert:title message:message];
+	self.smallAuthenticatingLabel.text = @"";
 	
 }
 

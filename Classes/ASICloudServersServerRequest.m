@@ -109,7 +109,6 @@
 	return request;
 }
 
-// TODO: handle rate limits
 // TODO: handle finish/fail selector no longer existing
 
 // POST <rebuild xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" imageId="2"/>

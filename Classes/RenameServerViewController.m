@@ -121,7 +121,6 @@
 		textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     
-	// TODO: don't show this if the server is not ACTIVE?
 	// TODO: verify resize screen
 	
     // Configure the cell...

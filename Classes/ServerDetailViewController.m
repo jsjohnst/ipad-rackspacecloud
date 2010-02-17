@@ -50,6 +50,17 @@
 @synthesize server;
 @synthesize logoImageView, backgroundImageView;
 
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        // Custom initialization
+		self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
+		self.backgroundImageView.image = [ASICloudServersImage backgroundForImageId:server.imageId];
+		self.tableView.backgroundView = nil; // makes it clear
+    }
+    return self;
+}
+
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
@@ -175,12 +186,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-	// TODO: move this to initWithNibName
-	self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
-	self.backgroundImageView.image = [ASICloudServersImage backgroundForImageId:server.imageId];
-	
-	
-	self.tableView.backgroundView = nil; // makes it clear
 	self.detailItem = @"Server Details";
 	self.navigationItem.title = @"Server Details";
 	
