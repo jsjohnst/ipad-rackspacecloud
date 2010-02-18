@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class ASICloudServersServer, ServerDetailViewController;
 
-@interface AddServerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-
+@interface AddServerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+	UITextField *textField;
+	ASICloudServersServer *server;
+	ServerDetailViewController *serverDetailViewController;
 }
+
+@property (nonatomic, retain) ASICloudServersServer *server;
+@property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
 
 -(void)cancelButtonPressed:(id)sender;
 -(void)saveButtonPressed:(id)sender;

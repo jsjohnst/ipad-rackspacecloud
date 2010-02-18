@@ -26,8 +26,6 @@
 	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
 	
 	if ([request responseStatusCode] == 204) {
-		[self dismissModalViewControllerAnimated:YES];
-		//self.serverDetailViewController.server.name = textField.text;
 		[self.serverDetailViewController.tableView reloadData];
 		[self dismissModalViewControllerAnimated:YES];
 	} else {

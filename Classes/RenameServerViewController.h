@@ -8,7 +8,7 @@
 
 #import "CloudServersActionViewController.h"
 
-@class ServerDetailViewController, TextFieldCell;
+@class ServerDetailViewController;
 
 @interface RenameServerViewController : CloudServersActionViewController <UITableViewDelegate, UITableViewDataSource> {
 	UITextField *textField;

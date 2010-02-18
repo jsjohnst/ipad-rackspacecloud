@@ -7,13 +7,21 @@
 //
 
 #import "AddServerViewController.h"
+#import "ASICloudServersServer.h"
 #import "ASICloudServersImage.h"
 #import "ASICloudServersFlavor.h"
+#import "ASICloudServersServerRequest.h"
 #import "ASICloudServersImageRequest.h"
 #import "ASICloudServersFlavorRequest.h"
+#import "TextFieldCell.h"
+#import "UIViewController+SpinnerView.h"
+#import "ServersListViewController.h"
+#import "ServerDetailViewController.h"
 
 
 @implementation AddServerViewController
+
+@synthesize server, serverDetailViewController;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -24,14 +32,13 @@
 }
 */
 
-/*
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	server = [[ASICloudServersServer alloc] init];
 }
-*/
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -115,21 +122,44 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];		
     }
     
+    static NSString *NameCellIdentifier = @"NameCell";
+    
+    TextFieldCell *nameCell = (TextFieldCell *)[tableView dequeueReusableCellWithIdentifier:NameCellIdentifier];
+    if (nameCell == nil) {
+        nameCell = [[[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NameCellIdentifier] autorelease];
+		textField = nameCell.textField;
+		textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+		textField.delegate = self;
+    }
+    
+	// TODO: verify resize screen
+	
+    // Configure the cell...
+	cell.textLabel.text = @"";
+	
     // Set up the cell...
 	if (indexPath.section == 0) {
-		cell.textLabel.text = @"";
-		cell.detailTextLabel.text = @"";
-		cell.imageView.image = nil;
+		return nameCell;
 	} else if (indexPath.section == 1) {
 		ASICloudServersImage *image = [[ASICloudServersImageRequest images] objectAtIndex:indexPath.row];
 		cell.textLabel.text = image.name;
 		cell.detailTextLabel.text = @"";
 		cell.imageView.image = [ASICloudServersImage iconForImageId:image.imageId];
+		if (server.imageId == image.imageId) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		} else {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}
 	} else if (indexPath.section == 2) {
 		ASICloudServersFlavor *flavor = [[ASICloudServersFlavorRequest flavors] objectAtIndex:indexPath.row];
 		cell.textLabel.text = flavor.name;
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%iMB RAM, %iGB Disk", flavor.ram, flavor.disk];
 		cell.imageView.image = nil;
+		if (server.flavorId == flavor.flavorId) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		} else {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}
 	}
 	
 	
@@ -143,6 +173,14 @@
     // AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
     // [self.navigationController pushViewController:anotherViewController];
     // [anotherViewController release];
+	if (indexPath.section == 1) {
+		ASICloudServersImage *image = [[ASICloudServersImageRequest images] objectAtIndex:indexPath.row];
+		server.imageId = image.imageId;
+	} else if (indexPath.section == 2) {
+		ASICloudServersFlavor *flavor = [[ASICloudServersFlavorRequest flavors] objectAtIndex:indexPath.row];
+		server.flavorId = flavor.flavorId;
+	}
+	[tableView reloadData];
 }
 
 
@@ -186,6 +224,33 @@
 */
 
 #pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)aTextField {
+	server.name = aTextField.text;
+}
+
+
+
+#pragma mark -
+#pragma mark HTTP Response Handlers
+
+-(void)createServerFinished:(ASICloudServersServerRequest *)request {
+	[self hideSpinnerView];
+	if ([request isSuccess]) {
+		[self dismissModalViewControllerAnimated:YES];
+		[self.serverDetailViewController.serversListViewController loadServers:YES];
+	} else {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"creating your server"];	
+	}
+}
+
+-(void)createServerFailed:(ASICloudServersServerRequest *)request {
+	[self hideSpinnerView];
+	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"creating your server"];
+}
+
+#pragma mark -
 #pragma mark Button Handlers
 
 -(void)cancelButtonPressed:(id)sender {
@@ -193,10 +258,25 @@
 }
 
 -(void)saveButtonPressed:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
+	
+	NSLog(@"Server Name: %@", server.name);
+	
+	if ([server.name isEqualToString:@""]) {
+		[self alert:@"Error" message:@"Please enter a server name."];
+	} else {
+		//createServerFinished
+		[self showSpinnerView:@"Creating..."];
+		ASICloudServersServerRequest *request = [ASICloudServersServerRequest createServerRequest:server];
+		[request setDelegate:self];
+		[request setDidFinishSelector:@selector(createServerFinished:)];
+		[request setDidFailSelector:@selector(createServerFailed:)];
+		[request startAsynchronous];
+	}	
 }
 
 - (void)dealloc {
+	[server release];
+	[serverDetailViewController release];
     [super dealloc];
 }
 

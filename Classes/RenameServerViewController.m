@@ -57,7 +57,6 @@
 }
 
 -(void)renameServerRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Rename Server Request Failed");
 	[self hideSpinnerView];
 	NSString *title = @"Connection Failure";
 	NSString *errorMessage = @"Please check your connection and try again.";

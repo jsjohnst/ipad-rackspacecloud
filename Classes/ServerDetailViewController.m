@@ -119,7 +119,7 @@
 		//[self.serverDetailViewController.tableView reloadData];
 		//[self dismissModalViewControllerAnimated:YES];
 		
-		[self.serversListViewController loadServers:NO];
+		[self.serversListViewController loadServers:YES];
 		
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"deleting your server"];
@@ -382,6 +382,7 @@
 
 -(void)addButtonPressed:(id)sender {
 	AddServerViewController *vc = [[AddServerViewController alloc] initWithNibName:@"AddServerViewController" bundle:nil];
+	vc.serverDetailViewController = self;
 	vc.modalPresentationStyle = UIModalPresentationFormSheet;
 	[self presentModalViewController:vc animated:YES];
 }
