@@ -17,4 +17,7 @@
 
 @property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
 
+- (void)loadServers;
+- (void)loadServers:(BOOL)showSpinner;
+
 @end

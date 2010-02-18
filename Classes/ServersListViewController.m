@@ -19,6 +19,33 @@
 
 @synthesize serverDetailViewController;
 
+-(void)preselectServer {
+	if ([servers count] == 0) {
+		if (serverDetailViewController != nil) {
+			[serverDetailViewController release];
+		}
+		serverDetailViewController = [[ServerDetailViewController alloc] initWithNoServersView];
+		serverDetailViewController.serversListViewController = self;
+		serverDetailViewController.detailItem = @"Server Details";
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
+		app.splitViewController.delegate = serverDetailViewController;			
+	} else {
+		if (serverDetailViewController != nil) {
+			[serverDetailViewController release];
+		}
+		serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
+		serverDetailViewController.serversListViewController = self;
+		serverDetailViewController.detailItem = @"Server Details";
+		serverDetailViewController.server = [servers objectAtIndex:0];
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
+		app.splitViewController.delegate = serverDetailViewController;
+		
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+	}
+}
+
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
@@ -31,30 +58,7 @@
 		[servers release];
 		servers = [[NSMutableArray alloc] initWithArray:[request servers]];		
 		[self.tableView reloadData];
-		
-		if ([servers count] == 0) {
-			if (serverDetailViewController != nil) {
-				[serverDetailViewController release];
-			}
-			serverDetailViewController = [[ServerDetailViewController alloc] initWithNoServersView];
-			serverDetailViewController.detailItem = @"Server Details";
-			RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-			app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-			app.splitViewController.delegate = serverDetailViewController;			
-		} else {
-			if (serverDetailViewController != nil) {
-				[serverDetailViewController release];
-			}
-			serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
-			serverDetailViewController.detailItem = @"Server Details";
-			serverDetailViewController.server = [servers objectAtIndex:0];
-			RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-			app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-			app.splitViewController.delegate = serverDetailViewController;
-			
-			[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-		}
-		
+		[self preselectServer];
 	} else {
 		// TODO: deal with it
 	}
@@ -66,7 +70,13 @@
 }
 
 - (void)loadServers {
-	[self showSpinnerView:@"Loading..."];
+	[self loadServers:YES];
+}
+
+- (void)loadServers:(BOOL)showSpinner {
+	if (showSpinner) {
+		[self showSpinnerView:@"Loading..."];
+	}
 	ASICloudFilesRequest *request = [ASICloudServersServerRequest listRequest];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(listServersFinished:)];
@@ -147,6 +157,7 @@
 		[serverDetailViewController release];
 	}
 	serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
+	serverDetailViewController.serversListViewController = self;
 	serverDetailViewController.detailItem = @"Server Details";
 	serverDetailViewController.server = [servers objectAtIndex:indexPath.row];
 	

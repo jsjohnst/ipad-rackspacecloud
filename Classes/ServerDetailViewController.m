@@ -50,6 +50,7 @@
 @synthesize server;
 @synthesize logoImageView, backgroundImageView;
 @synthesize noServersView, noServersImage, noServersTitle, noServersMessage;
+@synthesize serversListViewController;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -117,6 +118,9 @@
 		//self.serverDetailViewController.server.name = textField.text;
 		//[self.serverDetailViewController.tableView reloadData];
 		//[self dismissModalViewControllerAnimated:YES];
+		
+		[self.serversListViewController loadServers:NO];
+		
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"deleting your server"];
 	}
@@ -326,7 +330,7 @@
 			
 			[self presentModalViewController:vc animated:YES];
 		} else {
-			if (indexPath.row == 7) {
+			if (indexPath.row == 6) {
 				NSString *title = @"Are you sure you want to delete this server?  This operation cannot be undone and you will lose all backup images.";
 				//NSString *deleteTitle = [NSString stringWithFormat:@"Permanently Delete Server %@", self.server.name];
 				NSString *deleteTitle = @"Delete This Server";
@@ -498,6 +502,8 @@
 	[noServersImage release];
 	[noServersTitle release];
 	[noServersMessage release];
+	
+	[serversListViewController release];
 	
     [super dealloc];
 }

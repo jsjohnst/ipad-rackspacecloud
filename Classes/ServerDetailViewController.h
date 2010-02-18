@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ASICloudServersServer;
+@class ASICloudServersServer, ServersListViewController;
 
 @interface ServerDetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate> {
 	
@@ -28,6 +28,8 @@
 	
 	IBOutlet UIImageView *logoImageView;
 	IBOutlet UIImageView *backgroundImageView;
+	
+	ServersListViewController *serversListViewController;
 }
 
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -43,6 +45,8 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *logoImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;
+
+@property (nonatomic, retain) ServersListViewController *serversListViewController;
 
 -(void)addButtonPressed:(id)sender;
 -(id)initWithNoServersView;
