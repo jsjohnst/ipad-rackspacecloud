@@ -16,6 +16,7 @@
 	FeedItem *feedItem;
 	NSMutableArray *feedItems;
 	BOOL parsingItem;
+    BOOL parsingContent;
 }
 
 @property (nonatomic, retain) FeedItem *feedItem;

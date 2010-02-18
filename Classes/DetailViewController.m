@@ -246,8 +246,9 @@
 */
 
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
-    CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f); 
+    CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
+    NSLog(@"String size height = %f, text = %@", stringSize.height, text);
     return stringSize.height;
 }
 
@@ -291,7 +292,7 @@
 	titleLabel.text = item.title;
 	
 	UILabel *bodyLabel = (UILabel *) [cell viewWithTag:kBodyTag];
-	bodyLabel.text = item.content; // item.description;
+	bodyLabel.text = item.content;
 	
 	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
 	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
@@ -305,7 +306,7 @@
 	titleLabel.frame = titleRect;
 	
 	CGFloat originalBodyHeight = bodyLabel.frame.size.height;
-	CGFloat bodyHeight = 500.0; //[[self class] findLabelHeight:item.description font:bodyLabel.font label:bodyLabel];
+	CGFloat bodyHeight = [[self class] findLabelHeight:item.content font:bodyLabel.font label:bodyLabel];
 	
 	CGRect subtitleRect = bodyLabel.frame;
 	subtitleRect.origin.y += titleHeight - originalTitleHeight;
@@ -327,8 +328,8 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	// might be slower to make the extra cellForRowAtIndexPath call, but it's flexible and DRY
-	return 700.0;
-	//return ((UITableViewCell *)[self tableView:aTableView cellForRowAtIndexPath:indexPath]).frame.size.height;
+	//return 700.0;
+	return ((UITableViewCell *)[self tableView:aTableView cellForRowAtIndexPath:indexPath]).frame.size.height;
 }
 
 #pragma mark -
