@@ -14,6 +14,7 @@
 #import "ASICloudServersImageRequest.h"
 #import "ASICloudServersFlavorRequest.h"
 #import "TextFieldCell.h"
+#import "SliderCell.h"
 #import "UIViewController+SpinnerView.h"
 #import "ServersListViewController.h"
 #import "ServerDetailViewController.h"
@@ -132,7 +133,11 @@
 		textField.delegate = self;
     }
     
+	textField.text = server.name;
+	
 	// TODO: verify resize screen
+	
+	// TODO: building progress
 	
     // Configure the cell...
 	cell.textLabel.text = @"";
@@ -261,8 +266,13 @@
 	
 	NSLog(@"Server Name: %@", server.name);
 	
-	if ([server.name isEqualToString:@""]) {
+	
+	if (server.name == nil || [server.name isEqualToString:@""]) {
 		[self alert:@"Error" message:@"Please enter a server name."];
+	} else if (server.flavorId == 0) {
+		[self alert:@"Error" message:@"Please select a flavor."];
+	} else if (server.imageId == 0) {
+		[self alert:@"Error" message:@"Please select an image."];
 	} else {
 		//createServerFinished
 		[self showSpinnerView:@"Creating..."];

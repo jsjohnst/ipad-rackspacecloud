@@ -12,6 +12,7 @@
 
 @interface AddServerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
 	UITextField *textField;
+	UISlider *slider;
 	ASICloudServersServer *server;
 	ServerDetailViewController *serverDetailViewController;
 }
