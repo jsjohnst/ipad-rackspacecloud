@@ -49,11 +49,22 @@
 @synthesize tableView;
 @synthesize server;
 @synthesize logoImageView, backgroundImageView;
+@synthesize noServersView, noServersImage, noServersTitle, noServersMessage;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
+    }
+    return self;
+}
+
+-(id)initWithNoServersView {
+    if ((self = [super initWithNibName:@"ServerDetailViewController" bundle:nil])) {
+        // Custom initialization
+		//self.view.hidden = YES;
+		noServersView.hidden = NO;
+		[self.view bringSubviewToFront:self.noServersView];
     }
     return self;
 }
@@ -139,7 +150,17 @@
 #pragma mark Table View Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 6;
+	if (server) {
+		return 6;
+	} else {
+		// show No Servers View
+		self.logoImageView.image = nil;
+		self.backgroundImageView.image = nil;
+		self.tableView.backgroundView = nil;
+		noServersView.hidden = NO;
+		[self.view bringSubviewToFront:self.noServersView];
+		return 0;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -389,16 +410,37 @@
     return YES;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+	
+	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		self.noServersImage.frame = CGRectMake(102, 37, 500, 500);
+		self.noServersTitle.frame = CGRectMake(301, 567, 102, 22);
+		self.noServersMessage.frame = CGRectMake(196, 623, 323, 21);
+	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+		self.noServersImage.frame = CGRectMake(134, 180, 500, 500);
+		self.noServersTitle.frame = CGRectMake(333, 710, 102, 22);
+		self.noServersMessage.frame = CGRectMake(228, 766, 323, 21);
+	}
+}
 
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad {
- [super viewDidLoad];
- }
- */
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		// 704
+		
+		//self.noServersImage.frame = CGRectMake(102, 134, 500, 500);
+	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+		self.noServersImage.frame = CGRectMake(102, 37, 500, 500);
+		self.noServersTitle.frame = CGRectMake(301, 567, 102, 22);
+		self.noServersMessage.frame = CGRectMake(196, 623, 323, 21);
+		
+	}
+	
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -451,6 +493,11 @@
 	
 	[logoImageView release];
 	[backgroundImageView release];
+	
+	[noServersView release];
+	[noServersImage release];
+	[noServersTitle release];
+	[noServersMessage release];
 	
     [super dealloc];
 }

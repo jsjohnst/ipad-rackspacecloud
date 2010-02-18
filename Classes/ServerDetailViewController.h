@@ -16,6 +16,11 @@
 	UINavigationBar *navigationBar;
 	
 	IBOutlet UITableView *tableView;
+
+	IBOutlet UIView *noServersView;
+	IBOutlet UIImageView *noServersImage;
+	IBOutlet UILabel *noServersTitle;
+	IBOutlet UILabel *noServersMessage;
 	
 	id detailItem;
 	
@@ -28,6 +33,10 @@
 @property (nonatomic, retain) UIPopoverController *popoverController;
 @property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UIView *noServersView;
+@property (nonatomic, retain) IBOutlet UIImageView *noServersImage;
+@property (nonatomic, retain) IBOutlet UILabel *noServersTitle;
+@property (nonatomic, retain) IBOutlet UILabel *noServersMessage;
 @property (nonatomic, retain) ASICloudServersServer *server;
 
 @property (nonatomic, retain) id detailItem;
@@ -36,5 +45,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;
 
 -(void)addButtonPressed:(id)sender;
+-(id)initWithNoServersView;
 
 @end

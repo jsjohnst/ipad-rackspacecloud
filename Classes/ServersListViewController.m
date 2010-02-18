@@ -20,6 +20,8 @@
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
+// TODO: pre-select a server if one is not selected.  if one is, be sure to highlight the proper row
+
 - (void)listServersFinished:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
 	NSLog(@"GET /servers: %i", [request responseStatusCode]);
@@ -29,6 +31,17 @@
 		[servers release];
 		servers = [[NSMutableArray alloc] initWithArray:[request servers]];		
 		[self.tableView reloadData];
+		
+		if ([servers count] == 0) {
+			ServerDetailViewController *vc = [[ServerDetailViewController alloc] initWithNoServersView];
+			vc.detailItem = @"Server Details";
+			
+			RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+			
+			app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+			app.splitViewController.delegate = vc;			
+		}
+		
 	} else {
 		// TODO: deal with it
 	}
