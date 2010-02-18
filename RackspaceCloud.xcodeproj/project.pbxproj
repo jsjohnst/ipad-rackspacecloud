@@ -14,6 +14,7 @@
 		273C74AE11249C48005F36C3 /* CloudServersActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */; };
 		273C75721125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */; };
 		273C75751125ED37005F36C3 /* ASICloudServersBackupSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */; };
+		273C7D14112CC832005F36C3 /* servers500.png in Resources */ = {isa = PBXBuildFile; fileRef = 273C7D13112CC832005F36C3 /* servers500.png */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -146,6 +147,7 @@
 		273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersBackupScheduleXMLParserDelegate.m; sourceTree = "<group>"; };
 		273C75731125ED37005F36C3 /* ASICloudServersBackupSchedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersBackupSchedule.h; sourceTree = "<group>"; };
 		273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersBackupSchedule.m; sourceTree = "<group>"; };
+		273C7D13112CC832005F36C3 /* servers500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = servers500.png; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -343,6 +345,14 @@
 				1D6058910D05DD3D006BFB54 /* RackspaceCloud.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		273C7D12112CC826005F36C3 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				273C7D13112CC832005F36C3 /* servers500.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 		2757F4831121056B00C55ED8 /* Servers */ = {
@@ -729,6 +739,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources-iPad */ = {
 			isa = PBXGroup;
 			children = (
+				273C7D12112CC826005F36C3 /* Icons */,
 				27D66C0D11126C4400654554 /* Custom Table Cells */,
 				27D66789111159B100654554 /* Operating System Logos */,
 				27D66788111159A800654554 /* Rackspace Logos */,
@@ -866,6 +877,7 @@
 				27B445E611228E72008A3BA6 /* RebuildServerViewController.xib in Resources */,
 				27B4474211229E80008A3BA6 /* SpinnerViewController.xib in Resources */,
 				27B448BF1123B11D008A3BA6 /* ContainerRootViewController.xib in Resources */,
+				273C7D14112CC832005F36C3 /* servers500.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
