@@ -17,10 +17,10 @@
 
 @implementation ServersListViewController
 
+@synthesize serverDetailViewController;
+
 #pragma mark -
 #pragma mark HTTP Response Handlers
-
-// TODO: pre-select a server if one is not selected.  if one is, be sure to highlight the proper row
 
 - (void)listServersFinished:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
@@ -33,13 +33,26 @@
 		[self.tableView reloadData];
 		
 		if ([servers count] == 0) {
-			ServerDetailViewController *vc = [[ServerDetailViewController alloc] initWithNoServersView];
-			vc.detailItem = @"Server Details";
-			
+			if (serverDetailViewController != nil) {
+				[serverDetailViewController release];
+			}
+			serverDetailViewController = [[ServerDetailViewController alloc] initWithNoServersView];
+			serverDetailViewController.detailItem = @"Server Details";
 			RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+			app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
+			app.splitViewController.delegate = serverDetailViewController;			
+		} else {
+			if (serverDetailViewController != nil) {
+				[serverDetailViewController release];
+			}
+			serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
+			serverDetailViewController.detailItem = @"Server Details";
+			serverDetailViewController.server = [servers objectAtIndex:0];
+			RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+			app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
+			app.splitViewController.delegate = serverDetailViewController;
 			
-			app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-			app.splitViewController.delegate = vc;			
+			[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 		}
 		
 	} else {
@@ -64,6 +77,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	serverDetailViewController = nil;
+	
 	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadServers)];
 	refreshButton.style = UIBarStyleBlackOpaque;
 	refreshButton.enabled = YES;
@@ -122,24 +137,30 @@
 	ASICloudServersServer *server = [servers objectAtIndex:indexPath.row];
 	cell.textLabel.text = server.name;
 	cell.imageView.image = [ASICloudServersImage iconForImageId:server.imageId];
-    
+
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	ServerDetailViewController *vc = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
-	vc.detailItem = @"Server Details";
-	vc.server = [servers objectAtIndex:indexPath.row];
+	if (serverDetailViewController != nil) {
+		[serverDetailViewController release];
+	}
+	serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
+	serverDetailViewController.detailItem = @"Server Details";
+	serverDetailViewController.server = [servers objectAtIndex:indexPath.row];
 	
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 	
-    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-	app.splitViewController.delegate = vc;
+    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
+	app.splitViewController.delegate = serverDetailViewController;
 }
 
 - (void)dealloc {
 	[servers release];
+	if (serverDetailViewController != nil) {
+		[serverDetailViewController release];
+	}
     [super dealloc];
 }
 

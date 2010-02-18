@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class ServerDetailViewController;
 
 @interface ServersListViewController : UITableViewController {
 	NSMutableArray *servers;
+	ServerDetailViewController *serverDetailViewController;
 }
+
+@property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;
 
 @end
