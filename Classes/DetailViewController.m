@@ -291,7 +291,7 @@
 	titleLabel.text = item.title;
 	
 	UILabel *bodyLabel = (UILabel *) [cell viewWithTag:kBodyTag];
-	bodyLabel.text = item.description;
+	bodyLabel.text = item.content; // item.description;
 	
 	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
 	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
@@ -305,7 +305,7 @@
 	titleLabel.frame = titleRect;
 	
 	CGFloat originalBodyHeight = bodyLabel.frame.size.height;
-	CGFloat bodyHeight = [[self class] findLabelHeight:item.description font:bodyLabel.font label:bodyLabel];
+	CGFloat bodyHeight = 500.0; //[[self class] findLabelHeight:item.description font:bodyLabel.font label:bodyLabel];
 	
 	CGRect subtitleRect = bodyLabel.frame;
 	subtitleRect.origin.y += titleHeight - originalTitleHeight;
@@ -327,7 +327,8 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	// might be slower to make the extra cellForRowAtIndexPath call, but it's flexible and DRY
-	return ((UITableViewCell *)[self tableView:aTableView cellForRowAtIndexPath:indexPath]).frame.size.height;
+	return 700.0;
+	//return ((UITableViewCell *)[self tableView:aTableView cellForRowAtIndexPath:indexPath]).frame.size.height;
 }
 
 #pragma mark -

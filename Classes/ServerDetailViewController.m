@@ -237,6 +237,8 @@
 		} else if (indexPath.row == 1) {
 			cell.textLabel.text = @"Status";
 			cell.detailTextLabel.text = server.status;
+			// TODO: if build or resize, show progress bar
+			
 		} else if (indexPath.row == 2) {
 			cell.textLabel.text = @"Host ID";
 			cell.detailTextLabel.text = server.hostId;

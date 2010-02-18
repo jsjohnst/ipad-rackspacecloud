@@ -78,6 +78,9 @@
 	} else if ([elementName isEqualToString:@"entry"]) {
 		self.feedItem = [[FeedItem alloc] init];
 		parsingItem = YES;
+	} else if ([elementName isEqualToString:@"content"]) {
+        self.feedItem.content = @"";
+        parsingContent = YES;
 	}
 }
 
@@ -99,12 +102,22 @@
 	} else if ([elementName isEqualToString:@"summary"]) {
 		feedItem.description = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	} else if ([elementName isEqualToString:@"content"]) {
-		feedItem.content = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		//feedItem.content = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSLog(@"content = %@", feedItem.content);
+        parsingContent = NO;        
 	} else if ([elementName isEqualToString:@"name"]) {
 		feedItem.creator = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	} else if ([elementName isEqualToString:@"published"]) {
 		feedItem.pubDate = [self dateFromString:[currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+	}
 	
+	if (parsingContent) {
+	    if ([elementName isEqualToString:@"div"]) {
+	        // the div is just a wrapper for the rackcloud status item
+	    } else if ([elementName isEqualToString:@"p"]) {
+            NSString *newLine = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            feedItem.content = [feedItem.content stringByAppendingString:[NSString stringWithFormat:@"\n%@", newLine]];
+	    }
 	}
 	
 	[currentElementValue release];
