@@ -8,9 +8,8 @@
 
 // TODO: correct off-black in login screen background graphic
 
-// TODO: ping server:
+// TODO: ping server, open in safari, copy in clipboard, email IP address
 // http://just-ping.com/index.php?vh=173.203.226.198&s=ping
-// TODO: also for IP: open in safari, copy in clipboard, email IP address
 
 #import "ServerDetailViewController.h"
 #import "MasterViewController.h"
@@ -228,12 +227,9 @@
 	
 	cell.textLabel.text = @"Status";
     cell.detailTextLabel.text = [server humanizedStatus];
-	
-	// TODO: use NSStrings+Rubyisms to capitalize/humanize
-	// TODO: get full list of statuses and convert to verbs?
-	
+	/*
 	if ([server.status isEqualToString:@"BUILD"]) { //} || [server.status isEqualToString:@"RESIZE"]) {
-	    // TODO: if build or resize, show progress bar
+	    // perhaps no progress bar and just use humanized percentage?
 		UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
 		CGRect r = progressView.frame;
 		r.origin.x += 175;
@@ -252,7 +248,7 @@
             [request startAsynchronous];            
         }
 	}
-	
+	*/
     return cell;
 }
 
@@ -404,7 +400,6 @@
 		[vc release];
 		
 	} else if (indexPath.section == kPrivateIPSection) {
-		// TODO: popover with copy, and email
 	}
 }
 
