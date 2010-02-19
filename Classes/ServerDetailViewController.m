@@ -227,9 +227,10 @@
 	
 	cell.textLabel.text = @"Status";
     cell.detailTextLabel.text = [server humanizedStatus];
-	/*
+	
 	if ([server.status isEqualToString:@"BUILD"]) { //} || [server.status isEqualToString:@"RESIZE"]) {
 	    // perhaps no progress bar and just use humanized percentage?
+		/*
 		UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
 		CGRect r = progressView.frame;
 		r.origin.x += 175;
@@ -239,7 +240,7 @@
 		progressView.progress = self.server.progress * 0.01;
 		[cell addSubview:progressView];
         [progressView release];
-        
+        */
         if (self.server.progress < 100) {
             ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
             [request setDelegate:self];
@@ -248,7 +249,7 @@
             [request startAsynchronous];            
         }
 	}
-	*/
+
     return cell;
 }
 

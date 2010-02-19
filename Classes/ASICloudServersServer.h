@@ -23,8 +23,9 @@
 	NSString *adminPass;
 }
 
-+ (id)server;
-- (NSString *)toXML;
++(id)server;
+-(NSString *)toXML;
+-(NSString *)humanizedStatus;
 
 @property (assign) NSUInteger serverId;
 @property (retain) NSString *name;
