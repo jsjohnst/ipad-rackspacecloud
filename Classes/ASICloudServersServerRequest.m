@@ -62,6 +62,23 @@
 }
 
 #pragma mark -
+#pragma mark GET - Server Details
+
++ (id)getServerRequest:(NSUInteger)serverId {
+	NSString *now = [[[NSDate date] description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *urlString = [NSString stringWithFormat:@"%@/servers/%i.xml?now=%@", [ASICloudFilesRequest serverManagementURL], serverId, now];
+	ASICloudServersServerRequest *request = [[[ASICloudServersServerRequest alloc] initWithURL:[NSURL URLWithString:urlString]] autorelease];
+	[request setRequestMethod:@"GET"];
+	[request addRequestHeader:@"X-Auth-Token" value:[ASICloudFilesRequest authToken]];
+	return request;    
+}
+
+- (ASICloudServersServer *)server {
+    return [[self servers] objectAtIndex:0];
+}
+
+
+#pragma mark -
 #pragma mark POST - Create Server
 
 + (id)createServerRequest:(ASICloudServersServer *)server {

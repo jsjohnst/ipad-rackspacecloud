@@ -23,6 +23,10 @@
 + (id)listRequest;
 - (NSArray *)servers;
 
+// GET /servers/id
++ (id)getServerRequest:(NSUInteger)serverId;
+- (ASICloudServersServer *)server;
+
 // POST /servers
 // Create a server
 + (id)createServerRequest:(ASICloudServersServer *)server;

@@ -6,7 +6,6 @@
 //  Copyright Apple Inc 2010. All rights reserved.
 //
 
-// TODO: default view for when there are no servers
 // TODO: correct off-black in login screen background graphic
 
 // TODO: ping server:
@@ -130,6 +129,20 @@
 	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"deleting your server"];
 }
 
+-(void)getServerRequestFinished:(ASICloudServersServerRequest *)request {
+	NSLog(@"Poll Server Response: %i - Progress: %i", [request responseStatusCode], [request server].progress);
+	if ([request isSuccess]) {
+        self.server = [request server];
+	}
+    [self.tableView reloadData];
+}
+
+-(void)getServerRequestFailed:(ASICloudServersServerRequest *)request {
+    NSLog(@"Poll Server Failed");
+    [self.tableView reloadData]; // keep polling!
+}
+
+
 #pragma mark -
 #pragma mark Managing the popover controller
 
@@ -205,6 +218,43 @@
 	return @"Actions";
 }
 
+- (UITableViewCell *)tableView:(UITableView *)aTableView statusCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *CellIdentifier = @"StatusCell";
+	UITableViewCell *cell = (UITableViewCell *) [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+	
+	cell.textLabel.text = @"Status";
+    cell.detailTextLabel.text = [server humanizedStatus];
+	
+	// TODO: use NSStrings+Rubyisms to capitalize/humanize
+	// TODO: get full list of statuses and convert to verbs?
+	
+	if ([server.status isEqualToString:@"BUILD"]) { //} || [server.status isEqualToString:@"RESIZE"]) {
+	    // TODO: if build or resize, show progress bar
+		UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+		CGRect r = progressView.frame;
+		r.origin.x += 175;
+		r.origin.y += 18;
+		r.size.width -= 35;
+		progressView.frame = r;		
+		progressView.progress = self.server.progress * 0.01;
+		[cell addSubview:progressView];
+        [progressView release];
+        
+        if (self.server.progress < 100) {
+            ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
+            [request setDelegate:self];
+            [request setDidFinishSelector:@selector(getServerRequestFinished:)];
+            [request setDidFailSelector:@selector(getServerRequestFailed:)];
+            [request startAsynchronous];            
+        }
+	}
+	
+    return cell;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
@@ -218,7 +268,6 @@
 	UITableViewCell *cell = (UITableViewCell *) [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-		//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 
@@ -235,10 +284,7 @@
 			cell.textLabel.text = @"Server Name";
 			cell.detailTextLabel.text = server.name;
 		} else if (indexPath.row == 1) {
-			cell.textLabel.text = @"Status";
-			cell.detailTextLabel.text = server.status;
-			// TODO: if build or resize, show progress bar
-			
+            return [self tableView:tableView statusCellForRowAtIndexPath:indexPath];			
 		} else if (indexPath.row == 2) {
 			cell.textLabel.text = @"Host ID";
 			cell.detailTextLabel.text = server.hostId;
