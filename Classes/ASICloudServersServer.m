@@ -62,13 +62,13 @@
         status = @"Suspended";
     } else if ([status isEqualToString:@"QUEUE_RESIZE"]) {
         //pv.progress = ([self.server.progress intValue] / 3.0 * 0.01);
-        status = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress];
+        status = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress / 3];
     } else if ([status isEqualToString:@"PREP_RESIZE"]) {
         //pv.progress = 0.333 + (([self.server.progress intValue] / 3.0) * 0.01);
-        status = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress];
+        status = [NSString stringWithFormat:@"Resizing... (%i%%)", 33 + (self.progress / 3)];
     } else if ([status isEqualToString:@"RESIZE"]) {
         //pv.progress = 0.667 + (([self.server.progress intValue] / 3.0) * 0.01);
-        status = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress];
+        status = [NSString stringWithFormat:@"Resizing... (%i%%)", 67 + (self.progress / 3)];
     } else if ([status isEqualToString:@"VERIFY_RESIZE"]) {
         status = @"Resize Complete"
     } else if ([status isEqualToString:@"PASSWORD"]) {
