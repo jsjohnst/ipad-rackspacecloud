@@ -12,6 +12,7 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "AuthenticationViewController.h"
+#import "NSString+Rubyisms.h"
 
 
 @implementation RackspaceCloudAppDelegate

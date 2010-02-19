@@ -48,44 +48,44 @@
 }
 
 -(NSString *)humanizedStatus {
-    NSString *status = self.status;
+    NSString *theStatus = self.status;
     
     // Servers with an ACTIVE status are available for use. Other possible values for the status attribute include: 
     // BUILD, REBUILD, SUSPENDED, QUEUE_RESIZE, PREP_RESIZE, RESIZE, VERIFY_RESIZE, PASSWORD, RESCUE, REBOOT, HARD_REBOOT, SHARE_IP, SHARE_IP_NO_CONFIG, DELETE_IP, and UNKNOWN
-    if ([status isEqualToString:@"ACTIVE"]) {
-        status = @"Active";
-    } else if ([status isEqualToString:@"BUILD"]) {
-        status = [NSString stringWithFormat:@"Building... (%i%%)", self.progress];
-    } else if ([status isEqualToString:@"REBUILD"]) {
-        status = [NSString stringWithFormat:@"Rebuilding... (%i%%)", self.progress];
-    } else if ([status isEqualToString:@"SUSPENDED"]) {
-        status = @"Suspended";
-    } else if ([status isEqualToString:@"QUEUE_RESIZE"]) {
+    if ([theStatus isEqualToString:@"ACTIVE"]) {
+        theStatus = @"Active";
+    } else if ([theStatus isEqualToString:@"BUILD"]) {
+        theStatus = [NSString stringWithFormat:@"Building... (%i%%)", self.progress];
+    } else if ([theStatus isEqualToString:@"REBUILD"]) {
+        theStatus = [NSString stringWithFormat:@"Rebuilding... (%i%%)", self.progress];
+    } else if ([theStatus isEqualToString:@"SUSPENDED"]) {
+        theStatus = @"Suspended";
+    } else if ([theStatus isEqualToString:@"QUEUE_RESIZE"]) {
         //pv.progress = ([self.server.progress intValue] / 3.0 * 0.01);
-        status = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress / 3];
-    } else if ([status isEqualToString:@"PREP_RESIZE"]) {
+        theStatus = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress / 3];
+    } else if ([theStatus isEqualToString:@"PREP_RESIZE"]) {
         //pv.progress = 0.333 + (([self.server.progress intValue] / 3.0) * 0.01);
-        status = [NSString stringWithFormat:@"Resizing... (%i%%)", 33 + (self.progress / 3)];
-    } else if ([status isEqualToString:@"RESIZE"]) {
+        theStatus = [NSString stringWithFormat:@"Resizing... (%i%%)", 33 + (self.progress / 3)];
+    } else if ([theStatus isEqualToString:@"RESIZE"]) {
         //pv.progress = 0.667 + (([self.server.progress intValue] / 3.0) * 0.01);
-        status = [NSString stringWithFormat:@"Resizing... (%i%%)", 67 + (self.progress / 3)];
-    } else if ([status isEqualToString:@"VERIFY_RESIZE"]) {
-        status = @"Resize Complete"
-    } else if ([status isEqualToString:@"PASSWORD"]) {
-        status = @"Changing Password";
-    } else if ([status isEqualToString:@"RESCUE"]) {
-        status = @"Rescue Mode";
-    } else if ([status isEqualToString:@"REBOOT"]) {
-        status = @"Rebooting...";
-    } else if ([status isEqualToString:@"HARD_REBOOT"]) {
-        status = @"Rebooting...";
-    } else if ([status isEqualToString:@"SHARE_IP"]) {
-    } else if ([status isEqualToString:@"SHARE_IP_NO_CONFIG"]) {
-    } else if ([status isEqualToString:@"DELETE_IP"]) {
-    } else if ([status isEqualToString:@"UNKNOWN"]) {
-        status = @"Unknown";
+        theStatus = [NSString stringWithFormat:@"Resizing... (%i%%)", 67 + (self.progress / 3)];
+    } else if ([theStatus isEqualToString:@"VERIFY_RESIZE"]) {
+        theStatus = @"Resize Complete";
+    } else if ([theStatus isEqualToString:@"PASSWORD"]) {
+        theStatus = @"Changing Password";
+    } else if ([theStatus isEqualToString:@"RESCUE"]) {
+        theStatus = @"Rescue Mode";
+    } else if ([theStatus isEqualToString:@"REBOOT"]) {
+        theStatus = @"Rebooting...";
+    } else if ([theStatus isEqualToString:@"HARD_REBOOT"]) {
+        theStatus = @"Rebooting...";
+    } else if ([theStatus isEqualToString:@"SHARE_IP"]) {
+    } else if ([theStatus isEqualToString:@"SHARE_IP_NO_CONFIG"]) {
+    } else if ([theStatus isEqualToString:@"DELETE_IP"]) {
+    } else if ([theStatus isEqualToString:@"UNKNOWN"]) {
+        theStatus = @"Unknown";
     }
-    return status;
+    return theStatus;
 }
 
 -(void) dealloc {
