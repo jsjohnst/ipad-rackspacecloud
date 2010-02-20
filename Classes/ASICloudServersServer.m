@@ -47,6 +47,20 @@
 	return xml;
 }
 
+-(NSUInteger)humanizedProgress {
+	NSUInteger p = self.progress;
+	
+	if ([self.status isEqualToString:@"QUEUE_RESIZE"]) {
+		p = p / 3;
+	} else if ([self.status isEqualToString:@"PREP_RESIZE"]) {
+		p = 33 + p / 3;
+	} else if ([self.status isEqualToString:@"RESIZE"]) {
+		p = 67 + p / 3;
+	}
+	
+	return p;
+}
+
 -(NSString *)humanizedStatus {
     NSString *theStatus = self.status;
     
@@ -57,18 +71,15 @@
     } else if ([theStatus isEqualToString:@"BUILD"]) {
         theStatus = @"Building..."; //[NSString stringWithFormat:@"Building... (%i%%)", self.progress];
     } else if ([theStatus isEqualToString:@"REBUILD"]) {
-        theStatus = [NSString stringWithFormat:@"Rebuilding... (%i%%)", self.progress];
+		theStatus = @"Rebuilding...";
     } else if ([theStatus isEqualToString:@"SUSPENDED"]) {
         theStatus = @"Suspended";
     } else if ([theStatus isEqualToString:@"QUEUE_RESIZE"]) {
-        //pv.progress = ([self.server.progress intValue] / 3.0 * 0.01);
-        theStatus = [NSString stringWithFormat:@"Resizing... (%i%%)", self.progress / 3];
+		theStatus = @"Resizing...";
     } else if ([theStatus isEqualToString:@"PREP_RESIZE"]) {
-        //pv.progress = 0.333 + (([self.server.progress intValue] / 3.0) * 0.01);
-        theStatus = [NSString stringWithFormat:@"Resizing... (%i%%)", 33 + (self.progress / 3)];
+		theStatus = @"Resizing...";
     } else if ([theStatus isEqualToString:@"RESIZE"]) {
-        //pv.progress = 0.667 + (([self.server.progress intValue] / 3.0) * 0.01);
-        theStatus = [NSString stringWithFormat:@"Resizing... (%i%%)", 67 + (self.progress / 3)];
+		theStatus = @"Resizing...";
     } else if ([theStatus isEqualToString:@"VERIFY_RESIZE"]) {
         theStatus = @"Resize Complete";
     } else if ([theStatus isEqualToString:@"PASSWORD"]) {
@@ -89,7 +100,7 @@
 }
 
 -(BOOL)shouldBePolled {	
-	return ([status isEqualToString:@"BUILD"] || [status isEqualToString:@"UNKNOWN"] || [status isEqualToString:@"RESIZE"] || [status isEqualToString:@"QUEUE_RESIZE"] || [status isEqualToString:@"PREP_RESIZE"]);
+	return ([status isEqualToString:@"BUILD"] || [status isEqualToString:@"UNKNOWN"] || [status isEqualToString:@"RESIZE"] || [status isEqualToString:@"QUEUE_RESIZE"] || [status isEqualToString:@"PREP_RESIZE"] || [status isEqualToString:@"REBUILD"]);
 }
 
 -(void) dealloc {

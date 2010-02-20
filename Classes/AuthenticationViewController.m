@@ -97,6 +97,7 @@
 }
 
 -(void)hideSpinners {
+	self.smallAuthenticatingLabel.text = @"";
 	self.smallAuthenticatingLabel.hidden = YES;
 	[self.smallSpinner stopAnimating];
 }
@@ -166,7 +167,7 @@
 		[self loadFlavors];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading flavors"];
-		self.smallAuthenticatingLabel.text = @"";
+		[self hideSpinners];
 	}
 }
 
@@ -183,7 +184,7 @@
 		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading images"];
-		self.smallAuthenticatingLabel.text = @"";
+		[self hideSpinners];
 	}
 	
 }
@@ -199,7 +200,7 @@
 		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"authenticating"];
-		self.smallAuthenticatingLabel.text = @"";
+		[self hideSpinners];
 	}	
 }
 

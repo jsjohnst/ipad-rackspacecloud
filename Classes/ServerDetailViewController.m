@@ -71,6 +71,15 @@
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
+-(void)loadServer {
+	//[self request:[ASICloudServersServerRequest getServerRequest:self.server.serverId] behavior:@"retrieving your server" success:@selector(getServerSuccess:) showSpinner:NO];
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(getServerRequestFinished:)];
+	[request setDidFailSelector:@selector(getServerRequestFailed:)];
+	[request startAsynchronous];	
+}
+
 - (void)listBackupScheduleFinished:(ASICloudServersServerRequest *)request {
 	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
 	//[self hideSpinnerView];
@@ -101,7 +110,8 @@
 }
 
 -(void)getServerRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Poll Server Response: %i - Progress: %i", [request responseStatusCode], [request server].progress);
+	// TODO: tell jorge about weird bug where REBUILD progress starts at 100 and goes back to 0
+	NSLog(@"Poll Server Response: %i - %@ Progress: %i", [request responseStatusCode], [request server].status, [request server].progress);
 	if ([request isSuccess]) {
         self.server = [request server];
 	}
@@ -123,9 +133,11 @@
 }
 
 - (void)moveProgress {
-	if (progressView.progress < self.server.progress * 0.01) {
+	if (progressView.progress < [self.server humanizedProgress] * 0.01) {
 		progressView.progress += 0.01;
-	} else if (progressView.progress >= self.server.progress * 0.01) {
+	} else if (progressView.progress > [self.server humanizedProgress] * 0.01) {
+		progressView.progress = [self.server humanizedProgress] * 0.01;
+	} else if (progressView.progress == [self.server humanizedProgress] * 0.01) {
 		[progressTimer invalidate];
 		progressTimer = nil;
 	}
@@ -221,29 +233,6 @@
 	cell.textLabel.text = @"Status";
     cell.detailTextLabel.text = [server humanizedStatus];
 
-	// TODO: if status is VERIFY_RESIZE, present modal dialog to verify resize
-	/*
-	if ([server shouldBePolled]) {
-	    // perhaps no progress bar and just use humanized percentage?
-		if (progressView == nil) {
-			progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-			CGRect r = progressView.frame;
-			r.origin.x += 175;
-			r.origin.y += 18;
-			r.size.width += 230;
-			progressView.frame = r;		
-			[cell addSubview:progressView];
-		}
-		[self animateProgressBarTo:self.server.progress * 0.01];
-
-        //[self request:[ASICloudServersServerRequest getServerRequest:self.server.serverId] behavior:@"retrieving your server" success:@selector(getServerSuccess:) showSpinner:NO];
-        ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
-        [request setDelegate:self];
-        [request setDidFinishSelector:@selector(getServerRequestFinished:)];
-        [request setDidFailSelector:@selector(getServerRequestFailed:)];
-        [request startAsynchronous];            
-	}
-	 */
     return cell;
 }
 
@@ -267,14 +256,13 @@
 			progressView.frame = r;		
 			[cell addSubview:progressView];
 		}
-		[self animateProgressBarTo:self.server.progress * 0.01];
 		
-        //[self request:[ASICloudServersServerRequest getServerRequest:self.server.serverId] behavior:@"retrieving your server" success:@selector(getServerSuccess:) showSpinner:NO];
-        ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
-        [request setDelegate:self];
-        [request setDidFinishSelector:@selector(getServerRequestFinished:)];
-        [request setDidFailSelector:@selector(getServerRequestFailed:)];
-        [request startAsynchronous];            
+		// looks weird when you animate the unknown status, since it has 100% progress
+		if (![server.status isEqualToString:@"UNKNOWN"]) {
+			[self animateProgressBarTo:[self.server humanizedProgress] * 0.01];
+		}
+
+		[self loadServer];
 	}
 	
     return cell;

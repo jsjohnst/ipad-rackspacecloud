@@ -23,7 +23,7 @@
 
 -(void)serverRenameSuccess:(ASICloudServersServerRequest *)request {
 	self.serverDetailViewController.server.name = textField.text;
-	[self.serverDetailViewController.tableView reloadData];
+	[self.serverDetailViewController loadServer];
 	[self dismissModalViewControllerAnimated:YES];
 }
 

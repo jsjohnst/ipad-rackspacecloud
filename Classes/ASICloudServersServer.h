@@ -25,6 +25,7 @@
 
 +(id)server;
 -(NSString *)toXML;
+-(NSUInteger)humanizedProgress;
 -(NSString *)humanizedStatus;
 -(BOOL)shouldBePolled;
 

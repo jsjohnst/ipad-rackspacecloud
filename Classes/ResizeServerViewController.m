@@ -26,6 +26,7 @@
 	NSLog(@"Resize response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
 	if ([request isSuccess]) {
+		[self.serverDetailViewController loadServer];
 		[self dismissModalViewControllerAnimated:YES];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resizing your server"];

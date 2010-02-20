@@ -53,5 +53,7 @@
 
 -(void)addButtonPressed:(id)sender;
 -(id)initWithNoServersView;
+-(void)loadServer;
+
 
 @end
