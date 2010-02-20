@@ -83,6 +83,11 @@
 #pragma mark -
 #pragma mark Rotation support
 
+- (void)orientationDidChange:(NSNotification *)notification {
+	// reload the table view to correct UILabel widths
+	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self.tableView selector:@selector(reloadData) userInfo:nil repeats:NO];	
+}
+
 // Ensure that the view controller supports rotation and that the split view can therefore show in both portrait and landscape.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
@@ -130,7 +135,7 @@
 		[self appendFeedItems:rssParser.feedItems];
 	}
 	
-	NSLog(@"Servers Feed Item Count: %i", [self.serversFeedItems count]);
+	//NSLog(@"Servers Feed Item Count: %i", [self.serversFeedItems count]);
 	
 	[rssParser release];
 	[xmlParser release];
@@ -138,7 +143,7 @@
 }
 
 - (void)serversStatusRequestFailed:(ASIHTTPRequest *)request {
-	NSLog(@"Servers Status Request FAIL");
+	//NSLog(@"Servers Status Request FAIL");
 }
 
 - (void)filesStatusRequestFinished:(ASIHTTPRequest *)request {
@@ -151,7 +156,7 @@
 		[self appendFeedItems:rssParser.feedItems];
 	}	
 	
-	NSLog(@"Files Feed Item Count: %i", [self.filesFeedItems count]);
+	//NSLog(@"Files Feed Item Count: %i", [self.filesFeedItems count]);
 	
 	[rssParser release];
 	[xmlParser release];
@@ -159,7 +164,7 @@
 }
 
 - (void)filesStatusRequestFailed:(ASIHTTPRequest *)request {
-	NSLog(@"Files Status Request FAIL");
+	//NSLog(@"Files Status Request FAIL");
 }
 
 - (void)sitesStatusRequestFinished:(ASIHTTPRequest *)request {
@@ -172,7 +177,7 @@
 		[self appendFeedItems:atomParser.feedItems];
 	}
 	
-	NSLog(@"Sites Feed Item Count: %i", [self.sitesFeedItems count]);
+	//NSLog(@"Sites Feed Item Count: %i", [self.sitesFeedItems count]);
 	
 	[atomParser release];
 	[xmlParser release];	
@@ -180,7 +185,7 @@
 }
 
 - (void)sitesStatusRequestFailed:(ASIHTTPRequest *)request {
-	NSLog(@"Sites Status Request FAIL");
+	//NSLog(@"Sites Status Request FAIL");
 }
 
 
@@ -191,6 +196,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	tableView.backgroundView = nil;
+	
+	// register for rotation events to keep the rss feed width correct
+	[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(orientationDidChange:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -248,7 +256,7 @@
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    NSLog(@"String size height = %f, text = %@", stringSize.height, text);
+    NSLog(@"String size height = %f", stringSize.height);
     return stringSize.height;
 }
 
