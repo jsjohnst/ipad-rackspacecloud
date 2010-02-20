@@ -2924,7 +2924,7 @@ static BOOL isiPhoneOS2;
 #pragma mark Utilities
 
 - (BOOL)isSuccess {
-	return 200 <= [self responseStatusCode] <= 299;
+	return (200 <= [self responseStatusCode]) && ([self responseStatusCode] <= 299);
 }
 
 

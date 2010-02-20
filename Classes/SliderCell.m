@@ -21,7 +21,11 @@
 		
 		// place the text field where the text label belongs	
 		CGRect rect = CGRectInset(self.contentView.bounds, 18, 12);
-		rect.size.width += 220; // to account for ipad modal width
+		//rect.size.width += 220; // to account for ipad modal width
+		
+		rect.size.width = self.contentView.frame.size.width + 50;
+		
+		
 		//rect.origin.x += 75;
 		//rect.size.width -= 75; // to prevent scrolling off the side
 		//rect.size.height

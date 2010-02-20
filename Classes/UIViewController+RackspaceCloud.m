@@ -40,6 +40,7 @@
             [invocation invoke];
         }		
 	} else {
+		[self hideSpinnerView];	
         [self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
 	}    
 }
