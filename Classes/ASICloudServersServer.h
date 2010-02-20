@@ -26,6 +26,7 @@
 +(id)server;
 -(NSString *)toXML;
 -(NSString *)humanizedStatus;
+-(BOOL)shouldBePolled;
 
 @property (assign) NSUInteger serverId;
 @property (retain) NSString *name;

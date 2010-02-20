@@ -28,7 +28,7 @@
 #import "RebuildServerViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "ASICloudServersServerRequest.h"
-
+#import "UIViewController+RackspaceCloud.h"
 
 #import "ServersListViewController.h"
 
@@ -73,39 +73,16 @@
 
 - (void)listBackupScheduleFinished:(ASICloudServersServerRequest *)request {
 	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
-	[self hideSpinnerView];
-	
-	if ([request responseStatusCode] == 204) {
-		//self.serverDetailViewController.server.name = textField.text;
-		//[self.serverDetailViewController.tableView reloadData];
-		//[self dismissModalViewControllerAnimated:YES];
-	} else {
-		NSString *title = @"Error";
-		NSString *errorMessage = @"There was a problem renaming your server.";
-		switch ([request responseStatusCode]) {
-			case 400: // cloudServersFault
-				break;
-			case 500: // cloudServersFault
-				break;
-			case 503:
-				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
-				break;				
-			case 401:
-				title = @"Authentication Failure";
-				errorMessage = @"Please check your User Name and API Key.";
-				break;
-			case 409:
-				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
-				break;
-			case 413:
-				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
-				break;
-			default:
-				break;
-		}
-		
-		[self alert:title message:errorMessage];
-	}
+	//[self hideSpinnerView];
+
+    if (![request isSuccess]) {
+        // TODO: try again up to three times?
+        [self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"retreiving all of your server details"];
+    }	
+}
+
+-(void)deleteServerSuccess:(ASICloudServersServerRequest *)request {
+    [self.serversListViewController loadServers];
 }
 
 -(void)deleteServerRequestFinished:(ASICloudServersServerRequest *)request {
@@ -113,12 +90,7 @@
 	[self hideSpinnerView];
 	
 	if ([request responseStatusCode] == 202) {
-		//self.serverDetailViewController.server.name = textField.text;
-		//[self.serverDetailViewController.tableView reloadData];
-		//[self dismissModalViewControllerAnimated:YES];
-		
-		[self.serversListViewController loadServers:YES];
-		
+		[self.serversListViewController loadServers:YES];		
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"deleting your server"];
 	}
@@ -141,6 +113,23 @@
     [self.tableView reloadData]; // keep polling!
 }
 
+#pragma mark -
+#pragma mark Progress Bar Animation
+
+- (void)animateProgressBarTo:(float)to {
+	if (progressTimer == nil) {
+		progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(moveProgress) userInfo:nil repeats:YES];
+	}
+}
+
+- (void)moveProgress {
+	if (progressView.progress < self.server.progress * 0.01) {
+		progressView.progress += 0.01;
+	} else if (progressView.progress >= self.server.progress * 0.01) {
+		[progressTimer invalidate];
+		progressTimer = nil;
+	}
+}
 
 #pragma mark -
 #pragma mark Managing the popover controller
@@ -183,7 +172,11 @@
 	if (section == kActionSection) {
 		return 7;
 	} else if (section == kNameSection) {
-		return 3;
+		if ([server shouldBePolled]) {
+			return 4;
+		} else {
+			return 3;
+		}
 	} else if (section == kDetailsSection) {
 		return 3;
 	} else if (section == kPublicIPSection) {
@@ -227,29 +220,63 @@
 	
 	cell.textLabel.text = @"Status";
     cell.detailTextLabel.text = [server humanizedStatus];
-	
-	if ([server.status isEqualToString:@"BUILD"]) { //} || [server.status isEqualToString:@"RESIZE"]) {
-	    // perhaps no progress bar and just use humanized percentage?
-		/*
-		UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-		CGRect r = progressView.frame;
-		r.origin.x += 175;
-		r.origin.y += 18;
-		r.size.width -= 35;
-		progressView.frame = r;		
-		progressView.progress = self.server.progress * 0.01;
-		[cell addSubview:progressView];
-        [progressView release];
-        */
-        if (self.server.progress < 100) {
-            ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
-            [request setDelegate:self];
-            [request setDidFinishSelector:@selector(getServerRequestFinished:)];
-            [request setDidFailSelector:@selector(getServerRequestFailed:)];
-            [request startAsynchronous];            
-        }
-	}
 
+	// TODO: if status is VERIFY_RESIZE, present modal dialog to verify resize
+	/*
+	if ([server shouldBePolled]) {
+	    // perhaps no progress bar and just use humanized percentage?
+		if (progressView == nil) {
+			progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+			CGRect r = progressView.frame;
+			r.origin.x += 175;
+			r.origin.y += 18;
+			r.size.width += 230;
+			progressView.frame = r;		
+			[cell addSubview:progressView];
+		}
+		[self animateProgressBarTo:self.server.progress * 0.01];
+
+        //[self request:[ASICloudServersServerRequest getServerRequest:self.server.serverId] behavior:@"retrieving your server" success:@selector(getServerSuccess:) showSpinner:NO];
+        ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(getServerRequestFinished:)];
+        [request setDidFailSelector:@selector(getServerRequestFailed:)];
+        [request startAsynchronous];            
+	}
+	 */
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView progressCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *CellIdentifier = @"ProgressCell";
+	UITableViewCell *cell = (UITableViewCell *) [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+	
+	cell.textLabel.text = @"Progress";
+	
+	if ([server shouldBePolled]) {
+		if (progressView == nil) {
+			progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+			CGRect r = progressView.frame;
+			r.origin.x += 175;
+			r.origin.y += 18;
+			r.size.width += 230;
+			progressView.frame = r;		
+			[cell addSubview:progressView];
+		}
+		[self animateProgressBarTo:self.server.progress * 0.01];
+		
+        //[self request:[ASICloudServersServerRequest getServerRequest:self.server.serverId] behavior:@"retrieving your server" success:@selector(getServerSuccess:) showSpinner:NO];
+        ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(getServerRequestFinished:)];
+        [request setDidFailSelector:@selector(getServerRequestFailed:)];
+        [request startAsynchronous];            
+	}
+	
     return cell;
 }
 
@@ -281,11 +308,12 @@
 			cell.textLabel.text = @"Server Name";
 			cell.detailTextLabel.text = server.name;
 		} else if (indexPath.row == 1) {
-            return [self tableView:tableView statusCellForRowAtIndexPath:indexPath];			
-		} else if (indexPath.row == 2) {
+            return [self tableView:tableView statusCellForRowAtIndexPath:indexPath];
+		} else if ((indexPath.row == 2) && [server shouldBePolled]) {
+			return [self tableView:tableView progressCellForRowAtIndexPath:indexPath];
+		} else { //if (indexPath.row == 2) {
 			cell.textLabel.text = @"Host ID";
 			cell.detailTextLabel.text = server.hostId;
-		} else {
 		}
 	} else if (indexPath.section == kDetailsSection) {
 		ASICloudServersFlavor *flavor = [ASICloudServersFlavorRequest flavorForId:server.flavorId];
@@ -408,14 +436,8 @@
 #pragma mark Action Sheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	NSLog(@"buttonIndex: %i", buttonIndex);
 	if (buttonIndex	== 0) {
-		[self showSpinnerView:@"Deleting..."];
-		ASICloudServersServerRequest *request = [ASICloudServersServerRequest deleteServerRequest:self.server.serverId];
-		[request setDelegate:self];
-		[request setDidFinishSelector:@selector(deleteServerRequestFinished:)];
-		[request setDidFailSelector:@selector(deleteServerRequestFailed:)];
-		[request startAsynchronous];
+	    [self request:[ASICloudServersServerRequest deleteServerRequest:self.server.serverId] behavior:@"deleting your server" success:@selector(deleteServerSuccess:)];
 	}
 }
 
@@ -489,6 +511,8 @@
 		
 	}
 	
+	progressTimer = nil;
+	progressView = nil;
 }
 
 
@@ -549,6 +573,10 @@
 	[noServersMessage release];
 	
 	[serversListViewController release];
+	
+	if (progressView != nil) {
+		[progressView release];
+	}
 	
     [super dealloc];
 }

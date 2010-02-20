@@ -18,6 +18,7 @@
 #import "UIViewController+SpinnerView.h"
 #import "ServersListViewController.h"
 #import "ServerDetailViewController.h"
+#import "UIViewController+RackspaceCloud.h"
 
 
 @implementation AddServerViewController
@@ -240,19 +241,9 @@
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
--(void)createServerFinished:(ASICloudServersServerRequest *)request {
-	[self hideSpinnerView];
-	if ([request isSuccess]) {
-		[self dismissModalViewControllerAnimated:YES];
-		[self.serverDetailViewController.serversListViewController loadServers:YES];
-	} else {
-		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"creating your server"];	
-	}
-}
-
--(void)createServerFailed:(ASICloudServersServerRequest *)request {
-	[self hideSpinnerView];
-	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"creating your server"];
+-(void)createServerSuccess:(ASICloudServersServerRequest *)request {
+	[self.serverDetailViewController.serversListViewController loadServers];
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -262,11 +253,7 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
--(void)saveButtonPressed:(id)sender {
-	
-	NSLog(@"Server Name: %@", server.name);
-	
-	
+-(void)saveButtonPressed:(id)sender {	
 	if (server.name == nil || [server.name isEqualToString:@""]) {
 		[self alert:@"Error" message:@"Please enter a server name."];
 	} else if (server.flavorId == 0) {
@@ -274,13 +261,8 @@
 	} else if (server.imageId == 0) {
 		[self alert:@"Error" message:@"Please select an image."];
 	} else {
-		//createServerFinished
-		[self showSpinnerView:@"Creating..."];
-		ASICloudServersServerRequest *request = [ASICloudServersServerRequest createServerRequest:server];
-		[request setDelegate:self];
-		[request setDidFinishSelector:@selector(createServerFinished:)];
-		[request setDidFailSelector:@selector(createServerFailed:)];
-		[request startAsynchronous];
+		// create the server
+		[self request:[ASICloudServersServerRequest createServerRequest:server] behavior:@"creating your server" success:@selector(createServerSuccess:)];
 	}	
 }
 

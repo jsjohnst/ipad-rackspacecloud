@@ -30,6 +30,9 @@
 	IBOutlet UIImageView *backgroundImageView;
 	
 	ServersListViewController *serversListViewController;
+	
+	NSTimer *progressTimer;
+	UIProgressView *progressView;
 }
 
 @property (nonatomic, retain) UIPopoverController *popoverController;

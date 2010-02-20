@@ -55,7 +55,7 @@
     if ([theStatus isEqualToString:@"ACTIVE"]) {
         theStatus = @"Active";
     } else if ([theStatus isEqualToString:@"BUILD"]) {
-        theStatus = [NSString stringWithFormat:@"Building... (%i%%)", self.progress];
+        theStatus = @"Building..."; //[NSString stringWithFormat:@"Building... (%i%%)", self.progress];
     } else if ([theStatus isEqualToString:@"REBUILD"]) {
         theStatus = [NSString stringWithFormat:@"Rebuilding... (%i%%)", self.progress];
     } else if ([theStatus isEqualToString:@"SUSPENDED"]) {
@@ -86,6 +86,10 @@
         theStatus = @"Unknown";
     }
     return theStatus;
+}
+
+-(BOOL)shouldBePolled {	
+	return ([status isEqualToString:@"BUILD"] || [status isEqualToString:@"UNKNOWN"] || [status isEqualToString:@"RESIZE"] || [status isEqualToString:@"QUEUE_RESIZE"] || [status isEqualToString:@"PREP_RESIZE"]);
 }
 
 -(void) dealloc {

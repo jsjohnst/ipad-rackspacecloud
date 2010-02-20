@@ -45,7 +45,7 @@
 					<object class="IBUIActivityIndicatorView" id="879104258">
 						<reference key="NSNextResponder" ref="941988647"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{71, 20}, {37, 37}}</string>
+						<string key="NSFrame">{{39, 20}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="941988647"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="787918636">
 							<int key="NSColorSpace">3</int>
@@ -60,7 +60,7 @@
 					<object class="IBUILabel" id="496144389">
 						<reference key="NSNextResponder" ref="941988647"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{116, 22}, {133, 34}}</string>
+						<string key="NSFrame">{{84, 22}, {168, 34}}</string>
 						<reference key="NSSuperview" ref="941988647"/>
 						<reference key="IBUIBackgroundColor" ref="787918636"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -68,7 +68,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Saving...</string>
+						<string key="IBUIText">Please wait...</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">28</double>
@@ -207,6 +207,20 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/SpinnerViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UIViewController+RackspaceCloud.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UIViewController+SpinnerView.h</string>
 					</object>
 				</object>
 			</object>

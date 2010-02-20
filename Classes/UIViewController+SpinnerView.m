@@ -24,15 +24,17 @@
 	vc.view.center = center;
 	vc.label.text = text;
 	vc.view.tag = kSpinnerTag;
-	[self.view addSubview:vc.view];	
+	[self.view addSubview:vc.view];
+    self.view.userInteractionEnabled = NO;
 	[vc release];
 }
 
 -(void) showSpinnerView {
-	[self showSpinnerView:@"Saving..."];
+	[self showSpinnerView:@"Please wait..."];
 }
 
 -(void)hideSpinnerView {
+    self.view.userInteractionEnabled = YES;
 	UIView *spinner = [self.view viewWithTag:kSpinnerTag];
 	if (spinner != nil) {
 		[spinner removeFromSuperview];
@@ -79,6 +81,7 @@
 			explanation = @"You have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
 			break;
 		default:
+			// TODO: extract explanation from parsed fault
 			break;
 	}
 	[self alert:title message:[NSString stringWithFormat:@"%@ %@", message, explanation]];

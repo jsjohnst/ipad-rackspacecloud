@@ -13,6 +13,7 @@
 #import "ServerDetailViewController.h"
 #import "SpinnerViewController.h"
 #import "UIViewController+SpinnerView.h"
+#import "UIViewController+RackspaceCloud.h"
 
 
 @implementation RenameServerViewController
@@ -20,47 +21,10 @@
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
--(void)renameServerRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
-	[self hideSpinnerView];
-	
-	if ([request responseStatusCode] == 204) {
-		self.serverDetailViewController.server.name = textField.text;
-		[self.serverDetailViewController.tableView reloadData];
-		[self dismissModalViewControllerAnimated:YES];
-	} else {
-		NSString *title = @"Error";
-		NSString *errorMessage = @"There was a problem renaming your server.";
-		switch ([request responseStatusCode]) {
-			case 400: // cloudServersFault
-				break;
-			case 500: // cloudServersFault
-				break;
-			case 503:
-				errorMessage = @"Your server was not renamed because the service is currently unavailable.  Please try again later.";
-				break;				
-			case 401:
-				title = @"Authentication Failure";
-				errorMessage = @"Please check your User Name and API Key.";
-				break;
-			case 409:
-				errorMessage = @"Your server cannot be renamed at the moment because it is currently building.";
-				break;
-			case 413:
-				errorMessage = @"Your server cannot be renamed at the moment because you have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
-				break;
-			default:
-				break;
-		}
-		[self alert:title message:errorMessage];
-	}
-}
-
--(void)renameServerRequestFailed:(ASICloudServersServerRequest *)request {
-	[self hideSpinnerView];
-	NSString *title = @"Connection Failure";
-	NSString *errorMessage = @"Please check your connection and try again.";
-	[self alert:title message:errorMessage];
+-(void)serverRenameSuccess:(ASICloudServersServerRequest *)request {
+	self.serverDetailViewController.server.name = textField.text;
+	[self.serverDetailViewController.tableView reloadData];
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -70,13 +34,7 @@
 	if ([textField.text isEqualToString:@""]) {
 		[self alert:@"Error" message:@"Please enter a new server name."];
 	} else {
-		[self showSpinnerView];
-		
-		ASICloudServersServerRequest *request = [ASICloudServersServerRequest updateServerNameRequest:self.serverDetailViewController.server.serverId name:textField.text];
-		[request setDelegate:self];
-		[request setDidFinishSelector:@selector(renameServerRequestFinished:)];
-		[request setDidFailSelector:@selector(renameServerRequestFailed:)];
-		[request startAsynchronous];
+		[self request:[ASICloudServersServerRequest updateServerNameRequest:self.serverDetailViewController.server.serverId name:textField.text] behavior:@"renaming your server" success:@selector(serverRenameSuccess:)];
 	}
 }
 
@@ -108,40 +66,19 @@
 	return @"The name is a tag for identifying your server. You can change it at any time. When rebuilding your server, this name is used as the hostname.";
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
+    static NSString *CellIdentifier = @"RenameCell";
     TextFieldCell *cell = (TextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		textField = cell.textField;
 		textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    }
-    
-	// TODO: verify resize screen
-	
-    // Configure the cell...
-	cell.textLabel.text = @"";
-    
+    }    
     return cell;
 }
 
 #pragma mark -
 #pragma mark Memory management
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Relinquish ownership any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
-}
 
 - (void)dealloc {
     [super dealloc];
