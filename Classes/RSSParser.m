@@ -100,17 +100,24 @@
 	} else if ([elementName isEqualToString:@"content:encoded"]) {
 		feedItem.content = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		
+		feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+		
 		// &lt;p&gt;Huddle 16 is currently experiencing network related issue, you may see issues connecting to your server and accessing the Cloud Servers section of the control panel.&amp;#0160; The control panel may be loading slowly or timing out completely. Our technicians are working to
         // quickly resolve the issue. We will post another update once PHP 5 sites
         // are back to normal speeds.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Update: Connectivity is returning, and all issues should begin resolving.&lt;/p&gt;
-        feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"&lt;/p&gt;&lt;p&gt;" withString:@"\n"];        
+        feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"&lt;/p&gt;&lt;p&gt;" withString:@"\n\n"];        
         feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"&lt;p&gt;" withString:@""];
         feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"&lt;/p&gt;" withString:@""];
-        feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"</p><p>" withString:@"\n"];        
+        feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"</p><p>" withString:@"\n\n"];        
         feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
         feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
         feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         
+		if ([feedItem.content characterAtIndex:0] == ' ' && [feedItem.content length] > 0) {
+			feedItem.content = [feedItem.content substringFromIndex:1];
+		}
+		
         NSLog(@"RSS Content: %@", feedItem.content);
 		
 	} else if ([elementName isEqualToString:@"dc:creator"]) {

@@ -116,9 +116,16 @@
 	        // the div is just a wrapper for the rackcloud status item
 	    } else if ([elementName isEqualToString:@"p"]) {
             NSString *newLine = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            feedItem.content = [feedItem.content stringByAppendingString:[NSString stringWithFormat:@"\n%@", newLine]];
+			feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+			feedItem.content = [feedItem.content stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            feedItem.content = [feedItem.content stringByAppendingString:[NSString stringWithFormat:@"\n\n%@", newLine]];
 	    }
 	}
+	
+	if ([feedItem.content length] > 0 && [feedItem.content characterAtIndex:0] == ' ') {
+		feedItem.content = [feedItem.content substringFromIndex:1];
+	}
+	
 	
 	[currentElementValue release];
 	currentElementValue = nil;	
