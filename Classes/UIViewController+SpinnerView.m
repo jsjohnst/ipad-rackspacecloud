@@ -81,7 +81,6 @@
 			explanation = @"You have exceeded your API rate limit.  Please try again later or contact support for a rate limit increase.";
 			break;
 		default:
-			// TODO: extract explanation from parsed fault
 			break;
 	}
 	[self alert:title message:[NSString stringWithFormat:@"%@ %@", message, explanation]];
