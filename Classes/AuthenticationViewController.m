@@ -13,6 +13,8 @@
 #import "ASICloudServersFlavorRequest.h"
 #import "UIViewController+SpinnerView.h"
 
+// TODO: try out paginated view of RSS issues within the last 48 hours
+
 @implementation AuthenticationViewController
 
 @synthesize smallSpinner, largeSpinner;
@@ -269,6 +271,7 @@
 	[usernameTextField release];
 	[apiKeyTextField release];
     [super dealloc];
+    self = nil; // to prevent ASIHttpRequest from calling a deallocated delegate
 }
 
 

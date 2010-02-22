@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ServerDetailViewController;
+@class ServerDetailViewController, ASICloudServersServer;
 
 @interface ServersListViewController : UITableViewController {
 	NSMutableArray *servers;
@@ -19,5 +19,6 @@
 
 - (void)loadServers;
 - (void)loadServers:(BOOL)showSpinner;
+- (void)refreshServer:(ASICloudServersServer *)server;
 
 @end

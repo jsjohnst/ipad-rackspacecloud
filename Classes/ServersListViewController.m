@@ -20,6 +20,17 @@
 
 @synthesize serverDetailViewController;
 
+-(void)refreshServer:(ASICloudServersServer *)server {
+    for (int i = 0; i < [servers count]; i++) {
+        ASICloudServersServer *currentServer = [servers objectAtIndex:i];
+        if (currentServer.serverId == server.serverId) {
+            [servers replaceObjectAtIndex:i withObject:currentServer];
+            [self.tableView reloadData];
+            break;
+        }
+    }
+}
+
 -(void)preselectServer {
 	if ([servers count] == 0) {
 		if (serverDetailViewController != nil) {
@@ -57,8 +68,6 @@
 	[self.tableView reloadData];
 	[self preselectServer];
 }
-
-// TODO refresh list OS logo
 
 - (void)loadServers {
 	[self loadServers:YES];
@@ -157,6 +166,7 @@
 		[serverDetailViewController release];
 	}
     [super dealloc];
+    self = nil; // to prevent ASIHttpRequest from calling a deallocated delegate
 }
 
 

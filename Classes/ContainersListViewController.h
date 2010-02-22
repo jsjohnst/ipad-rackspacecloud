@@ -14,4 +14,7 @@
 	NSMutableDictionary *containersDict; // for quick id-based lookup
 }
 
+- (void)loadContainers;
+- (void)loadContainers:(BOOL)showSpinner;
+
 @end

@@ -107,8 +107,10 @@
 	if ([request isSuccess]) {
         self.server = [request server];
 		ASICloudServersServerRequest *backupRequest = [ASICloudServersServerRequest listBackupScheduleRequest:self.server.serverId];
-		[self request:backupRequest behavior:@"retrieving your server's backup schedule" success:@selector(listBackupScheduleSuccess:) showSpinner:NO];	
+		[self request:backupRequest behavior:@"retrieving your server's backup schedule" success:@selector(listBackupScheduleSuccess:) showSpinner:NO];
 		
+		// refresh in the list view so the OS icon and name stay fresh
+        [self.serversListViewController refreshServer:self.server];
 	}
     [self.tableView reloadData];
 }
@@ -641,6 +643,7 @@
 	}
 	
     [super dealloc];
+    self = nil; // to prevent ASIHttpRequest from calling a deallocated delegate
 }
 
 @end
