@@ -152,6 +152,7 @@
 	[request setPostBody:[NSMutableData dataWithData:data]];
 	return request;
 }
+
 // POST <revertResize xmlns="http://docs.rackspacecloud.com/servers/api/v1.0" />
 + (id)revertResizeServerRequest:(NSUInteger)serverId {
 	NSString *body = @"<revertResize xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" />";

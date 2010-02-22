@@ -29,6 +29,7 @@
 #import "UIViewController+SpinnerView.h"
 #import "ASICloudServersServerRequest.h"
 #import "UIViewController+RackspaceCloud.h"
+#import "VerifyServerResizeViewController.h"
 
 #import "ServersListViewController.h"
 
@@ -233,6 +234,14 @@
 	cell.textLabel.text = @"Status";
     cell.detailTextLabel.text = [server humanizedStatus];
 
+	NSLog(@"server status = %@", server.status);
+	if ([server.status isEqualToString:@"VERIFY_RESIZE"]) {
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+	
+	
     return cell;
 }
 
@@ -352,7 +361,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
-	if (indexPath.section == kActionSection) {
+	
+	if (indexPath.section == kNameSection) {
+		if (indexPath.row == 1 && [server.status isEqualToString:@"VERIFY_RESIZE"]) {
+			VerifyServerResizeViewController *vc = [[VerifyServerResizeViewController alloc] initWithNibName:@"VerifyServerResizeViewController" bundle:nil];
+			vc.modalPresentationStyle = UIModalPresentationFormSheet; 
+			vc.serverDetailViewController = self;
+			[self presentModalViewController:vc animated:YES];
+		}
+	} else if (indexPath.section == kActionSection) {
 		
 		NSString *className = nil;
 		

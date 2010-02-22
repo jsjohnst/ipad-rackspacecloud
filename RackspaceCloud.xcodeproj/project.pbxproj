@@ -18,6 +18,8 @@
 		273C7FC4112D0B65005F36C3 /* SliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C7FC3112D0B65005F36C3 /* SliderCell.m */; };
 		273C80D9112E0235005F36C3 /* NSString+Rubyisms.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C80D8112E0235005F36C3 /* NSString+Rubyisms.m */; };
 		273C8137112F3FDC005F36C3 /* UIViewController+RackspaceCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C8136112F3FDC005F36C3 /* UIViewController+RackspaceCloud.m */; };
+		273C84E211320DC5005F36C3 /* VerifyServerResizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C84E011320DC5005F36C3 /* VerifyServerResizeViewController.m */; };
+		273C84E311320DC5005F36C3 /* VerifyServerResizeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 273C84E111320DC5005F36C3 /* VerifyServerResizeViewController.xib */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -157,6 +159,9 @@
 		273C80D8112E0235005F36C3 /* NSString+Rubyisms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Rubyisms.m"; sourceTree = "<group>"; };
 		273C8135112F3FDC005F36C3 /* UIViewController+RackspaceCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RackspaceCloud.h"; sourceTree = "<group>"; };
 		273C8136112F3FDC005F36C3 /* UIViewController+RackspaceCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RackspaceCloud.m"; sourceTree = "<group>"; };
+		273C84DF11320DC5005F36C3 /* VerifyServerResizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyServerResizeViewController.h; sourceTree = "<group>"; };
+		273C84E011320DC5005F36C3 /* VerifyServerResizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyServerResizeViewController.m; sourceTree = "<group>"; };
+		273C84E111320DC5005F36C3 /* VerifyServerResizeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyServerResizeViewController.xib; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -545,6 +550,9 @@
 				27B445E211228E72008A3BA6 /* RebuildServerViewController.h */,
 				27B445E311228E72008A3BA6 /* RebuildServerViewController.m */,
 				27B445E411228E72008A3BA6 /* RebuildServerViewController.xib */,
+				273C84DF11320DC5005F36C3 /* VerifyServerResizeViewController.h */,
+				273C84E011320DC5005F36C3 /* VerifyServerResizeViewController.m */,
+				273C84E111320DC5005F36C3 /* VerifyServerResizeViewController.xib */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -893,6 +901,7 @@
 				27B4474211229E80008A3BA6 /* SpinnerViewController.xib in Resources */,
 				27B448BF1123B11D008A3BA6 /* ContainerRootViewController.xib in Resources */,
 				273C7D14112CC832005F36C3 /* servers500.png in Resources */,
+				273C84E311320DC5005F36C3 /* VerifyServerResizeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,6 +966,7 @@
 				273C7FC4112D0B65005F36C3 /* SliderCell.m in Sources */,
 				273C80D9112E0235005F36C3 /* NSString+Rubyisms.m in Sources */,
 				273C8137112F3FDC005F36C3 /* UIViewController+RackspaceCloud.m in Sources */,
+				273C84E211320DC5005F36C3 /* VerifyServerResizeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
