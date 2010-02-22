@@ -12,8 +12,6 @@
 #import "ServerDetailViewController.h"
 #import "ASICloudServersServer.h"
 
-// TODO: consider a general request delegate at the app delegate level, to avoid the nil asi issue
-
 @implementation VerifyServerResizeViewController
 
 @synthesize serverDetailViewController;
@@ -41,7 +39,6 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-// Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
@@ -50,12 +47,10 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
 	return 1;
 }
 
@@ -67,7 +62,6 @@
 	}
 }
 
-
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	if (section == 0) {
 		return @"After verification, the old server will be deleted and will be billed at a prorated amount.";
@@ -76,7 +70,6 @@
 	}	
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
@@ -86,7 +79,6 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Configure the cell...
 	if (indexPath.section == 0) {
 		cell.textLabel.text = @"Confirm Resize";
 	} else {
@@ -95,9 +87,6 @@
     
     return cell;
 }
-
-#pragma mark -
-#pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {

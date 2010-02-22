@@ -33,6 +33,11 @@
 	
 	NSTimer *progressTimer;
 	UIProgressView *progressView;
+	
+	UIActionSheet *deleteServerActionSheet;
+	UIActionSheet *publicIPActionSheet;
+	UIActionSheet *privateIPActionSheet;
+	
 }
 
 @property (nonatomic, retain) UIPopoverController *popoverController;

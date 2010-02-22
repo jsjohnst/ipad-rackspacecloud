@@ -369,6 +369,13 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		273C86001132206C005F36C3 /* IP Address Action Sheet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "IP Address Action Sheet";
+			sourceTree = "<group>";
+		};
 		2757F4831121056B00C55ED8 /* Servers */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,6 +687,7 @@
 		27D66A27111220EC00654554 /* Cloud Servers */ = {
 			isa = PBXGroup;
 			children = (
+				273C86001132206C005F36C3 /* IP Address Action Sheet */,
 				27B4432D11225245008A3BA6 /* Actions */,
 				27D66DEF11129AF000654554 /* ServersListViewController.h */,
 				27D66DF011129AF000654554 /* ServersListViewController.m */,

@@ -8,9 +8,6 @@
 
 // TODO: correct off-black in login screen background graphic
 
-// TODO: ping server, open in safari, copy in clipboard, email IP address
-// http://just-ping.com/index.php?vh=173.203.226.198&s=ping
-
 #import "ServerDetailViewController.h"
 #import "MasterViewController.h"
 #import "ASICloudServersServer.h"
@@ -237,8 +234,10 @@
 	NSLog(@"server status = %@", server.status);
 	if ([server.status isEqualToString:@"VERIFY_RESIZE"]) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		//cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	} else {
 		cell.accessoryType = UITableViewCellAccessoryNone;
+		//cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	
@@ -292,11 +291,17 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 
+	//if (indexPath.section == kNameSection || indexPath.section == kDetailsSection) {
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	//}
+
+	
 	UITableViewCell *actionCell = (UITableViewCell *) [aTableView dequeueReusableCellWithIdentifier:@"ActionCell"];
 	if (actionCell == nil) {
 		actionCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ActionCell"] autorelease];
 		//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		actionCell.accessoryType = UITableViewCellAccessoryNone;
+		actionCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	
@@ -412,28 +417,46 @@
 				NSString *title = @"Are you sure you want to delete this server?  This operation cannot be undone and you will lose all backup images.";
 				//NSString *deleteTitle = [NSString stringWithFormat:@"Permanently Delete Server %@", self.server.name];
 				NSString *deleteTitle = @"Delete This Server";
+				
+				if (deleteServerActionSheet != nil) {
+					[deleteServerActionSheet release];
+				}
 				UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:deleteTitle otherButtonTitles:nil];
+				deleteServerActionSheet = actionSheet;
+				
 				actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
 				//UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
 				[actionSheet showInView:self.view];
-				[actionSheet release];
+				//[actionSheet release];
+				
 			}			
 		}
 		
 	} else if (indexPath.section == kPublicIPSection) {
-		// TODO: popover with ping, copy, and email
-		//ServersListViewController *vc = [[ServersListViewController alloc] initWithNibName:@"ServersListViewController" bundle:nil];
-		MasterViewController *vc = [[MasterViewController alloc] init];
-		UIPopoverController *pc = [[UIPopoverController alloc] initWithContentViewController:vc];
-		//- (void)presentPopoverFromRect:(CGRect)rect inView:(UIView *)view permittedArrowDirections:(UIPopoverArrowDirection)arrowDirections animated:(BOOL)animated
 		
 		UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];		
-		[pc presentPopoverFromRect:cell.contentView.frame inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-		
-		[pc release];
-		[vc release];
-		
+		if (publicIPActionSheet != nil) {
+			[publicIPActionSheet release];
+		}		
+		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:cell.detailTextLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Ping IP Address", @"Copy IP Address", @"Open in Safari", nil];
+		publicIPActionSheet = actionSheet;
+		NSLog(@"Rect position: (%f,%f) size: (%f,%f)", cell.contentView.frame.origin.x, cell.contentView.frame.origin.y, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
+		CGRect rect = cell.contentView.frame;
+		rect.origin.x += 330.0;
+		rect.origin.y += 525.0;
+		[actionSheet showFromRect:rect inView:self.view animated:YES];
 	} else if (indexPath.section == kPrivateIPSection) {
+		UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];		
+		if (privateIPActionSheet != nil) {
+			[privateIPActionSheet release];
+		}		
+		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:cell.detailTextLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Copy IP Address", nil];
+		privateIPActionSheet = actionSheet;
+		NSLog(@"Rect position: (%f,%f) size: (%f,%f)", cell.contentView.frame.origin.x, cell.contentView.frame.origin.y, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
+		CGRect rect = cell.contentView.frame;
+		rect.origin.x += 330.0;
+		rect.origin.y += 525.0;
+		[actionSheet showFromRect:rect inView:self.view animated:YES];
 	}
 }
 
@@ -441,8 +464,40 @@
 #pragma mark Action Sheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex	== 0) {
-	    [self request:[ASICloudServersServerRequest deleteServerRequest:self.server.serverId] behavior:@"deleting your server" success:@selector(deleteServerSuccess:)];
+	if (actionSheet == deleteServerActionSheet) {
+		if (buttonIndex	== 0) {
+			[self request:[ASICloudServersServerRequest deleteServerRequest:self.server.serverId] behavior:@"deleting your server" success:@selector(deleteServerSuccess:)];
+		}
+	} else if (actionSheet == publicIPActionSheet) {
+		/*
+		 @"Ping IP Address", @"Copy IP Address", @"Open in Safari"
+		 
+		 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+		 [pasteboard setString:@"blah"];
+		 
+		 NSString *urlString = [NSString stringWithFormat:@"http://just-ping.com/index.php?vh=173.203.209.116&s=ping", cell.textLabel.text];
+		 NSURL *url = [NSURL URLWithString:urlString];
+		 [[UIApplication sharedApplication] openURL:url];
+		 */
+		
+		NSString *currentIPAddress = actionSheet.title;
+		
+		if (buttonIndex == 0) {
+			NSString *urlString = [NSString stringWithFormat:@"http://just-ping.com/index.php?vh=%@&s=ping", currentIPAddress];
+			NSURL *url = [NSURL URLWithString:urlString];
+			[[UIApplication sharedApplication] openURL:url];
+		} else if (buttonIndex == 1) {
+			UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+			[pasteboard setString:currentIPAddress];
+		} else if (buttonIndex == 2) {
+			NSString *urlString = [NSString stringWithFormat:@"http://%@", currentIPAddress];
+			NSURL *url = [NSURL URLWithString:urlString];
+			[[UIApplication sharedApplication] openURL:url];
+		}
+	} else if (actionSheet == privateIPActionSheet) {
+		NSString *currentIPAddress = actionSheet.title;
+		UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+		[pasteboard setString:currentIPAddress];		
 	}
 }
 
@@ -581,6 +636,18 @@
 	
 	if (progressView != nil) {
 		[progressView release];
+	}
+	
+	if (deleteServerActionSheet != nil) {
+		[deleteServerActionSheet release];
+	}
+	
+	if (publicIPActionSheet != nil) {
+		[publicIPActionSheet release];
+	}
+	
+	if (privateIPActionSheet != nil) {
+		[privateIPActionSheet release];
 	}
 	
     [super dealloc];

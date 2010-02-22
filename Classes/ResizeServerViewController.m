@@ -120,17 +120,6 @@
 	return @"Choose a Size";
 }
 
-// TODO: use this for verify resize?
-//Step 1: Resize request is queued
-//The resize request will be processed as resources permit. The queued period is usually quick, but can vary depending on other host machine activities.
-//Step 2: Initial preparation of new server
-//This is the longest part of the upgrade, during this step the original server remains up and running.
-//Step 3: Current server is shut down and migrated
-//You will experience a downtime varying in proportion to fullness of the filesystem.
-//Step 4: Verification of new server
-//Your newly resized server should now be available. Login to verify that the server is intact and functioning as expected. After verification, the old server will be purged from the system and your account will be billed a prorated amount. If no verification is made, the resize will be automatically verified after a period of 12 hours
-
-
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	return @"Resizes will be charged or credited a prorated amount based upon the difference in cost and the number of days remaining in your billing cycle. Backups are only available for 256 MB, 512 MB, 1 GB and 2 GB Cloud Server sizes. If you choose 4096 MB or greater, any existing backups will be removed.";
 }
