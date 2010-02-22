@@ -64,6 +64,8 @@
 	}
 }
 
+// TODO refresh list OS logo
+
 - (void)listServersFailed:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
 	NSLog(@"List Servers Failed");

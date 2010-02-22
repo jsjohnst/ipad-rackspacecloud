@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ServerDetailViewController, ASICloudServersBackupSchedule;
+@class ServerDetailViewController;
 
 @interface ManageBackupSchedulesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	ServerDetailViewController *serverDetailViewController;
@@ -19,7 +19,6 @@
 	NSArray *dayKeys;
 	NSArray *dayValues;
 	
-	ASICloudServersBackupSchedule *backupSchedule;
 	IBOutlet UITableView *tableView;
 }
 

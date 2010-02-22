@@ -6,8 +6,6 @@
 //  Copyright Apple Inc 2010. All rights reserved.
 //
 
-// TODO: correct off-black in login screen background graphic
-
 #import "ServerDetailViewController.h"
 #import "MasterViewController.h"
 #import "ASICloudServersServer.h"
@@ -27,6 +25,7 @@
 #import "ASICloudServersServerRequest.h"
 #import "UIViewController+RackspaceCloud.h"
 #import "VerifyServerResizeViewController.h"
+#import "UIViewController+RackspaceCloud.h"
 
 #import "ServersListViewController.h"
 
@@ -78,14 +77,10 @@
 	[request startAsynchronous];	
 }
 
-- (void)listBackupScheduleFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
-	//[self hideSpinnerView];
-
-    if (![request isSuccess]) {
-        // TODO: try again up to three times?
-        [self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"retreiving all of your server details"];
-    }	
+- (void)listBackupScheduleSuccess:(ASICloudServersServerRequest *)request {
+	if ([request isSuccess]) {
+		self.server.backupSchedule = [[request backupSchedule] retain];
+	}
 }
 
 -(void)deleteServerSuccess:(ASICloudServersServerRequest *)request {
@@ -108,10 +103,12 @@
 }
 
 -(void)getServerRequestFinished:(ASICloudServersServerRequest *)request {
-	// TODO: tell jorge about weird bug where REBUILD progress starts at 100 and goes back to 0
 	NSLog(@"Poll Server Response: %i - %@ Progress: %i", [request responseStatusCode], [request server].status, [request server].progress);
 	if ([request isSuccess]) {
         self.server = [request server];
+		ASICloudServersServerRequest *backupRequest = [ASICloudServersServerRequest listBackupScheduleRequest:self.server.serverId];
+		[self request:backupRequest behavior:@"retrieving your server's backup schedule" success:@selector(listBackupScheduleSuccess:) showSpinner:NO];	
+		
 	}
     [self.tableView reloadData];
 }
@@ -291,6 +288,8 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 
+	cell.accessoryType = UITableViewCellAccessoryNone;
+	
 	//if (indexPath.section == kNameSection || indexPath.section == kDetailsSection) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	//}
@@ -299,8 +298,8 @@
 	UITableViewCell *actionCell = (UITableViewCell *) [aTableView dequeueReusableCellWithIdentifier:@"ActionCell"];
 	if (actionCell == nil) {
 		actionCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ActionCell"] autorelease];
-		//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		actionCell.accessoryType = UITableViewCellAccessoryNone;
+		actionCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		//actionCell.accessoryType = UITableViewCellAccessoryNone;
 		actionCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
@@ -335,7 +334,7 @@
 		} else if (indexPath.row == 1) {
 			actionCell.textLabel.text = @"Rename This Server";
 		} else if (indexPath.row == 2) {
-			actionCell.textLabel.text = @"Change the Size of RAM and Disk on This Server";
+			actionCell.textLabel.text = @"Resize This Server";
 		} else if (indexPath.row == 3) {
 			actionCell.textLabel.text = @"Change the Root Password";
 		} else if (indexPath.row == 4) {
@@ -347,11 +346,13 @@
 		}
 		return actionCell;
 	} else if (indexPath.section == kPublicIPSection) {
-		cell.textLabel.text = @"";
-		cell.detailTextLabel.text = [[server publicIpAddresses] objectAtIndex:indexPath.row];
+		cell.textLabel.text = [[server publicIpAddresses] objectAtIndex:indexPath.row];
+		cell.detailTextLabel.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if (indexPath.section == kPrivateIPSection) {
-		cell.textLabel.text = @"";
-		cell.detailTextLabel.text = [[server privateIpAddresses] objectAtIndex:indexPath.row];
+		cell.textLabel.text = [[server privateIpAddresses] objectAtIndex:indexPath.row];
+		cell.detailTextLabel.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if (indexPath.section == kMetadataSection) {
 		NSString *key = [[server.metadata allKeys] objectAtIndex:indexPath.row];
 		cell.textLabel.text = key;
@@ -421,42 +422,28 @@
 				if (deleteServerActionSheet != nil) {
 					[deleteServerActionSheet release];
 				}
-				UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:deleteTitle otherButtonTitles:nil];
-				deleteServerActionSheet = actionSheet;
-				
-				actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-				//UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-				[actionSheet showInView:self.view];
-				//[actionSheet release];
-				
+				deleteServerActionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:deleteTitle otherButtonTitles:nil];				
+				deleteServerActionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+				[deleteServerActionSheet showInView:self.view];
 			}			
 		}
 		
 	} else if (indexPath.section == kPublicIPSection) {
-		
 		UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];		
 		if (publicIPActionSheet != nil) {
 			[publicIPActionSheet release];
-		}		
-		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:cell.detailTextLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Ping IP Address", @"Copy IP Address", @"Open in Safari", nil];
-		publicIPActionSheet = actionSheet;
-		NSLog(@"Rect position: (%f,%f) size: (%f,%f)", cell.contentView.frame.origin.x, cell.contentView.frame.origin.y, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-		CGRect rect = cell.contentView.frame;
-		rect.origin.x += 330.0;
-		rect.origin.y += 525.0;
-		[actionSheet showFromRect:rect inView:self.view animated:YES];
+		}
+		publicIPActionSheet = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Ping IP Address", @"Copy IP Address", @"Open in Safari", nil];
+		// would be nice to show as a popover, but i'm having trouble positioning it properly
+		[publicIPActionSheet showInView:self.view];
 	} else if (indexPath.section == kPrivateIPSection) {
 		UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];		
 		if (privateIPActionSheet != nil) {
 			[privateIPActionSheet release];
 		}		
-		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:cell.detailTextLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Copy IP Address", nil];
-		privateIPActionSheet = actionSheet;
-		NSLog(@"Rect position: (%f,%f) size: (%f,%f)", cell.contentView.frame.origin.x, cell.contentView.frame.origin.y, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-		CGRect rect = cell.contentView.frame;
-		rect.origin.x += 330.0;
-		rect.origin.y += 525.0;
-		[actionSheet showFromRect:rect inView:self.view animated:YES];
+		privateIPActionSheet = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Copy IP Address", nil];
+		// would be nice to show as a popover, but i'm having trouble positioning it properly
+		[privateIPActionSheet showInView:self.view];
 	}
 }
 
@@ -573,6 +560,9 @@
 	
 	progressTimer = nil;
 	progressView = nil;
+	
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest listBackupScheduleRequest:self.server.serverId];
+	[self request:request behavior:@"retrieving your server's backup schedule" success:@selector(listBackupScheduleSuccess:) showSpinner:NO];	
 }
 
 

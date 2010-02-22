@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class ASICloudServersBackupSchedule;
 
 @interface ASICloudServersServer : NSObject {
 	NSUInteger serverId;
@@ -21,6 +22,7 @@
 	NSString *status;
 	NSUInteger progress;
 	NSString *adminPass;
+	ASICloudServersBackupSchedule *backupSchedule;
 }
 
 +(id)server;
@@ -40,5 +42,6 @@
 @property (retain) NSString *status;
 @property (assign) NSUInteger progress;
 @property (retain) NSString *adminPass;
+@property (retain) ASICloudServersBackupSchedule *backupSchedule;
 
 @end

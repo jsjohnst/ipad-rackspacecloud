@@ -136,10 +136,6 @@
     
 	textField.text = server.name;
 	
-	// TODO: verify resize screen
-	
-	// TODO: building progress
-	
     // Configure the cell...
 	cell.textLabel.text = @"";
 	

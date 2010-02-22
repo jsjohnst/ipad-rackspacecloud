@@ -18,7 +18,6 @@
 	IBOutlet UITableView *tableView;
 	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
 	
-	// TODO:
 	// this is the initial detail view.
 	// since servers or files isn't selected when the app launches,
 	// load data from feed://status.mosso.com/rss.xml to give the user

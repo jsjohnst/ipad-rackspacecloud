@@ -41,13 +41,17 @@
         }		
 	} else {
 		[self hideSpinnerView];	
-        [self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
+		if ([[request.userInfo objectForKey:@"behavior"] boolValue]) {
+			[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
+		}
 	}    
 }
 
 -(void)requestFailed:(ASICloudFilesRequest *)request {
 	[self hideSpinnerView];	
-    [self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
+    if ([[request.userInfo objectForKey:@"behavior"] boolValue]) {
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
+	}
 }
 
 

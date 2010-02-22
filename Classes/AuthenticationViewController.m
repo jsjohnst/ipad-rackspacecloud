@@ -13,7 +13,6 @@
 #import "ASICloudServersFlavorRequest.h"
 #import "UIViewController+SpinnerView.h"
 
-
 @implementation AuthenticationViewController
 
 @synthesize smallSpinner, largeSpinner;
