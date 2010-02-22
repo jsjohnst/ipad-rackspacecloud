@@ -43,6 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+	textField.text = self.serverDetailViewController.server.name;
 	[textField becomeFirstResponder];
 }
 

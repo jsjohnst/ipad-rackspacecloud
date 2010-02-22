@@ -88,7 +88,6 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	// TODO: move to a better place
 	tableView.backgroundView = nil;
 	
     static NSString *CellIdentifier = @"Cell";

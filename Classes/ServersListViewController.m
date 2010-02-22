@@ -65,19 +65,7 @@
 }
 
 - (void)loadServers:(BOOL)showSpinner {
-	/*
-	if (showSpinner) {
-		[self showSpinnerView:@"Loading..."];
-	}
-	 */
 	[self request:[ASICloudServersServerRequest listRequest] behavior:@"retrieving your servers" success:@selector(listServersSuccess:)];
-	/*
-	ASICloudFilesRequest *request = [ASICloudServersServerRequest listRequest];
-	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(listServersFinished:)];
-	[request setDidFailSelector:@selector(listServersFailed:)];
-	[request startAsynchronous];
-	 */
 }
 
 - (void)viewDidLoad {

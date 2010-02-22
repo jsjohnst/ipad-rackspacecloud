@@ -1528,7 +1528,6 @@ static BOOL isiPhoneOS2;
 #if DEBUG_REQUEST_STATUS || DEBUG_THROTTLING
 	NSLog(@"Request finished: %@",self);
 #endif
-	// TODO: maybe check for self belongs here
 	if ([self error] || [self mainRequest]) {
 		return;
 	}

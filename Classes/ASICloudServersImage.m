@@ -46,7 +46,6 @@ static UIImage *redhatBackground = nil;
 @synthesize status, updated, name, imageId;
 
 +(void)initialize {
-	// TODO: should i release these at some point?
 	centosIcon = [[UIImage imageNamed:@"centos-icon.png"] retain];
 	centosLogo = [[UIImage imageNamed:@"centos-logo.png"] retain];
 	centosBackground = [[UIImage imageNamed:@"centos-large.png"] retain];
