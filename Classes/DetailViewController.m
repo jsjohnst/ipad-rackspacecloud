@@ -19,12 +19,21 @@
 #define kBodyTag 3
 #define kAuthorTag 4
 
+static UIImage *usFlag = nil;
+static UIImage *ukFlag = nil;
+
+
 @implementation DetailViewController
 
 @synthesize navigationBar, popoverController, detailItem;
 @synthesize sitesFeedItems, serversFeedItems, filesFeedItems;
 @synthesize tableView, nibLoadedFeedItemCell;
 @synthesize feedItems;
+
++(void)initialize {
+	usFlag = [[UIImage imageNamed:@"usflag.png"] retain];
+	ukFlag = [[UIImage imageNamed:@"ukflag.png"] retain];
+}
 
 #pragma mark -
 #pragma mark Date Formatting
@@ -234,25 +243,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-	return [self.feedItems count];
+    if (section == 0) {
+        return 2;
+    } else {
+    	return [self.feedItems count];        
+    }
 }
 
-/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
-		return @"Cloud Sites";
-	} else if (section == 1) {
-		return @"Cloud Servers";
+		return @"Support";
 	} else {
-		return @"Cloud Files";
+		return @"Rackspace Cloud System Status";
 	}
 }
-*/
 
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
@@ -280,58 +289,83 @@
 	
 }
 
+- (UITableViewCell *)tableView:(UITableView *)aTableView supportCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    static NSString *CellIdentifier = @"SupportCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    if (indexPath.row == 0) {
+    	cell.textLabel.text = @"1-877-934-0407";
+        cell.imageView.image = usFlag;
+    } else {
+    	cell.textLabel.text = @"0800-083-3012";
+        cell.imageView.image = ukFlag;
+    }
+    
+    return cell;
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedItemCell"];
-	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"FeedItemCell" owner:self options:NULL]; 
-		cell = nibLoadedFeedItemCell;
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.accessoryType = UITableViewCellAccessoryNone;
-	}
+    if (indexPath.section == 0) {
+        return [self tableView:aTableView supportCellForRowAtIndexPath:indexPath];
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedItemCell"];
+    	if (cell == nil) {
+    		[[NSBundle mainBundle] loadNibNamed:@"FeedItemCell" owner:self options:NULL]; 
+    		cell = nibLoadedFeedItemCell;
+    		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    		cell.accessoryType = UITableViewCellAccessoryNone;
+    	}
 
-	// show newest first
-	FeedItem *item = [self.feedItems objectAtIndex:[self.feedItems count] - 1 - indexPath.row];
-	
-	UILabel *dateLabel = (UILabel *) [cell viewWithTag:kDateTag];
-	dateLabel.text = [self dateToString:item.pubDate]; //[item.pubDate description];
-	
-	UILabel *titleLabel = (UILabel *) [cell viewWithTag:kTitleTag];
-	titleLabel.text = item.title;
-	
-	UILabel *bodyLabel = (UILabel *) [cell viewWithTag:kBodyTag];
-	bodyLabel.text = item.content;
-	
-	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
-	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
-	
-	// set the height of the title label to fit the size of the string
-	CGFloat originalTitleHeight = titleLabel.frame.size.height;	
-	CGFloat titleHeight = [[self class] findLabelHeight:item.title font:titleLabel.font label:titleLabel];
-	
-	CGRect titleRect = titleLabel.frame;
-	titleRect.size.height = titleHeight;
-	titleLabel.frame = titleRect;
-	
-	CGFloat originalBodyHeight = bodyLabel.frame.size.height;
-	CGFloat bodyHeight = [[self class] findLabelHeight:item.content font:bodyLabel.font label:bodyLabel];
-	
-	CGRect subtitleRect = bodyLabel.frame;
-	subtitleRect.origin.y += titleHeight - originalTitleHeight;
-	subtitleRect.size.height = bodyHeight;
-	bodyLabel.frame = subtitleRect;
-	
-	CGRect authorRect = authorLabel.frame;
-	authorRect.origin.y += titleHeight - originalTitleHeight;
-	authorRect.origin.y += bodyHeight - originalBodyHeight;
-	authorLabel.frame = authorRect;
-	
-	CGRect cellRect = cell.frame;
-	cellRect.size.height += titleHeight - originalTitleHeight;
-	cellRect.size.height += bodyHeight - originalBodyHeight;
-	cell.frame = cellRect;
-	
-    return cell;
+    	// show newest first
+    	FeedItem *item = [self.feedItems objectAtIndex:[self.feedItems count] - 1 - indexPath.row];
+
+    	UILabel *dateLabel = (UILabel *) [cell viewWithTag:kDateTag];
+    	dateLabel.text = [self dateToString:item.pubDate]; //[item.pubDate description];
+
+    	UILabel *titleLabel = (UILabel *) [cell viewWithTag:kTitleTag];
+    	titleLabel.text = item.title;
+
+    	UILabel *bodyLabel = (UILabel *) [cell viewWithTag:kBodyTag];
+    	bodyLabel.text = item.content;
+
+    	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
+    	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
+
+    	// set the height of the title label to fit the size of the string
+    	CGFloat originalTitleHeight = titleLabel.frame.size.height;	
+    	CGFloat titleHeight = [[self class] findLabelHeight:item.title font:titleLabel.font label:titleLabel];
+
+    	CGRect titleRect = titleLabel.frame;
+    	titleRect.size.height = titleHeight;
+    	titleLabel.frame = titleRect;
+
+    	CGFloat originalBodyHeight = bodyLabel.frame.size.height;
+    	CGFloat bodyHeight = [[self class] findLabelHeight:item.content font:bodyLabel.font label:bodyLabel];
+
+    	CGRect subtitleRect = bodyLabel.frame;
+    	subtitleRect.origin.y += titleHeight - originalTitleHeight;
+    	subtitleRect.size.height = bodyHeight;
+    	bodyLabel.frame = subtitleRect;
+
+    	CGRect authorRect = authorLabel.frame;
+    	authorRect.origin.y += titleHeight - originalTitleHeight;
+    	authorRect.origin.y += bodyHeight - originalBodyHeight;
+    	authorLabel.frame = authorRect;
+
+    	CGRect cellRect = cell.frame;
+    	cellRect.size.height += titleHeight - originalTitleHeight;
+    	cellRect.size.height += bodyHeight - originalBodyHeight;
+    	cell.frame = cellRect;
+
+        return cell;
+    }    
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

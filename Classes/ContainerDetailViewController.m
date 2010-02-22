@@ -90,7 +90,6 @@
 		[logEntries addObject:entry.fullLogEntry];
 
 		// TODO: also count file downloads
-		// TODO: look for common log parser?
 		
 		// keep a count of the user agents.  this might look weird, but it's 
 		// Common Log Format, so don't worry about it :)
@@ -543,7 +542,6 @@
     cell.backgroundColor = [UIColor clearColor];
 	
 	// adjust label widths for orientation
-	// TODO: this works when it's called, but we need a good place to call reloadData to fire this off
 	/*
 	NSArray *labels = [NSArray arrayWithObjects:[cell viewWithTag:kDateTag], 
 					   [cell viewWithTag:kTitleTag], [cell viewWithTag:kBodyTag], [cell viewWithTag:kAuthorTag], nil];

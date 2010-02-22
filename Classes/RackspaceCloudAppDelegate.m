@@ -25,7 +25,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-	// TODO: link to phone support somewhere
 	// TODO: tweet cdn link to file, use bit.ly
 	
 	
