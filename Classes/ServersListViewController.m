@@ -13,6 +13,7 @@
 #import "ASICloudServersServer.h"
 #import "ASICloudServersImage.h"
 #import "UIViewController+SpinnerView.h"
+#import "UIViewController+RackspaceCloud.h"
 
 
 @implementation ServersListViewController
@@ -49,41 +50,34 @@
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
-- (void)listServersFinished:(ASICloudServersServerRequest *)request {
+- (void)listServersSuccess:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
-	NSLog(@"GET /servers: %i", [request responseStatusCode]);
-	NSLog(@"%@", [request responseString]);
-	if ([request responseStatusCode] == 200 || [request responseStatusCode] == 203) {
-		
-		[servers release];
-		servers = [[NSMutableArray alloc] initWithArray:[request servers]];		
-		[self.tableView reloadData];
-		[self preselectServer];
-	} else {
-		// TODO: deal with it
-	}
+	[servers release];
+	servers = [[NSMutableArray alloc] initWithArray:[request servers]];		
+	[self.tableView reloadData];
+	[self preselectServer];
 }
 
 // TODO refresh list OS logo
-
-- (void)listServersFailed:(ASICloudServersServerRequest *)request {
-	[self hideSpinnerView];
-	NSLog(@"List Servers Failed");
-}
 
 - (void)loadServers {
 	[self loadServers:YES];
 }
 
 - (void)loadServers:(BOOL)showSpinner {
+	/*
 	if (showSpinner) {
 		[self showSpinnerView:@"Loading..."];
 	}
+	 */
+	[self request:[ASICloudServersServerRequest listRequest] behavior:@"retrieving your servers" success:@selector(listServersSuccess:)];
+	/*
 	ASICloudFilesRequest *request = [ASICloudServersServerRequest listRequest];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(listServersFinished:)];
 	[request setDidFailSelector:@selector(listServersFailed:)];
 	[request startAsynchronous];
+	 */
 }
 
 - (void)viewDidLoad {

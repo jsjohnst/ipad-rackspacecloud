@@ -128,7 +128,7 @@ static UIImage *redhatBackground = nil;
 	} else if (imageId == 187811) {
 		return centosIcon;
 	} else {
-		// TODO: handle backup or custom images
+
 	}
 	
 	return nil;
@@ -181,7 +181,7 @@ static UIImage *redhatBackground = nil;
 	} else if (imageId == 187811) {
 		return centosLogo;
 	} else {
-		// TODO: handle backup or custom images
+
 	}
 	
 	return nil;
@@ -234,7 +234,7 @@ static UIImage *redhatBackground = nil;
 	} else if (imageId == 187811) {
 		return centosBackground;
 	} else {
-		// TODO: handle backup or custom images
+
 	}
 	
 	return nil;

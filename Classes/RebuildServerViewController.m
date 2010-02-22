@@ -118,7 +118,6 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	if (section == 0) {
-		// TODO: for some reason this gets clipped if you scroll down and then back up
 		return @"Rebuilding this Cloud Server will destroy all data and reinstall the image you select.";
 	} else {
 		return @"";

@@ -114,7 +114,6 @@
 
 - (NSString *)tableView:(UITableView *)aTableView titleForFooterInSection:(NSInteger)section {
 	if (section == 0) {
-		// TODO: for some reason this gets clipped if you scroll down and then back up
 		return @"The backup service allows you to hold three distinct backup images. The backups are full-system copies of your server. In order to use the daily or weekly scheduled backup you must have an available backup slot.";
 	} else {
 		return @"";

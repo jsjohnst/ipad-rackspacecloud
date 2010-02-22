@@ -27,7 +27,6 @@
     
 	// TODO: link to phone support somewhere
 	// TODO: tweet cdn link to file, use bit.ly
-	// TODO: refresh buttons on lists
 	
 	
     // Override point for customization after app launch    
