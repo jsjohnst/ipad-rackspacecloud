@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface AuthenticationViewController : UIViewController {
+@interface AuthenticationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	
 	// "Authenticating..."
 	IBOutlet UIActivityIndicatorView *smallSpinner;
@@ -41,9 +41,19 @@
 	
 	IBOutlet UIView *statusView;
 	
+	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+
+	
 	CGPoint startPosition;
 	BOOL statusViewExpanded;
 	IBOutlet UIToolbar *statusToolbar;
+	IBOutlet UITableView *tableView;
+	
+	NSMutableArray *feedItems;
+	NSMutableArray *sitesFeedItems;
+	NSMutableArray *serversFeedItems;
+	NSMutableArray *filesFeedItems;
+	
 }
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *smallSpinner;
@@ -58,6 +68,15 @@
 
 @property (nonatomic, retain) IBOutlet UIView *statusView;
 @property (nonatomic, retain) IBOutlet UIToolbar *statusToolbar;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+
+@property (nonatomic, retain) NSMutableArray *feedItems;
+@property (nonatomic, retain) NSMutableArray *sitesFeedItems;
+@property (nonatomic, retain) NSMutableArray *serversFeedItems;
+@property (nonatomic, retain) NSMutableArray *filesFeedItems;
+
+@property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+
 
 -(void)loginButtonPressed:(id)sender;
 -(void)loadSettings;
