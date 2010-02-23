@@ -51,7 +51,7 @@
 	
 	//statusToolbar
 	CGAffineTransform transform = self.statusToolbar.transform;
-	self.statusToolbar.transform = CGAffineTransformRotate(transform, 1.57079633);
+	self.statusToolbar.transform = CGAffineTransformRotate(transform, 4.71238898); //1.57079633);
 	//CGContextRotateCTM(myContext, radians(–45.));
 	
 	statusView.backgroundColor = [UIColor clearColor];
