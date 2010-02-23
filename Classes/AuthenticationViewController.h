@@ -43,6 +43,7 @@
 	
 	CGPoint startPosition;
 	BOOL statusViewExpanded;
+	IBOutlet UIToolbar *statusToolbar;
 }
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *smallSpinner;
@@ -56,6 +57,7 @@
 @property (nonatomic, retain) IBOutlet UIScrollView *statusScrollView;
 
 @property (nonatomic, retain) IBOutlet UIView *statusView;
+@property (nonatomic, retain) IBOutlet UIToolbar *statusToolbar;
 
 -(void)loginButtonPressed:(id)sender;
 -(void)loadSettings;

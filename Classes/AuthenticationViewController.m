@@ -23,6 +23,7 @@
 
 @synthesize statusButton, statusScrollView;
 @synthesize statusView;
+@synthesize statusToolbar;
 
 #pragma mark -
 #pragma mark View Lifecycle
@@ -47,6 +48,11 @@
 	imageLoadAttempts = 0;
 	flavorLoadAttempts = 0;
 
+	
+	//statusToolbar
+	CGAffineTransform transform = self.statusToolbar.transform;
+	self.statusToolbar.transform = CGAffineTransformRotate(transform, 1.57079633);
+	//CGContextRotateCTM(myContext, radians(–45.));
 	
 	statusView.backgroundColor = [UIColor clearColor];
 }
@@ -358,6 +364,7 @@
 	[statusButton release];
 	[statusScrollView release];
 	[statusView release];
+	[statusToolbar release];
 	
     [super dealloc];
     self = nil; // to prevent ASIHttpRequest from calling a deallocated delegate
