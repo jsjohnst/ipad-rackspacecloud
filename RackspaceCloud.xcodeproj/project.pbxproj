@@ -24,6 +24,7 @@
 		273C88BB11333D25005F36C3 /* usflag.png in Resources */ = {isa = PBXBuildFile; fileRef = 273C88B911333D25005F36C3 /* usflag.png */; };
 		273C89AA11339239005F36C3 /* silvergradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 273C89A911339239005F36C3 /* silvergradient.png */; };
 		273C8AC51133AA88005F36C3 /* LoginFeedItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 273C8AC41133AA88005F36C3 /* LoginFeedItemCell.xib */; };
+		273C8B16113465E1005F36C3 /* trans100.png in Resources */ = {isa = PBXBuildFile; fileRef = 273C8B15113465E1005F36C3 /* trans100.png */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -170,6 +171,7 @@
 		273C88B911333D25005F36C3 /* usflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usflag.png; sourceTree = "<group>"; };
 		273C89A911339239005F36C3 /* silvergradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = silvergradient.png; sourceTree = "<group>"; };
 		273C8AC41133AA88005F36C3 /* LoginFeedItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginFeedItemCell.xib; sourceTree = "<group>"; };
+		273C8B15113465E1005F36C3 /* trans100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trans100.png; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 		273C7D12112CC826005F36C3 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				273C8B15113465E1005F36C3 /* trans100.png */,
 				273C89A911339239005F36C3 /* silvergradient.png */,
 				273C88B811333D25005F36C3 /* ukflag.png */,
 				273C88B911333D25005F36C3 /* usflag.png */,
@@ -926,6 +929,7 @@
 				273C88BB11333D25005F36C3 /* usflag.png in Resources */,
 				273C89AA11339239005F36C3 /* silvergradient.png in Resources */,
 				273C8AC51133AA88005F36C3 /* LoginFeedItemCell.xib in Resources */,
+				273C8B16113465E1005F36C3 /* trans100.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
