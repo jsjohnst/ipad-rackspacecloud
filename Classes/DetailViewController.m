@@ -257,7 +257,7 @@ static UIImage *ukFlag = nil;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
-		return @"Support";
+		return @"Contact Rackspace Cloud Support";
 	} else {
 		return @"Rackspace Cloud System Status";
 	}

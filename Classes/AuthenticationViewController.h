@@ -34,6 +34,15 @@
 	
 	NSUInteger imageLoadAttempts;
 	NSUInteger flavorLoadAttempts;
+	
+	
+	IBOutlet UIButton *statusButton;
+	IBOutlet UIScrollView *statusScrollView;
+	
+	IBOutlet UIView *statusView;
+	
+	CGPoint startPosition;
+	BOOL statusViewExpanded;
 }
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *smallSpinner;
@@ -42,6 +51,11 @@
 @property (nonatomic, retain) IBOutlet UILabel *largeAuthenticatingLabel;
 @property (nonatomic, retain) IBOutlet UITextField *usernameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *apiKeyTextField;
+
+@property (nonatomic, retain) IBOutlet UIButton *statusButton;
+@property (nonatomic, retain) IBOutlet UIScrollView *statusScrollView;
+
+@property (nonatomic, retain) IBOutlet UIView *statusView;
 
 -(void)loginButtonPressed:(id)sender;
 -(void)loadSettings;

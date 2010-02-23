@@ -12,13 +12,11 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "AuthenticationViewController.h"
-#import "NSString+Rubyisms.h"
 
 
 @implementation RackspaceCloudAppDelegate
 
 @synthesize window, splitViewController, masterViewController, detailViewController, authenticationViewController;
-
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -40,10 +38,6 @@
     splitViewController = [[UISplitViewController alloc] init];
     splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, detailViewController, nil];
 	splitViewController.delegate = detailViewController;
-    
-    // Add the split view controller's view to the window and display.
-    //[window addSubview:splitViewController.view];
-	//splitViewController.view.alpha = 0.0;
     
 	// put the auth view controller on top
 	authenticationViewController = [[AuthenticationViewController alloc] initWithNibName:@"AuthenticationViewController" bundle:nil];

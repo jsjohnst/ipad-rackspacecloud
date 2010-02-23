@@ -21,6 +21,9 @@
 @synthesize smallAuthenticatingLabel, largeAuthenticatingLabel;
 @synthesize usernameTextField, apiKeyTextField;
 
+@synthesize statusButton, statusScrollView;
+@synthesize statusView;
+
 #pragma mark -
 #pragma mark View Lifecycle
 
@@ -44,6 +47,8 @@
 	imageLoadAttempts = 0;
 	flavorLoadAttempts = 0;
 
+	
+	statusView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {	
@@ -260,6 +265,85 @@
 	
 }
 
+
+#pragma mark -
+#pragma mark System Status Support
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
+	for (UITouch *touch in touches) {
+		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
+		//[self dispatchFirstTouchAtPoint:[touch locationInView:self] forEvent:nil];
+		//touchCount++;
+		startPosition = [touch locationInView:self.statusView];
+		break; // only care about the first touch
+		
+	}	
+	
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	//NSLog(@"touchesMoved:%@ withEvent:%@", touches, event);
+
+	for (UITouch *touch in touches) {
+		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
+		//[self dispatchFirstTouchAtPoint:[touch locationInView:self] forEvent:nil];
+		//touchCount++;
+		CGPoint newPosition = [touch locationInView:self.view];
+		
+		//self.usernameTextField.center = newPosition;
+		//self.view.center = newPosition;
+		
+		CGRect rect = self.statusView.frame;
+		float newX = rect.origin.x - (rect.origin.x - newPosition.x);
+		
+		if (newX >= 244.0 && newX <= 954.0) {
+			rect.origin.x = newX;
+			NSLog(@"new x = %f", rect.origin.x);
+			startPosition = newPosition;
+			self.statusView.frame = rect;
+		}
+
+		break; // only care about the first touch
+		
+	}	
+	
+	//UITouch *touch = [touches
+}
+	
+- (void)snapStatusViewTo:(float)x {
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	// 244 or 954
+	
+	CGRect rect = self.statusView.frame;
+
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.25];
+	[UIView setAnimationDelegate:self];
+	if (statusViewExpanded) {
+		if (rect.origin.x > 300.0) {
+			rect.origin.x = 954.0;
+			statusViewExpanded = NO;
+		} else {
+			rect.origin.x = 244.0;
+			statusViewExpanded = YES;
+		}
+	} else {
+		if (rect.origin.x < 899.0) {
+			rect.origin.x = 244.0;
+			statusViewExpanded = YES;
+		} else {
+			rect.origin.x = 954.0;
+			statusViewExpanded = NO;
+		}
+	}
+	self.statusView.frame = rect;
+	[UIView commitAnimations];
+
+}
+
 #pragma mark -
 #pragma mark Memory Management
 
@@ -270,6 +354,11 @@
 	[largeAuthenticatingLabel release];
 	[usernameTextField release];
 	[apiKeyTextField release];
+	
+	[statusButton release];
+	[statusScrollView release];
+	[statusView release];
+	
     [super dealloc];
     self = nil; // to prevent ASIHttpRequest from calling a deallocated delegate
 }
