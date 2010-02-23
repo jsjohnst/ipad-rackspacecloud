@@ -15,6 +15,7 @@
 #import "ASICloudFilesContainer.h"
 #import "ASICloudFilesCDNRequest.h"
 #import "UIViewController+RackspaceCloud.h"
+#import "UIViewController+SpinnerView.h"
 
 // TODO: how to extract album art from mp3
 // TODO: preview icon as metadata?
@@ -48,9 +49,10 @@
 }
 
 - (void)listContainersSuccess:(ASICloudFilesContainerRequest *)request {
+	[self hideSpinnerView];
 	[containers release];
 	containers = [[NSMutableArray alloc] initWithArray:[request containers]];
-	[self request:[ASICloudFilesCDNRequest listRequest] behavior:@"retrieving your CDN containers" success:@selector(listCDNContainersSuccess:)];
+	[self request:[ASICloudFilesCDNRequest listRequest] behavior:@"retrieving your CDN containers" success:@selector(listCDNContainersSuccess:) showSpinner:NO];
 	[self.tableView reloadData];
 }
 
