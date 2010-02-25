@@ -44,8 +44,6 @@ static UIImage *ukFlag = nil;
 	ukFlag = [[UIImage imageNamed:@"ukflag.png"] retain];
 }
 
-// TODO: no RSS feed cell for down internet connection
-
 #pragma mark -
 #pragma mark Date Formatting
 

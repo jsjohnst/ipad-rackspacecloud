@@ -152,7 +152,7 @@ static UIImage *ukFlag = nil;
 
 - (void)serversStatusRequestFailed:(ASIHTTPRequest *)request {
     requestCompletionCount++;
-	// TODO: reloadData with nibLoadedRSSEmptyCell if all fail
+	[self.tableView reloadData];
 }
 
 - (void)filesStatusRequestFinished:(ASIHTTPRequest *)request {
@@ -174,7 +174,7 @@ static UIImage *ukFlag = nil;
 
 - (void)filesStatusRequestFailed:(ASIHTTPRequest *)request {
     requestCompletionCount++;
-	// TODO: reloadData with nibLoadedRSSEmptyCell if all fail
+	[self.tableView reloadData];
 }
 
 - (void)sitesStatusRequestFinished:(ASIHTTPRequest *)request {
@@ -196,7 +196,7 @@ static UIImage *ukFlag = nil;
 
 - (void)sitesStatusRequestFailed:(ASIHTTPRequest *)request {
     requestCompletionCount++;
-	// TODO: reloadData with nibLoadedRSSEmptyCell if all fail
+	[self.tableView reloadData];
 }
 
 
