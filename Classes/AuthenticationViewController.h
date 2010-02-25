@@ -48,6 +48,8 @@
 	BOOL statusViewExpanded;
 	IBOutlet UIToolbar *statusToolbar;
 	IBOutlet UITableView *tableView;
+	BOOL dragging;
+	
 	
 	NSMutableArray *feedItems;
 	NSMutableArray *sitesFeedItems;

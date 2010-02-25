@@ -13,6 +13,7 @@
 @interface ResetServerAdminPasswordViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	ServerDetailViewController *serverDetailViewController;
 	UITextField *textField;
+	UITextField *confirmTextField;
 }
 
 @property (nonatomic, retain) ServerDetailViewController *serverDetailViewController;

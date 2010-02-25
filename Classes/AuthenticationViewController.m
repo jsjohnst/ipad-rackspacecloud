@@ -22,9 +22,6 @@
 #define kBodyTag 3
 #define kAuthorTag 4
 
-
-// TODO: try out paginated view of RSS issues within the last 48 hours
-
 static UIImage *usFlag = nil;
 static UIImage *ukFlag = nil;
 
@@ -409,17 +406,33 @@ static UIImage *ukFlag = nil;
 	
 	
 	for (UITouch *touch in touches) {
+		
+//CGPoint windowPosition = [touch locationInView:self.view];
+CGPoint newPosition = [touch locationInView:self.statusView];		
+
+NSLog(@"bar  position = (%f,%f)", self.statusToolbar.frame.origin.x, self.statusToolbar.frame.origin.y);
+NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusToolbar.frame, newPosition));
+		
+		
 		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
 		//[self dispatchFirstTouchAtPoint:[touch locationInView:self] forEvent:nil];
 		//touchCount++;
-		CGPoint position = [touch locationInView:self.statusView];
+		//CGPoint position = [touch locationInView:self.statusView];
 		
-		NSLog(@"position = (%f,%f) %i", position.x, position.y, CGRectContainsPoint(self.statusView.frame, position));
+		//NSLog(@"position = (%f,%f) %i", position.x, position.y, CGRectContainsPoint(self.statusView.frame, position));
 		
-		//if (CGRectContainsPoint(self.statusView.frame, position)) {
-			startPosition = position;
-			break; // only care about the first touch
-		//}
+		//CGPoint windowPosition = [touch locationInView:self.view];
+		//CGPoint newPosition = [touch locationInView:self.statusView];
+		//NSLog(@"new position = (%f,%f) %i", position.x, position.y, CGRectContainsPoint(self.statusView.frame, newPosition));
+		
+		if (newPosition.x >= 0) {
+			dragging = YES;
+			if (CGRectContainsPoint(self.statusView.frame, newPosition)) {
+				startPosition = newPosition;
+				//dragging = YES;
+				break; // only care about the first touch
+			}
+		}
 		
 	}	
 	
@@ -428,31 +441,54 @@ static UIImage *ukFlag = nil;
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 	//NSLog(@"touchesMoved:%@ withEvent:%@", touches, event);
 
+	if (dragging) {
+	//if (startPosition.x >= 0) {
+	
 	for (UITouch *touch in touches) {
 		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
 		//[self dispatchFirstTouchAtPoint:[touch locationInView:self] forEvent:nil];
 		//touchCount++;
-		CGPoint newPosition = [touch locationInView:self.view];
-		NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusView.frame, newPosition));
 		
-		//if (CGRectContainsPoint(self.statusView.frame, newPosition)) {
+		CGPoint windowPosition = [touch locationInView:self.view];
+		//CGPoint newPosition = [touch locationInView:self.statusView];
+		
+		/*
+		NSLog(@"barb position = (%f,%f)", self.statusView.bounds.origin.x, self.statusView.bounds.origin.y);
+		NSLog(@"bar  position = (%f,%f)", self.statusToolbar.frame.origin.x, self.statusToolbar.frame.origin.y);
+		NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusToolbar.frame, newPosition));
+		*/
+		
+		/*
+		if (CGRectContainsPoint(self.statusToolbar.frame, newPosition) == 1) {
+			NSLog(@"yay");
+		} else {
+			NSLog(@"nay");
+		}
+		 */
+		
+		//if (CGRectContainsPoint(self.statusToolbar.frame, newPosition)) {
 		
 			//self.usernameTextField.center = newPosition;
 			//self.view.center = newPosition;
 			
 			CGRect rect = self.statusView.frame;
-			float newX = rect.origin.x - (rect.origin.x - newPosition.x);
+			float newX = rect.origin.x - (rect.origin.x - windowPosition.x);
+			NSLog(@"x = %f", newX);
 			
 			if (newX >= 244.0 && newX <= 954.0) {
 				rect.origin.x = newX;
-				NSLog(@"new x = %f", rect.origin.x);
-				startPosition = newPosition;
+				//NSLog(@"new x = %f", rect.origin.x);
+				startPosition = windowPosition;
 				self.statusView.frame = rect;
 			}
 
 			break; // only care about the first touch
+		//} else {
+		//	NSLog(@"NO");
 		//}
 	}	
+		
+	}
 	
 	//UITouch *touch = [touches
 }
@@ -486,6 +522,7 @@ static UIImage *ukFlag = nil;
 		}
 	}
 	self.statusView.frame = rect;
+	dragging = NO;
 	[UIView commitAnimations];
 
 }
@@ -518,7 +555,7 @@ static UIImage *ukFlag = nil;
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    NSLog(@"String size height = %f", stringSize.height);
+    //NSLog(@"String size height = %f", stringSize.height);
     return stringSize.height;
 }
 
