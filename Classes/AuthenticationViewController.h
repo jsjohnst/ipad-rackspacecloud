@@ -41,6 +41,7 @@
 	IBOutlet UIView *statusView;
 	
 	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+    IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
 
 	CGPoint startPosition;
 	BOOL statusViewExpanded;
@@ -53,6 +54,8 @@
 	NSMutableArray *sitesFeedItems;
 	NSMutableArray *serversFeedItems;
 	NSMutableArray *filesFeedItems;
+	
+    NSUInteger rssRequestCompletionCount;
 	
 }
 
@@ -76,6 +79,7 @@
 @property (nonatomic, retain) NSMutableArray *filesFeedItems;
 
 @property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
 
 
 -(void)loginButtonPressed:(id)sender;

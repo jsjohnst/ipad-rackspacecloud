@@ -17,6 +17,7 @@
 
 	IBOutlet UITableView *tableView;
 	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+    IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
 	
 	// this is the initial detail view.
 	// since servers or files isn't selected when the app launches,
@@ -24,13 +25,13 @@
 	// an update on the status of the rackspace cloud
 	// pre-select a System Status row on the master view
 	// also consider feed://twitter.com/statuses/user_timeline/6979812.rss
-
-	// TODO: show without requiring login
 	
 	NSMutableArray *feedItems;
 	NSMutableArray *sitesFeedItems;
 	NSMutableArray *serversFeedItems;
 	NSMutableArray *filesFeedItems;
+	
+    NSUInteger requestCompletionCount;
 }
 
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -40,6 +41,7 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
 
 @property (nonatomic, retain) NSMutableArray *feedItems;
 @property (nonatomic, retain) NSMutableArray *sitesFeedItems;

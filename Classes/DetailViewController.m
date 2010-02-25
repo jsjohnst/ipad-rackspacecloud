@@ -27,7 +27,7 @@ static UIImage *ukFlag = nil;
 
 @synthesize navigationBar, popoverController, detailItem;
 @synthesize sitesFeedItems, serversFeedItems, filesFeedItems;
-@synthesize tableView, nibLoadedFeedItemCell;
+@synthesize tableView, nibLoadedFeedItemCell, nibLoadedRSSEmptyCell;
 @synthesize feedItems;
 
 +(void)initialize {
@@ -120,8 +120,6 @@ static UIImage *ukFlag = nil;
 	[self loadFeedWithURL:@"feed://status.rackspacecloud.com/cloudservers/rss.xml" didFinishSelector:@selector(serversStatusRequestFinished:) didFailSelector:@selector(serversStatusRequestFailed:)];
 	[self loadFeedWithURL:@"feed://status.clouddrive.com/?feed=rss2" didFinishSelector:@selector(filesStatusRequestFinished:) didFailSelector:@selector(filesStatusRequestFailed:)];
 	[self loadFeedWithURL:@"feed://status.mosso.com/rss.xml" didFinishSelector:@selector(sitesStatusRequestFinished:) didFailSelector:@selector(sitesStatusRequestFailed:)];
-	// feed://status.clouddrive.com/?feed=rss2
-	// feed://status.mosso.com/rss.xml
 }
 
 #pragma mark -
@@ -130,13 +128,13 @@ static UIImage *ukFlag = nil;
 - (void)appendFeedItems:(NSMutableArray *)newFeedItems {
 	if (self.feedItems == nil) {
 		self.feedItems = [[NSMutableArray alloc] initWithCapacity:[newFeedItems count]];
-	}	
+	}
 	[self.feedItems addObjectsFromArray:newFeedItems];
 	[self.feedItems sortUsingSelector:@selector(compare:)];
 }
 
 - (void)serversStatusRequestFinished:(ASIHTTPRequest *)request {
-	//NSLog(@"Servers Status Request: %i", [request responseStatusCode]);		
+    requestCompletionCount++;
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[request responseData]];
 	RSSParser *rssParser = [[RSSParser alloc] init];
 	xmlParser.delegate = rssParser;
@@ -153,11 +151,12 @@ static UIImage *ukFlag = nil;
 }
 
 - (void)serversStatusRequestFailed:(ASIHTTPRequest *)request {
-	//NSLog(@"Servers Status Request FAIL");
+    requestCompletionCount++;
+	// TODO: reloadData with nibLoadedRSSEmptyCell if all fail
 }
 
 - (void)filesStatusRequestFinished:(ASIHTTPRequest *)request {
-	//NSLog(@"Files Status Request: %i", [request responseStatusCode]);		
+    requestCompletionCount++;
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[request responseData]];
 	RSSParser *rssParser = [[RSSParser alloc] init];
 	xmlParser.delegate = rssParser;
@@ -174,11 +173,12 @@ static UIImage *ukFlag = nil;
 }
 
 - (void)filesStatusRequestFailed:(ASIHTTPRequest *)request {
-	//NSLog(@"Files Status Request FAIL");
+    requestCompletionCount++;
+	// TODO: reloadData with nibLoadedRSSEmptyCell if all fail
 }
 
 - (void)sitesStatusRequestFinished:(ASIHTTPRequest *)request {
-	//NSLog(@"Sites Status Request: %i", [request responseStatusCode]);		
+    requestCompletionCount++;
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[request responseData]];
 	AtomParser *atomParser = [[AtomParser alloc] init];
 	xmlParser.delegate = atomParser;
@@ -195,7 +195,8 @@ static UIImage *ukFlag = nil;
 }
 
 - (void)sitesStatusRequestFailed:(ASIHTTPRequest *)request {
-	//NSLog(@"Sites Status Request FAIL");
+    requestCompletionCount++;
+	// TODO: reloadData with nibLoadedRSSEmptyCell if all fail
 }
 
 
@@ -206,7 +207,8 @@ static UIImage *ukFlag = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	tableView.backgroundView = nil;
-	
+    requestCompletionCount = 0;
+    
 	// register for rotation events to keep the rss feed width correct
 	[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(orientationDidChange:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 }
@@ -216,26 +218,14 @@ static UIImage *ukFlag = nil;
 	[self loadRSSFeeds];
 }
 
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
-
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.popoverController = nil;
+}
+
+- (BOOL)allRSSRequestsFailed {
+    return [self.feedItems count] == 0 && requestCompletionCount == 3;
 }
 
 #pragma mark -
@@ -246,12 +236,15 @@ static UIImage *ukFlag = nil;
     return 2;
 }
 
-
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 2;
     } else {
-    	return [self.feedItems count];        
+        if ([self allRSSRequestsFailed]) {
+            return 1; // the empty RSS cell
+        } else {
+        	return [self.feedItems count]; 
+        }
     }
 }
 
@@ -311,61 +304,80 @@ static UIImage *ukFlag = nil;
     
 }
 
+- (UITableViewCell *)tableView:(UITableView *)aTableView emptyRSSCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EmptyRSSCell"];
+	if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"LoginRSSEmptyCell" owner:self options:NULL]; 
+		cell = nibLoadedRSSEmptyCell;
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView rssCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedItemCell"];
+	if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"FeedItemCell" owner:self options:NULL]; 
+		cell = nibLoadedFeedItemCell;
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+
+	// show newest first
+	FeedItem *item = [self.feedItems objectAtIndex:[self.feedItems count] - 1 - indexPath.row];
+
+	UILabel *dateLabel = (UILabel *) [cell viewWithTag:kDateTag];
+	dateLabel.text = [self dateToString:item.pubDate];
+
+	UILabel *titleLabel = (UILabel *) [cell viewWithTag:kTitleTag];
+	titleLabel.text = item.title;
+
+	UILabel *bodyLabel = (UILabel *) [cell viewWithTag:kBodyTag];
+	bodyLabel.text = item.content;
+
+	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
+	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
+
+	// set the height of the title label to fit the size of the string
+	CGFloat originalTitleHeight = titleLabel.frame.size.height;	
+	CGFloat titleHeight = [[self class] findLabelHeight:item.title font:titleLabel.font label:titleLabel];
+
+	CGRect titleRect = titleLabel.frame;
+	titleRect.size.height = titleHeight;
+	titleLabel.frame = titleRect;
+
+	CGFloat originalBodyHeight = bodyLabel.frame.size.height;
+	CGFloat bodyHeight = [[self class] findLabelHeight:item.content font:bodyLabel.font label:bodyLabel];
+
+	CGRect subtitleRect = bodyLabel.frame;
+	subtitleRect.origin.y += titleHeight - originalTitleHeight;
+	subtitleRect.size.height = bodyHeight;
+	bodyLabel.frame = subtitleRect;
+
+	CGRect authorRect = authorLabel.frame;
+	authorRect.origin.y += titleHeight - originalTitleHeight;
+	authorRect.origin.y += bodyHeight - originalBodyHeight;
+	authorLabel.frame = authorRect;
+
+	CGRect cellRect = cell.frame;
+	cellRect.size.height += titleHeight - originalTitleHeight;
+	cellRect.size.height += bodyHeight - originalBodyHeight;
+	cell.frame = cellRect;
+
+    return cell;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         return [self tableView:aTableView supportCellForRowAtIndexPath:indexPath];
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedItemCell"];
-    	if (cell == nil) {
-    		[[NSBundle mainBundle] loadNibNamed:@"FeedItemCell" owner:self options:NULL]; 
-    		cell = nibLoadedFeedItemCell;
-    		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    		cell.accessoryType = UITableViewCellAccessoryNone;
-    	}
-
-    	// show newest first
-    	FeedItem *item = [self.feedItems objectAtIndex:[self.feedItems count] - 1 - indexPath.row];
-
-    	UILabel *dateLabel = (UILabel *) [cell viewWithTag:kDateTag];
-    	dateLabel.text = [self dateToString:item.pubDate]; //[item.pubDate description];
-
-    	UILabel *titleLabel = (UILabel *) [cell viewWithTag:kTitleTag];
-    	titleLabel.text = item.title;
-
-    	UILabel *bodyLabel = (UILabel *) [cell viewWithTag:kBodyTag];
-    	bodyLabel.text = item.content;
-
-    	UILabel *authorLabel = (UILabel *) [cell viewWithTag:kAuthorTag];
-    	authorLabel.text = [NSString stringWithFormat:@"Posted by %@", item.creator];
-
-    	// set the height of the title label to fit the size of the string
-    	CGFloat originalTitleHeight = titleLabel.frame.size.height;	
-    	CGFloat titleHeight = [[self class] findLabelHeight:item.title font:titleLabel.font label:titleLabel];
-
-    	CGRect titleRect = titleLabel.frame;
-    	titleRect.size.height = titleHeight;
-    	titleLabel.frame = titleRect;
-
-    	CGFloat originalBodyHeight = bodyLabel.frame.size.height;
-    	CGFloat bodyHeight = [[self class] findLabelHeight:item.content font:bodyLabel.font label:bodyLabel];
-
-    	CGRect subtitleRect = bodyLabel.frame;
-    	subtitleRect.origin.y += titleHeight - originalTitleHeight;
-    	subtitleRect.size.height = bodyHeight;
-    	bodyLabel.frame = subtitleRect;
-
-    	CGRect authorRect = authorLabel.frame;
-    	authorRect.origin.y += titleHeight - originalTitleHeight;
-    	authorRect.origin.y += bodyHeight - originalBodyHeight;
-    	authorLabel.frame = authorRect;
-
-    	CGRect cellRect = cell.frame;
-    	cellRect.size.height += titleHeight - originalTitleHeight;
-    	cellRect.size.height += bodyHeight - originalBodyHeight;
-    	cell.frame = cellRect;
-
-        return cell;
+        if ([self allRSSRequestsFailed]) {
+            return [self tableView:aTableView emptyRSSCellForRowAtIndexPath:indexPath];
+        } else {
+            return [self tableView:aTableView rssCellForRowAtIndexPath:indexPath];
+        }
     }    
 }
 
@@ -399,6 +411,7 @@ static UIImage *ukFlag = nil;
 	
 	[tableView release];
 	[nibLoadedFeedItemCell release];
+    [nibLoadedRSSEmptyCell release];
 	
 	[sitesFeedItems release];
 	[serversFeedItems release];
