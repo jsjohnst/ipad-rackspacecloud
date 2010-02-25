@@ -117,9 +117,9 @@ static UIImage *ukFlag = nil;
 }
 
 - (void)loadRSSFeeds {
-	[self loadFeedWithURL:@"feed://status.rackspacecloud.com/cloudservers/rss.xml" didFinishSelector:@selector(serversStatusRequestFinished:) didFailSelector:@selector(serversStatusRequestFailed:)];
-	[self loadFeedWithURL:@"feed://status.clouddrive.com/?feed=rss2" didFinishSelector:@selector(filesStatusRequestFinished:) didFailSelector:@selector(filesStatusRequestFailed:)];
-	[self loadFeedWithURL:@"feed://status.mosso.com/rss.xml" didFinishSelector:@selector(sitesStatusRequestFinished:) didFailSelector:@selector(sitesStatusRequestFailed:)];
+	[self loadFeedWithURL:@"feed://xxxstatus.rackspacecloud.com/cloudservers/rss.xml" didFinishSelector:@selector(serversStatusRequestFinished:) didFailSelector:@selector(serversStatusRequestFailed:)];
+	[self loadFeedWithURL:@"feed://xxxstatus.clouddrive.com/?feed=rss2" didFinishSelector:@selector(filesStatusRequestFinished:) didFailSelector:@selector(filesStatusRequestFailed:)];
+	[self loadFeedWithURL:@"feed://xxxstatus.mosso.com/rss.xml" didFinishSelector:@selector(sitesStatusRequestFinished:) didFailSelector:@selector(sitesStatusRequestFailed:)];
 }
 
 #pragma mark -
@@ -307,7 +307,7 @@ static UIImage *ukFlag = nil;
 - (UITableViewCell *)tableView:(UITableView *)aTableView emptyRSSCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EmptyRSSCell"];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"LoginRSSEmptyCell" owner:self options:NULL]; 
+		[[NSBundle mainBundle] loadNibNamed:@"RSSEmptyCell" owner:self options:NULL]; 
 		cell = nibLoadedRSSEmptyCell;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
