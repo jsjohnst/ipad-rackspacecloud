@@ -30,6 +30,9 @@
 		27425B691137007400EB084A /* rssgrey453.png in Resources */ = {isa = PBXBuildFile; fileRef = 27425B651137007400EB084A /* rssgrey453.png */; };
 		27425B6A1137007400EB084A /* rssgreyborder453.png in Resources */ = {isa = PBXBuildFile; fileRef = 27425B661137007400EB084A /* rssgreyborder453.png */; };
 		27425B6C1137054400EB084A /* LoginRSSEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27425B6B1137054400EB084A /* LoginRSSEmptyCell.xib */; };
+		27425B88113727CF00EB084A /* rssblack337.png in Resources */ = {isa = PBXBuildFile; fileRef = 27425B87113727CF00EB084A /* rssblack337.png */; };
+		27425B8E113731EE00EB084A /* RSSEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27425B8D113731EE00EB084A /* RSSEmptyCell.xib */; };
+		27425B911137322700EB084A /* rssgrey337.png in Resources */ = {isa = PBXBuildFile; fileRef = 27425B901137322700EB084A /* rssgrey337.png */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -182,6 +185,9 @@
 		27425B651137007400EB084A /* rssgrey453.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rssgrey453.png; sourceTree = "<group>"; };
 		27425B661137007400EB084A /* rssgreyborder453.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rssgreyborder453.png; sourceTree = "<group>"; };
 		27425B6B1137054400EB084A /* LoginRSSEmptyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginRSSEmptyCell.xib; sourceTree = "<group>"; };
+		27425B87113727CF00EB084A /* rssblack337.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rssblack337.png; sourceTree = "<group>"; };
+		27425B8D113731EE00EB084A /* RSSEmptyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RSSEmptyCell.xib; sourceTree = "<group>"; };
+		27425B901137322700EB084A /* rssgrey337.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rssgrey337.png; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -404,6 +410,8 @@
 		27425B611137006500EB084A /* RSS */ = {
 			isa = PBXGroup;
 			children = (
+				27425B901137322700EB084A /* rssgrey337.png */,
+				27425B87113727CF00EB084A /* rssblack337.png */,
 				27425B631137007400EB084A /* rssblack453.png */,
 				27425B641137007400EB084A /* rssblackborder453.png */,
 				27425B651137007400EB084A /* rssgrey453.png */,
@@ -776,6 +784,7 @@
 				27614B381117EC1300D9C84E /* LogEntryCell.xib */,
 				273C8AC41133AA88005F36C3 /* LoginFeedItemCell.xib */,
 				27425B6B1137054400EB084A /* LoginRSSEmptyCell.xib */,
+				27425B8D113731EE00EB084A /* RSSEmptyCell.xib */,
 			);
 			name = "Custom Table Cells";
 			sourceTree = "<group>";
@@ -958,6 +967,9 @@
 				27425B691137007400EB084A /* rssgrey453.png in Resources */,
 				27425B6A1137007400EB084A /* rssgreyborder453.png in Resources */,
 				27425B6C1137054400EB084A /* LoginRSSEmptyCell.xib in Resources */,
+				27425B88113727CF00EB084A /* rssblack337.png in Resources */,
+				27425B8E113731EE00EB084A /* RSSEmptyCell.xib in Resources */,
+				27425B911137322700EB084A /* rssgrey337.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
