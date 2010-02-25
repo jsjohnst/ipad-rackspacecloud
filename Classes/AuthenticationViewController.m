@@ -403,15 +403,20 @@ static UIImage *ukFlag = nil;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 
+	NSUInteger tapCount = [[touches anyObject] tapCount];
+	
+	NSLog(@"tap count: %d", tapCount);
 	
 	
 	for (UITouch *touch in touches) {
 		
+		
+		
 //CGPoint windowPosition = [touch locationInView:self.view];
 CGPoint newPosition = [touch locationInView:self.statusView];		
 
-NSLog(@"bar  position = (%f,%f)", self.statusToolbar.frame.origin.x, self.statusToolbar.frame.origin.y);
-NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusToolbar.frame, newPosition));
+//NSLog(@"bar  position = (%f,%f)", self.statusToolbar.frame.origin.x, self.statusToolbar.frame.origin.y);
+//NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusToolbar.frame, newPosition));
 		
 		
 		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
@@ -475,7 +480,7 @@ NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContain
 			float newX = rect.origin.x - (rect.origin.x - windowPosition.x);
 			NSLog(@"x = %f", newX);
 			
-			if (newX >= 244.0 && newX <= 954.0) {
+			if (newX >= 270.0 && newX <= 980.0) {
 				rect.origin.x = newX;
 				//NSLog(@"new x = %f", rect.origin.x);
 				startPosition = windowPosition;
@@ -506,18 +511,18 @@ NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContain
 	[UIView setAnimationDelegate:self];
 	if (statusViewExpanded) {
 		if (rect.origin.x > 300.0) {
-			rect.origin.x = 954.0;
+			rect.origin.x = 980.0;
 			statusViewExpanded = NO;
 		} else {
-			rect.origin.x = 244.0;
+			rect.origin.x = 270.0;
 			statusViewExpanded = YES;
 		}
 	} else {
-		if (rect.origin.x < 899.0) {
-			rect.origin.x = 244.0;
+		if (rect.origin.x < 889.0) {
+			rect.origin.x = 270.0;
 			statusViewExpanded = YES;
 		} else {
-			rect.origin.x = 954.0;
+			rect.origin.x = 980.0;
 			statusViewExpanded = NO;
 		}
 	}
