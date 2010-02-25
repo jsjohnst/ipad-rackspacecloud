@@ -12,6 +12,7 @@
 #import "ASICloudServersServer.h"
 #import "TextFieldCell.h"
 #import "UIViewController+SpinnerView.h"
+#import "UIViewController+RackspaceCloud.h"
 
 
 @implementation ResetServerAdminPasswordViewController
@@ -20,6 +21,12 @@
 
 #pragma mark -
 #pragma mark HTTP Response Handlers
+
+-(void)updatePasswordSuccess:(ASICloudServersServerRequest *)request {
+	[self hideSpinnerView];
+	[self.serverDetailViewController.tableView reloadData];
+	[self dismissModalViewControllerAnimated:YES];
+}
 
 -(void)updatePasswordRequestFinished:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
@@ -46,21 +53,28 @@
 }
 
 -(void)saveButtonPressed:(id)sender {
-	// TODO: two text fields!  confirm they match!
-	[self showSpinnerView];
-	ASICloudServersServerRequest *request = [ASICloudServersServerRequest updateServerAdminPasswordRequest:self.serverDetailViewController.server.serverId adminPass:textField.text];
-	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(updatePasswordRequestFinished:)];
-	[request setDidFailSelector:@selector(updatePasswordRequestFailed:)];
-	[request startAsynchronous];
+	if ([textField.text isEqualToString:@""]) {
+		[self alert:@"Error" message:@"Please enter a new password."];
+	} else if ([confirmTextField.text isEqualToString:@""]) {
+		[self alert:@"Error" message:@"Please confirm your new password."];
+	} else if (![textField.text isEqualToString:confirmTextField.text]) {
+		[self alert:@"Error" message:@"The password and confirmation do not match."];
+	} else {
+		[self showSpinnerView];		
+		ASICloudServersServerRequest *request = [ASICloudServersServerRequest updateServerAdminPasswordRequest:self.serverDetailViewController.server.serverId adminPass:textField.text];
+		[self request:request behavior:@"resetting your password" success:@selector(updatePasswordSuccess:)];
+	}
 }
-
 
 #pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 	[textField becomeFirstResponder];
 }
 
@@ -69,7 +83,6 @@
     // Return YES for supported orientations
     return YES;
 }
-
 
 #pragma mark -
 #pragma mark Table view data source
@@ -110,60 +123,33 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
-    
-    TextFieldCell *cell = (TextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		textField = cell.textField;
-		textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-		textField.secureTextEntry = YES;
-    }
-    
-    // Configure the cell...
-	cell.textLabel.text = @"";
-    
-    return cell;
+	if (indexPath.section == 0) {
+		static NSString *CellIdentifier = @"Cell";
+		TextFieldCell *cell = (TextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+			textField = cell.textField;
+			textField.text = @"";
+			textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+			textField.secureTextEntry = YES;
+		}
+		cell.textLabel.text = @"";    
+		return cell;
+	} else {
+		static NSString *CellIdentifier = @"ConfirmCell";
+		TextFieldCell *cell = (TextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+			confirmTextField = cell.textField;
+			confirmTextField.text = @"";
+			confirmTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+			confirmTextField.secureTextEntry = YES;
+		}
+		cell.textLabel.text = @"";    
+		return cell;
+	}
+	
 }
-
-
-// Override to support conditional editing of the table view.
-/*
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
- */
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-
 
 #pragma mark -
 #pragma mark Table view delegate

@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">800</int>
 		<string key="IBDocument.SystemVersion">10C540</string>
-		<string key="IBDocument.InterfaceBuilderVersion">760</string>
+		<string key="IBDocument.InterfaceBuilderVersion">761</string>
 		<string key="IBDocument.AppKitVersion">1038.25</string>
 		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">82</string>
+			<string key="NS.object.0">84</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -50,7 +50,7 @@
 							<object class="IBUILabel" id="428564018">
 								<reference key="NSNextResponder" ref="1010160779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 29}, {728, 22}}</string>
+								<string key="NSFrame">{{20, 29}, {670, 22}}</string>
 								<reference key="NSSuperview" ref="1010160779"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -78,7 +78,7 @@
 							<object class="IBUILabel" id="173390698">
 								<reference key="NSNextResponder" ref="1010160779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 5}, {728, 21}}</string>
+								<string key="NSFrame">{{20, 5}, {670, 21}}</string>
 								<reference key="NSSuperview" ref="1010160779"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -104,7 +104,7 @@
 							<object class="IBUILabel" id="199452860">
 								<reference key="NSNextResponder" ref="1010160779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 82}, {728, 21}}</string>
+								<string key="NSFrame">{{20, 82}, {670, 21}}</string>
 								<reference key="NSSuperview" ref="1010160779"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -127,7 +127,7 @@
 							<object class="IBUILabel" id="67664302">
 								<reference key="NSNextResponder" ref="1010160779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 53}, {728, 21}}</string>
+								<string key="NSFrame">{{20, 53}, {670, 21}}</string>
 								<reference key="NSSuperview" ref="1010160779"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -146,7 +146,7 @@
 								<int key="IBUILineBreakMode">0</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{768, 110}</string>
+						<string key="NSFrameSize">{680, 110}</string>
 						<reference key="NSSuperview" ref="652084292"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -159,7 +159,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{768, 110}</string>
+				<string key="NSFrameSize">{680, 110}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -253,7 +253,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>AuthenticationViewController</string>
 					<string>UIResponder</string>
-					<string>{{146, 621}, {768, 110}}</string>
+					<string>{{523, 689}, {680, 110}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -637,6 +637,6 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">RackspaceCloud.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<string key="IBCocoaTouchPluginVersion">82</string>
+		<string key="IBCocoaTouchPluginVersion">84</string>
 	</data>
 </archive>

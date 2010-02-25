@@ -35,7 +35,6 @@
 	NSUInteger imageLoadAttempts;
 	NSUInteger flavorLoadAttempts;
 	
-	
 	IBOutlet UIButton *statusButton;
 	IBOutlet UIScrollView *statusScrollView;
 	
@@ -43,7 +42,6 @@
 	
 	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
 
-	
 	CGPoint startPosition;
 	BOOL statusViewExpanded;
 	IBOutlet UIToolbar *statusToolbar;

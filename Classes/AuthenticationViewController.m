@@ -44,6 +44,8 @@ static UIImage *ukFlag = nil;
 	ukFlag = [[UIImage imageNamed:@"ukflag.png"] retain];
 }
 
+// TODO: no RSS feed cell for down internet connection
+
 #pragma mark -
 #pragma mark Date Formatting
 
@@ -232,7 +234,7 @@ static UIImage *ukFlag = nil;
 		// try again
 		[self loadFlavors];
 	} else {
-		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading flavors"];
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading server flavors"];
 		[self hideSpinners];
 	}
 }
@@ -249,7 +251,7 @@ static UIImage *ukFlag = nil;
 		// try again
 		[self loadImages];
 	} else {
-		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading images"];
+		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"loading server images"];
 		[self hideSpinners];
 	}
 	
@@ -401,111 +403,38 @@ static UIImage *ukFlag = nil;
 #pragma mark -
 #pragma mark System Status Support
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
-	NSUInteger tapCount = [[touches anyObject] tapCount];
-	
-	NSLog(@"tap count: %d", tapCount);
-	
-	
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {	
 	for (UITouch *touch in touches) {
-		
-		
-		
-//CGPoint windowPosition = [touch locationInView:self.view];
-CGPoint newPosition = [touch locationInView:self.statusView];		
-
-//NSLog(@"bar  position = (%f,%f)", self.statusToolbar.frame.origin.x, self.statusToolbar.frame.origin.y);
-//NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusToolbar.frame, newPosition));
-		
-		
-		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
-		//[self dispatchFirstTouchAtPoint:[touch locationInView:self] forEvent:nil];
-		//touchCount++;
-		//CGPoint position = [touch locationInView:self.statusView];
-		
-		//NSLog(@"position = (%f,%f) %i", position.x, position.y, CGRectContainsPoint(self.statusView.frame, position));
-		
-		//CGPoint windowPosition = [touch locationInView:self.view];
-		//CGPoint newPosition = [touch locationInView:self.statusView];
-		//NSLog(@"new position = (%f,%f) %i", position.x, position.y, CGRectContainsPoint(self.statusView.frame, newPosition));
-		
+		CGPoint newPosition = [touch locationInView:self.statusView];		
 		if (newPosition.x >= 0) {
 			dragging = YES;
 			if (CGRectContainsPoint(self.statusView.frame, newPosition)) {
 				startPosition = newPosition;
-				//dragging = YES;
 				break; // only care about the first touch
 			}
 		}
-		
 	}	
-	
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	//NSLog(@"touchesMoved:%@ withEvent:%@", touches, event);
-
 	if (dragging) {
-	//if (startPosition.x >= 0) {
-	
-	for (UITouch *touch in touches) {
-		// Send to the dispatch method, which will make sure the appropriate subview is acted upon
-		//[self dispatchFirstTouchAtPoint:[touch locationInView:self] forEvent:nil];
-		//touchCount++;
-		
-		CGPoint windowPosition = [touch locationInView:self.view];
-		//CGPoint newPosition = [touch locationInView:self.statusView];
-		
-		/*
-		NSLog(@"barb position = (%f,%f)", self.statusView.bounds.origin.x, self.statusView.bounds.origin.y);
-		NSLog(@"bar  position = (%f,%f)", self.statusToolbar.frame.origin.x, self.statusToolbar.frame.origin.y);
-		NSLog(@"move position = (%f,%f) %i", newPosition.x, newPosition.y, CGRectContainsPoint(self.statusToolbar.frame, newPosition));
-		*/
-		
-		/*
-		if (CGRectContainsPoint(self.statusToolbar.frame, newPosition) == 1) {
-			NSLog(@"yay");
-		} else {
-			NSLog(@"nay");
-		}
-		 */
-		
-		//if (CGRectContainsPoint(self.statusToolbar.frame, newPosition)) {
-		
-			//self.usernameTextField.center = newPosition;
-			//self.view.center = newPosition;
-			
+		for (UITouch *touch in touches) {
+			CGPoint windowPosition = [touch locationInView:self.view];
 			CGRect rect = self.statusView.frame;
 			float newX = rect.origin.x - (rect.origin.x - windowPosition.x);
-			NSLog(@"x = %f", newX);
 			
 			if (newX >= 270.0 && newX <= 980.0) {
 				rect.origin.x = newX;
-				//NSLog(@"new x = %f", rect.origin.x);
 				startPosition = windowPosition;
 				self.statusView.frame = rect;
 			}
-
 			break; // only care about the first touch
-		//} else {
-		//	NSLog(@"NO");
-		//}
-	}	
-		
+		}		
 	}
-	
-	//UITouch *touch = [touches
-}
-	
-- (void)snapStatusViewTo:(float)x {
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	// 244 or 954
-	
 	CGRect rect = self.statusView.frame;
-
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.25];
 	[UIView setAnimationDelegate:self];
@@ -529,7 +458,6 @@ CGPoint newPosition = [touch locationInView:self.statusView];
 	self.statusView.frame = rect;
 	dragging = NO;
 	[UIView commitAnimations];
-
 }
 
 #pragma mark -
