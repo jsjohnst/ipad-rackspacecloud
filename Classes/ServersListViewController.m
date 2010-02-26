@@ -166,7 +166,6 @@
 		[serverDetailViewController release];
 	}
     [super dealloc];
-    self = nil; // to prevent ASIHttpRequest from calling a deallocated delegate
 }
 
 
