@@ -26,7 +26,7 @@
 	
 	ASICloudServersServer *server;
 	
-	IBOutlet UIImageView *logoImageView;
+	//IBOutlet UIImageView *logoImageView;
 	IBOutlet UIImageView *backgroundImageView;
 	
 	ServersListViewController *serversListViewController;
@@ -51,7 +51,7 @@
 
 @property (nonatomic, retain) id detailItem;
 
-@property (nonatomic, retain) IBOutlet UIImageView *logoImageView;
+//@property (nonatomic, retain) IBOutlet UIImageView *logoImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;
 
 @property (nonatomic, retain) ServersListViewController *serversListViewController;

@@ -43,7 +43,8 @@
 @synthesize navigationBar, popoverController, detailItem;
 @synthesize tableView;
 @synthesize server;
-@synthesize logoImageView, backgroundImageView;
+//@synthesize logoImageView;
+@synthesize backgroundImageView;
 @synthesize noServersView, noServersImage, noServersTitle, noServersMessage;
 @synthesize serversListViewController;
 
@@ -168,7 +169,7 @@
 		return 6;
 	} else {
 		// show No Servers View
-		self.logoImageView.image = nil;
+		//self.logoImageView.image = nil;
 		self.backgroundImageView.image = nil;
 		self.tableView.backgroundView = nil;
 		noServersView.hidden = NO;
@@ -225,6 +226,8 @@
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.backgroundColor = [UIColor clearColor];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	cell.textLabel.text = @"Status";
@@ -249,6 +252,7 @@
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.backgroundColor = [UIColor clearColor];
 	}
 	
 	cell.textLabel.text = @"Progress";
@@ -277,7 +281,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
+	//self.logoImageView.image = [ASICloudServersImage logoForImageId:server.imageId];
 	self.backgroundImageView.image = [ASICloudServersImage backgroundForImageId:server.imageId];
 	self.tableView.backgroundView = nil; // makes it clear
 	self.detailItem = @"Server Details";
@@ -288,6 +292,7 @@
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.backgroundColor = [UIColor clearColor];
 	}
 
 	cell.accessoryType = UITableViewCellAccessoryNone;
@@ -303,6 +308,7 @@
 		actionCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		//actionCell.accessoryType = UITableViewCellAccessoryNone;
 		actionCell.selectionStyle = UITableViewCellSelectionStyleNone;
+		actionCell.backgroundColor = [UIColor clearColor];
 	}
 	
 	
@@ -616,7 +622,7 @@
 	[tableView release];
 	[server release];
 	
-	[logoImageView release];
+	//[logoImageView release];
 	[backgroundImageView release];
 	
 	[noServersView release];
