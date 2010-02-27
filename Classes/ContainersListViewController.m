@@ -110,9 +110,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	//ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
-	ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
-	vc.detailItem = @"Container Details";	
+	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
+	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
+	//vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
