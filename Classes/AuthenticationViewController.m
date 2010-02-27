@@ -141,6 +141,8 @@ static UIImage *ukFlag = nil;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Override to allow orientations other than the default portrait orientation.
+    // only show cool status view in landscape.  looks weird in portrait
+    self.statusView.hidden = (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
     return YES;
 }
 

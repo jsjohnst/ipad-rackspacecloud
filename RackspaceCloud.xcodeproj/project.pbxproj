@@ -60,7 +60,6 @@
 		27425CC41138668500EB084A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 27425CB51138668500EB084A /* NSData+Base64.m */; };
 		27425CC51138668500EB084A /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 27425CB71138668500EB084A /* NSString+UUID.m */; };
 		27425CDC113873E600EB084A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27425CDB113873E600EB084A /* libxml2.dylib */; };
-		27425CE3113897FB00EB084A /* HTTPRequestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27425CE2113897FB00EB084A /* HTTPRequestDelegate.m */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -286,8 +285,6 @@
 		27425CB61138668500EB084A /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		27425CB71138668500EB084A /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		27425CDB113873E600EB084A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		27425CE1113897FB00EB084A /* HTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestDelegate.h; sourceTree = "<group>"; };
-		27425CE2113897FB00EB084A /* HTTPRequestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequestDelegate.m; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -866,8 +863,6 @@
 				273C80D8112E0235005F36C3 /* NSString+Rubyisms.m */,
 				273C8135112F3FDC005F36C3 /* UIViewController+RackspaceCloud.h */,
 				273C8136112F3FDC005F36C3 /* UIViewController+RackspaceCloud.m */,
-				27425CE1113897FB00EB084A /* HTTPRequestDelegate.h */,
-				27425CE2113897FB00EB084A /* HTTPRequestDelegate.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1298,7 +1293,6 @@
 				27425CC31138668500EB084A /* MGTwitterXMLParser.m in Sources */,
 				27425CC41138668500EB084A /* NSData+Base64.m in Sources */,
 				27425CC51138668500EB084A /* NSString+UUID.m in Sources */,
-				27425CE3113897FB00EB084A /* HTTPRequestDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
