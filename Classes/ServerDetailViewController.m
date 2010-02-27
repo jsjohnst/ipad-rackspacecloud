@@ -227,7 +227,6 @@
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		cell.backgroundColor = [UIColor clearColor];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	cell.textLabel.text = @"Status";
@@ -236,10 +235,10 @@
 	NSLog(@"server status = %@", server.status);
 	if ([server.status isEqualToString:@"VERIFY_RESIZE"]) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		//cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	} else {
 		cell.accessoryType = UITableViewCellAccessoryNone;
-		//cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	
@@ -253,6 +252,7 @@
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		cell.backgroundColor = [UIColor clearColor];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	cell.textLabel.text = @"Progress";
