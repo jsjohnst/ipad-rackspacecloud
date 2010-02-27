@@ -13,6 +13,10 @@
 @implementation UIViewController (RackspaceCloud)
 
 -(void)request:(ASICloudFilesRequest *)request behavior:(NSString *)behavior success:(SEL)success showSpinner:(BOOL)showSpinner {
+
+    // retain the delegate to prevent bad access if the view controller goes away
+    [self retain];
+    
     if (showSpinner) {
     	[self showSpinnerView];
     }
@@ -44,7 +48,8 @@
 		if ([[request.userInfo objectForKey:@"behavior"] boolValue]) {
 			[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
 		}
-	}    
+	}  
+    [self release];
 }
 
 -(void)requestFailed:(ASICloudFilesRequest *)request {
@@ -52,6 +57,7 @@
     if ([[request.userInfo objectForKey:@"behavior"] boolValue]) {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];
 	}
+    [self release];
 }
 
 
