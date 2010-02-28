@@ -8,32 +8,57 @@
 
 #import "ContainerRootViewController.h"
 #import "ASICloudFilesContainer.h"
+#import "ASICloudFilesObject.h"
+#import "UISwitchCell.h"
+#import "ASICloudFilesObjectRequest.h"
+#import "UIViewController+SpinnerView.h"
+#import "UIViewController+RackspaceCloud.h"
 
 
 @implementation ContainerRootViewController
 
 @synthesize container;
+@synthesize tableView;
+
+#pragma mark -
+#pragma mark HTTP Request Handlers
+
+-(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
+	[self hideSpinnerView];
+	files = [[NSArray alloc] initWithArray:[request objects]];
+	
+	NSLog(@"files count = %d", [files count]);
+	
+	[self.tableView reloadData];
+}
 
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
+    // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+	
+	files = nil;
+	
+	[self request:[ASICloudFilesObjectRequest listRequestWithContainer:self.container.name] behavior:@"listing your files" success:@selector(listFilesSuccess:)];
+	
+	
+	
 }
-*/
 
-/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+	
+	
 }
-*/
+
 /*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -56,6 +81,16 @@
     return YES;
 }
 
+#pragma mark -
+#pragma mark Switch Handlers
+
+- (void)cdnSwitchChanged:(id)sender {
+	NSLog(@"cdn switch tapped %@", sender);
+}
+
+- (void)logSwitchChanged:(id)sender {
+	NSLog(@"log switch tapped %@", sender);
+}
 
 #pragma mark -
 #pragma mark Table view data source
@@ -71,7 +106,11 @@
 	if (section == 0) {
 		return 2;
 	} else {
-		return 1;
+		if (files != nil) {
+			return [files count];
+		} else {
+			return 0;
+		}
 	}
 }
 
@@ -83,6 +122,18 @@
 	} else {
 		return @"Files";
 	}
+}
+
+- (UITableViewCell *)switchCell:(UITableView *)aTableView label:(NSString *)label action:(SEL)action value:(BOOL)value {
+	UISwitchCell *cell = (UISwitchCell *)[aTableView dequeueReusableCellWithIdentifier:label];
+	
+	if (cell == nil) {
+		cell = [[UISwitchCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:label delegate:self action:action value:value];
+	}
+
+	cell.textLabel.text = label;
+	
+	return cell;
 }
 
 // Customize the appearance of table view cells.
@@ -107,16 +158,39 @@
 		if (indexPath.row == 0) {
 			cell.textLabel.text = @"Container Name";
 			cell.detailTextLabel.text = container.name;
+			cell.accessoryType = UITableViewCellAccessoryNone;
 		} else if (indexPath.row == 1) {
 			cell.textLabel.text = @"Size";
-			cell.detailTextLabel.text = @"1 file, 100 MB";
+			cell.detailTextLabel.text = [container humanizedSize];
+			cell.accessoryType = UITableViewCellAccessoryNone;
 		}
 	} else if (indexPath.section == 1) {
 		
+//		BOOL cdnEnabled;
+//		NSUInteger ttl;
+//		NSString *cdnURL;
+//		BOOL logRetention;
+
+		if (indexPath.row == 0) {
+			return [self switchCell:tableView label:@"CDN Access Enabled" action:@selector(cdnSwitchChanged:) value:container.cdnEnabled];			
+		} else if (indexPath.row == 1) {
+			cell.textLabel.text = @"CDN URL";
+			cell.detailTextLabel.text = container.cdnURL; // TODO: tap with UIActionSheet to copy, email, shorten, etc
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		} else if (indexPath.row == 2) {
+			cell.textLabel.text = @"TTL";
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", container.ttl]; // TODO: UISlider
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		} else {
+			return [self switchCell:tableView label:@"CDN Logging Enabled" action:@selector(logSwitchChanged:) value:container.logRetention];			
+		}
+		
+		
 	} else if (indexPath.section > 1) {
 		// either files or folders
-		cell.textLabel.text = @"filename.txt";
-		cell.detailTextLabel.text = @"";
+		ASICloudFilesObject *file = [files objectAtIndex:indexPath.row];
+		cell.textLabel.text = file.name;
+		cell.detailTextLabel.text = file.contentType;
 	}
     
     return cell;
@@ -200,6 +274,10 @@
 
 - (void)dealloc {
 	[container release];
+	if (files != nil) {
+		[files release];
+	}
+	[tableView release];
     [super dealloc];
 }
 

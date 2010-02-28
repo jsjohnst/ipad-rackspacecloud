@@ -110,13 +110,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
+
+	
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+//	navigationController.navigationBar.backgroundColor = [UIColor blackColor];
+//	navigationController.navigationBar.opaque = YES;
+	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
 	//vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+    
+	
+	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
 	app.splitViewController.delegate = vc;
+	
 }
 
 #pragma mark -

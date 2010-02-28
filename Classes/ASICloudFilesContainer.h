@@ -30,6 +30,8 @@
 @property (assign) NSUInteger count;
 @property (assign) NSUInteger bytes;
 
+-(NSString *)humanizedSize;
+
 // CDN container attributes
 @property (assign) BOOL cdnEnabled;
 @property (assign) NSUInteger ttl;
