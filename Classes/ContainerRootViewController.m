@@ -23,6 +23,8 @@
 #pragma mark -
 #pragma mark HTTP Request Handlers
 
+// TODO: figure out UIDocumentInteractionController
+
 -(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
 	[self hideSpinnerView];
 	files = [[NSArray alloc] initWithArray:[request objects]];
@@ -105,6 +107,8 @@
     // Return the number of rows in the section.
 	if (section == 0) {
 		return 2;
+	} else if (section == 1) {
+		return 4;
 	} else {
 		if (files != nil) {
 			return [files count];
@@ -137,13 +141,13 @@
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	tableView.backgroundView = nil;
+	aTableView.backgroundView = nil;
 	
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.backgroundColor = [UIColor clearColor];
@@ -172,7 +176,7 @@
 //		BOOL logRetention;
 
 		if (indexPath.row == 0) {
-			return [self switchCell:tableView label:@"CDN Access Enabled" action:@selector(cdnSwitchChanged:) value:container.cdnEnabled];			
+			return [self switchCell:aTableView label:@"CDN Access Enabled" action:@selector(cdnSwitchChanged:) value:container.cdnEnabled];			
 		} else if (indexPath.row == 1) {
 			cell.textLabel.text = @"CDN URL";
 			cell.detailTextLabel.text = container.cdnURL; // TODO: tap with UIActionSheet to copy, email, shorten, etc
@@ -182,7 +186,7 @@
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", container.ttl]; // TODO: UISlider
 			cell.accessoryType = UITableViewCellAccessoryNone;
 		} else {
-			return [self switchCell:tableView label:@"CDN Logging Enabled" action:@selector(logSwitchChanged:) value:container.logRetention];			
+			return [self switchCell:aTableView label:@"CDN Logging Enabled" action:@selector(logSwitchChanged:) value:container.logRetention];			
 		}
 		
 		
