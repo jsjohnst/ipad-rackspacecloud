@@ -255,11 +255,10 @@
 	UIDocumentInteractionController *c = [UIDocumentInteractionController interactionControllerWithURL:url];
 	//- (BOOL)presentOptionsMenuFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated
 	c.delegate = self;
-	//[c presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+	//[c presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];	
 	if ([c presentPreviewAnimated:YES] == NO) {
 		NSLog(@"UIDocumentInteractionController did not work.");
 	}
-	
 }
 
 - (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller {
