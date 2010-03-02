@@ -314,7 +314,9 @@
 		actionCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		//actionCell.accessoryType = UITableViewCellAccessoryNone;
 		actionCell.selectionStyle = UITableViewCellSelectionStyleNone;
-		actionCell.backgroundColor = [UIColor clearColor];
+		actionCell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+		actionCell.textLabel.backgroundColor = [UIColor clearColor];
+		actionCell.detailTextLabel.backgroundColor = [UIColor clearColor];
 	}
 	
 	
