@@ -18,14 +18,28 @@
 
 @synthesize window, splitViewController, masterViewController, detailViewController, authenticationViewController;
 
+/**
+ Returns the path to the application's documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+														 NSUserDomainMask,
+														 YES);
+	NSString *basePath = nil;
+	if([paths count] > 0) {
+		basePath = [paths objectAtIndex:0];
+	}
+	return basePath;
+}
+
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	// TODO: tweet cdn link to file, use bit.ly
-	
-	// TODO: UIWebView for Ping IP address?  make it 785px wide to fit justping.com properly
+	// TODO: UIWebView for Ping IP address?  make it 785px wide to fit justping.com properly	
+	// TODO: sound effects for certain actions
 	
     // Override point for customization after app launch    
 	window.backgroundColor = [UIColor blackColor];

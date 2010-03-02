@@ -13,6 +13,7 @@
 #import "ASICloudFilesObjectRequest.h"
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+RackspaceCloud.h"
+#import "RackspaceCloudAppDelegate.h"
 
 
 @implementation ContainerRootViewController
@@ -170,11 +171,6 @@
 		}
 	} else if (indexPath.section == 1) {
 		
-//		BOOL cdnEnabled;
-//		NSUInteger ttl;
-//		NSString *cdnURL;
-//		BOOL logRetention;
-
 		if (indexPath.row == 0) {
 			return [self switchCell:aTableView label:@"CDN Access Enabled" action:@selector(cdnSwitchChanged:) value:container.cdnEnabled];			
 		} else if (indexPath.row == 1) {
@@ -242,6 +238,36 @@
 
 
 #pragma mark -
+#pragma mark TODO: move this.  document interaction experiments
+
+-(void)fileDownloadSuccess:(ASICloudFilesObjectRequest *)request {
+	[self hideSpinnerView];
+	
+	ASICloudFilesObject *file = [request object];
+
+	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+	NSURL *url = [NSURL fileURLWithPath:[[app applicationDocumentsDirectory] stringByAppendingPathComponent:file.name]];
+	NSLog(@"file url: %@", url);
+
+	NSData *data = file.data;
+	[data writeToURL:url atomically:YES];
+	
+	UIDocumentInteractionController *c = [UIDocumentInteractionController interactionControllerWithURL:url];
+	//- (BOOL)presentOptionsMenuFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated
+	c.delegate = self;
+	//[c presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+	if ([c presentPreviewAnimated:YES] == NO) {
+		NSLog(@"UIDocumentInteractionController did not work.");
+	}
+	
+}
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller {
+	return self;
+}
+
+
+#pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -253,10 +279,17 @@
 	 [self.navigationController pushViewController:detailViewController animated:YES];
 	 [detailViewController release];
 	 */
+	
+	ASICloudFilesObject *file = [files objectAtIndex:indexPath.row];
+	ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:file.name];
+	[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
+	
+	/*
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
 	vc.container = self.container;
 	[self.navigationController pushViewController:vc animated:YES];
 	[vc release];
+	 */
 }
 
 

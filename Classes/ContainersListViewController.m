@@ -39,6 +39,7 @@
 	for (int i = 0; i < [cdnContainers count]; i++) {
 		ASICloudFilesContainer *cdnContainer = [cdnContainers objectAtIndex:i];
 		ASICloudFilesContainer *container = [containersDict objectForKey:cdnContainer.name];
+        NSLog(@"%@ - CDN Enabled: %@", container.name, container.cdnEnabled ? @"YES" : @"NO");
 		container.cdnEnabled = cdnContainer.cdnEnabled;
 		container.cdnURL = cdnContainer.cdnURL;
 		container.ttl = cdnContainer.ttl;

@@ -31,4 +31,6 @@
 @property (nonatomic,retain) IBOutlet DetailViewController *detailViewController;
 @property (nonatomic,retain) IBOutlet AuthenticationViewController *authenticationViewController;
 
+- (NSString *)applicationDocumentsDirectory;
+
 @end

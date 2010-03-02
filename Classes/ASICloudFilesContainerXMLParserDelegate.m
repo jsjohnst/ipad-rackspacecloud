@@ -33,13 +33,14 @@
 	} else if ([elementName isEqualToString:@"bytes"]) {
 		[self currentObject].bytes = [[self currentContent] intValue];
 	} else if ([elementName isEqualToString:@"cdn_enabled"]) {
-		[self currentObject].cdnEnabled = [[self currentObject] isEqual:@"True"];
+        NSLog(@"cdn_enabled: %@", [self currentContent]);
+		[self currentObject].cdnEnabled = [[[self currentContent] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@"True"];
 	} else if ([elementName isEqualToString:@"ttl"]) {
 		[self currentObject].ttl = [[self currentContent] intValue];
 	} else if ([elementName isEqualToString:@"cdn_url"]) {
 		[self currentObject].cdnURL = [self currentContent];
 	} else if ([elementName isEqualToString:@"log_retention"]) {
-		[self currentObject].logRetention = [[self currentObject] isEqual:@"True"];
+		[self currentObject].logRetention = [[[self currentContent] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@"True"];
 	} else if ([elementName isEqualToString:@"referrer_acl"]) {
 		[self currentObject].referrerACL = [self currentContent];
 	} else if ([elementName isEqualToString:@"useragent_acl"]) {
