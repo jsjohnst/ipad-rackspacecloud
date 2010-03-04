@@ -505,8 +505,14 @@ static UIImage *ukFlag = nil;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	// make the background transparent here.  won't work in cellForRowAtIndexPath
-    // cell.backgroundColor = [UIColor clearColor];
-	cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+    cell.backgroundColor = [UIColor clearColor];
+	// cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+	
+	
+	// TODO: DRY up rss views duplication
+	// TODO: fix this in both rss views
+	// cell.imageView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+	// cell.backgroundView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
 	
 	// adjust label widths for orientation
 	NSArray *labels = [NSArray arrayWithObjects:[cell viewWithTag:kDateTag], 
@@ -532,7 +538,7 @@ static UIImage *ukFlag = nil;
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+
     if (indexPath.row == 0) {
     	cell.textLabel.text = @"1-877-934-0407";
         cell.imageView.image = usFlag;

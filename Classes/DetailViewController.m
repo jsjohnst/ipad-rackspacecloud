@@ -259,14 +259,15 @@ static UIImage *ukFlag = nil;
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    NSLog(@"String size height = %f", stringSize.height);
+    //NSLog(@"String size height = %f", stringSize.height);
     return stringSize.height;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	// make the background transparent here.  won't work in cellForRowAtIndexPath
-    // cell.backgroundColor = [UIColor clearColor];
-	cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+    cell.backgroundColor = [UIColor clearColor];
+	// cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+	// cell.imageView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
 	
 	// adjust label widths for orientation
 	NSArray *labels = [NSArray arrayWithObjects:[cell viewWithTag:kDateTag], 

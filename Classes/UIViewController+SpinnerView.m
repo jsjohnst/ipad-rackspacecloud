@@ -19,8 +19,20 @@
 -(void)showSpinnerView:(NSString *)text {
 	SpinnerViewController *vc = [[SpinnerViewController alloc] initWithNibName:@"SpinnerViewController" bundle:nil];
 	CGPoint center = self.view.center;
+	CGPoint offset = CGPointZero;
+	@try {
+		UIScrollView *scrollView = (UIScrollView *) self.view;
+		offset = scrollView.contentOffset;
+	}
+	@catch (NSException * e) {
+		// do nothing if this fails
+	}
+	
 	NSLog(@"center: %f, %f", center.x, center.y);
 	center.y = center.y / 3; // move it up a bit
+	
+	center.y = center.y + offset.y;
+	
 	vc.view.center = center;
 	vc.label.text = text;
 	vc.view.tag = kSpinnerTag;
