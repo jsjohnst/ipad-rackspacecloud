@@ -11,6 +11,7 @@
 @class ASICloudFilesContainer;
 
 @interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
+    UINavigationBar *navigationBar;
 	ASICloudFilesContainer *container;
 	NSArray *files;
 	IBOutlet UITableView *tableView;
@@ -20,5 +21,7 @@
 
 @property (nonatomic, retain) ASICloudFilesContainer *container;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) UINavigationBar *navigationBar;
+
 
 @end

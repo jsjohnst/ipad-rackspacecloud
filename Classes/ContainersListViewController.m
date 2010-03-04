@@ -119,6 +119,8 @@
 //	navigationController.navigationBar.backgroundColor = [UIColor blackColor];
 //	navigationController.navigationBar.opaque = YES;
 	
+	vc.navigationBar = navigationController.navigationBar;
+	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
 	//vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];

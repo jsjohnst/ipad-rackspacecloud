@@ -20,6 +20,7 @@
 
 @synthesize container;
 @synthesize tableView;
+@synthesize navigationBar;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -325,6 +326,7 @@
 		[files release];
 	}
 	[tableView release];
+	[navigationBar release];
     [super dealloc];
 }
 
