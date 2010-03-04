@@ -119,6 +119,8 @@
 //	navigationController.navigationBar.backgroundColor = [UIColor blackColor];
 //	navigationController.navigationBar.opaque = YES;
 	
+	// TODO: subclass the navigationController and override shouldRotate
+	
 	vc.navigationBar = navigationController.navigationBar;
 	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
