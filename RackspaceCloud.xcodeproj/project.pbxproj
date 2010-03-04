@@ -74,8 +74,6 @@
 		2757F6B91121310200C55ED8 /* debian-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F6B81121310200C55ED8 /* debian-icon.png */; };
 		2757F6BB112131D900C55ED8 /* debian-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F6BA112131D900C55ED8 /* debian-logo.png */; };
 		2757F76911213A0C00C55ED8 /* ubuntu-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F76811213A0C00C55ED8 /* ubuntu-logo.png */; };
-		2757F7D611213B8800C55ED8 /* gentoo-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7D411213B8800C55ED8 /* gentoo-large.png */; };
-		2757F7D711213B8800C55ED8 /* gentoo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7D511213B8800C55ED8 /* gentoo-icon.png */; };
 		2757F7E111213D1C00C55ED8 /* windows-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7DE11213D1C00C55ED8 /* windows-icon.png */; };
 		2757F7E211213D1C00C55ED8 /* windows-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7DF11213D1C00C55ED8 /* windows-large.png */; };
 		2757F7E311213D1C00C55ED8 /* windows-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7E011213D1C00C55ED8 /* windows-logo.png */; };
@@ -121,6 +119,8 @@
 		27B448BE1123B11D008A3BA6 /* ContainerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B448BC1123B11D008A3BA6 /* ContainerRootViewController.m */; };
 		27B448BF1123B11D008A3BA6 /* ContainerRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B448BD1123B11D008A3BA6 /* ContainerRootViewController.xib */; };
 		27B449CD1123CBAE008A3BA6 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B449CC1123CBAE008A3BA6 /* UIViewController+SpinnerView.m */; };
+		27BC5094113F8E4D00D7879A /* gentoo-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC5092113F8E4D00D7879A /* gentoo-large.png */; };
+		27BC5095113F8E4D00D7879A /* gentoo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC5093113F8E4D00D7879A /* gentoo-icon.png */; };
 		27BE5FE211169BC900CA6704 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE5FE011169BC900CA6704 /* ContainersListViewController.m */; };
 		27BE5FE311169BC900CA6704 /* ContainersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */; };
 		27BE600D11169CEC00CA6704 /* ContainerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */; };
@@ -305,8 +305,6 @@
 		2757F6B81121310200C55ED8 /* debian-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "debian-icon.png"; sourceTree = "<group>"; };
 		2757F6BA112131D900C55ED8 /* debian-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "debian-logo.png"; sourceTree = "<group>"; };
 		2757F76811213A0C00C55ED8 /* ubuntu-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-logo.png"; sourceTree = "<group>"; };
-		2757F7D411213B8800C55ED8 /* gentoo-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gentoo-large.png"; sourceTree = "<group>"; };
-		2757F7D511213B8800C55ED8 /* gentoo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gentoo-icon.png"; sourceTree = "<group>"; };
 		2757F7DE11213D1C00C55ED8 /* windows-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windows-icon.png"; sourceTree = "<group>"; };
 		2757F7DF11213D1C00C55ED8 /* windows-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windows-large.png"; sourceTree = "<group>"; };
 		2757F7E011213D1C00C55ED8 /* windows-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windows-logo.png"; sourceTree = "<group>"; };
@@ -370,6 +368,8 @@
 		27B448BD1123B11D008A3BA6 /* ContainerRootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerRootViewController.xib; sourceTree = "<group>"; };
 		27B449CB1123CBAE008A3BA6 /* UIViewController+SpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SpinnerView.h"; sourceTree = "<group>"; };
 		27B449CC1123CBAE008A3BA6 /* UIViewController+SpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SpinnerView.m"; sourceTree = "<group>"; };
+		27BC5092113F8E4D00D7879A /* gentoo-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gentoo-large.png"; sourceTree = "<group>"; };
+		27BC5093113F8E4D00D7879A /* gentoo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gentoo-icon.png"; sourceTree = "<group>"; };
 		27BE5FDF11169BC900CA6704 /* ContainersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainersListViewController.h; sourceTree = "<group>"; };
 		27BE5FE011169BC900CA6704 /* ContainersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainersListViewController.m; sourceTree = "<group>"; };
 		27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainersListViewController.xib; sourceTree = "<group>"; };
@@ -725,9 +725,9 @@
 		2757F68611211FDF00C55ED8 /* Gentoo */ = {
 			isa = PBXGroup;
 			children = (
+				27BC5092113F8E4D00D7879A /* gentoo-large.png */,
+				27BC5093113F8E4D00D7879A /* gentoo-icon.png */,
 				2757F8F01121582D00C55ED8 /* gentoo-logo.png */,
-				2757F7D411213B8800C55ED8 /* gentoo-large.png */,
-				2757F7D511213B8800C55ED8 /* gentoo-icon.png */,
 			);
 			name = Gentoo;
 			sourceTree = "<group>";
@@ -1168,8 +1168,6 @@
 				2757F6B91121310200C55ED8 /* debian-icon.png in Resources */,
 				2757F6BB112131D900C55ED8 /* debian-logo.png in Resources */,
 				2757F76911213A0C00C55ED8 /* ubuntu-logo.png in Resources */,
-				2757F7D611213B8800C55ED8 /* gentoo-large.png in Resources */,
-				2757F7D711213B8800C55ED8 /* gentoo-icon.png in Resources */,
 				2757F7E111213D1C00C55ED8 /* windows-icon.png in Resources */,
 				2757F7E211213D1C00C55ED8 /* windows-large.png in Resources */,
 				2757F7E311213D1C00C55ED8 /* windows-logo.png in Resources */,
@@ -1210,6 +1208,8 @@
 				276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */,
 				276E0FB9113F694F00E3DDCD /* ubuntu-icon.png in Resources */,
 				276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */,
+				27BC5094113F8E4D00D7879A /* gentoo-large.png in Resources */,
+				27BC5095113F8E4D00D7879A /* gentoo-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
