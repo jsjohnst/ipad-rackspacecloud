@@ -94,6 +94,7 @@
 		27614BEE1117F69000D9C84E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BED1117F69000D9C84E /* QuartzCore.framework */; };
 		276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0F89113F63BE00E3DDCD /* ubuntu-large.png */; };
 		276E0FB9113F694F00E3DDCD /* ubuntu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */; };
+		276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E104A113F866D00E3DDCD /* rackspace1081.png */; };
 		27A9086F111BFFD200407B55 /* MMCommonLogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A9086E111BFFD200407B55 /* MMCommonLogEntry.m */; };
 		27A90A79111FE26900407B55 /* ASICloudServersServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A90A78111FE26900407B55 /* ASICloudServersServer.m */; };
 		27A90A7C111FE27200407B55 /* ASICloudServersFlavor.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A90A7B111FE27200407B55 /* ASICloudServersFlavor.m */; };
@@ -147,7 +148,6 @@
 		27D667D0111160E200654554 /* cloud-hosting.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D667CF111160E200654554 /* cloud-hosting.png */; };
 		27D669721111773400654554 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27D669711111773400654554 /* Settings.bundle */; };
 		27D669EA11120BF400654554 /* rackspacecloud72.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D669E911120BF400654554 /* rackspacecloud72.png */; };
-		27D669EF111214A000654554 /* rackspacecloud1081.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D669EE111214A000654554 /* rackspacecloud1081.png */; };
 		27D66A861112324C00654554 /* AtomParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66A851112324C00654554 /* AtomParser.m */; };
 		27D66A9A1112325D00654554 /* RSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66A991112325D00654554 /* RSSParser.m */; };
 		27D66A9D1112326D00654554 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66A9C1112326D00654554 /* FeedItem.m */; };
@@ -326,6 +326,7 @@
 		27614BED1117F69000D9C84E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		276E0F89113F63BE00E3DDCD /* ubuntu-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-large.png"; sourceTree = "<group>"; };
 		276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-icon.png"; sourceTree = "<group>"; };
+		276E104A113F866D00E3DDCD /* rackspace1081.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspace1081.png; sourceTree = "<group>"; };
 		27A9086D111BFFD200407B55 /* MMCommonLogEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonLogEntry.h; sourceTree = "<group>"; };
 		27A9086E111BFFD200407B55 /* MMCommonLogEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonLogEntry.m; sourceTree = "<group>"; };
 		27A90A77111FE26900407B55 /* ASICloudServersServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersServer.h; sourceTree = "<group>"; };
@@ -414,7 +415,6 @@
 		27D667CF111160E200654554 /* cloud-hosting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud-hosting.png"; sourceTree = "<group>"; };
 		27D669711111773400654554 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		27D669E911120BF400654554 /* rackspacecloud72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspacecloud72.png; sourceTree = "<group>"; };
-		27D669EE111214A000654554 /* rackspacecloud1081.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspacecloud1081.png; sourceTree = "<group>"; };
 		27D66A841112324C00654554 /* AtomParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomParser.h; sourceTree = "<group>"; };
 		27D66A851112324C00654554 /* AtomParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomParser.m; sourceTree = "<group>"; };
 		27D66A981112325D00654554 /* RSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSParser.h; sourceTree = "<group>"; };
@@ -942,7 +942,7 @@
 		27D66788111159A800654554 /* Rackspace Logos */ = {
 			isa = PBXGroup;
 			children = (
-				27D669EE111214A000654554 /* rackspacecloud1081.png */,
+				276E104A113F866D00E3DDCD /* rackspace1081.png */,
 				27D669E911120BF400654554 /* rackspacecloud72.png */,
 				27D667CF111160E200654554 /* cloud-hosting.png */,
 				27D6679A111159CA00654554 /* rackspacecloud512.png */,
@@ -1152,7 +1152,6 @@
 				27D667D0111160E200654554 /* cloud-hosting.png in Resources */,
 				27D669721111773400654554 /* Settings.bundle in Resources */,
 				27D669EA11120BF400654554 /* rackspacecloud72.png in Resources */,
-				27D669EF111214A000654554 /* rackspacecloud1081.png in Resources */,
 				27D66C0F11126C7700654554 /* FeedItemCell.xib in Resources */,
 				27D66DF311129AF000654554 /* ServersListViewController.xib in Resources */,
 				27D66E1C11129C1C00654554 /* ServerDetailViewController.xib in Resources */,
@@ -1210,6 +1209,7 @@
 				27425C961138667D00EB084A /* jQueryInjectLandscape.txt in Resources */,
 				276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */,
 				276E0FB9113F694F00E3DDCD /* ubuntu-icon.png in Resources */,
+				276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

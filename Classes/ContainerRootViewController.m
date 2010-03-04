@@ -51,6 +51,7 @@
 	UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Overview", @"Files", @"Analytics", nil]];
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	segmentedControl.frame = CGRectMake(231.0, 7.0, 307.0, 29.0);
+	segmentedControl.selectedSegmentIndex = 0;
 	self.navigationItem.titleView = segmentedControl;
 	
 	[segmentedControl release];
