@@ -40,6 +40,7 @@
 	// TODO: tweet cdn link to file, use bit.ly
 	// TODO: UIWebView for Ping IP address?  make it 785px wide to fit justping.com properly	
 	// TODO: sound effects for certain actions
+	// TODO: ping api: http://apidoc.watchmouse.com/
 	
     // Override point for customization after app launch    
 	window.backgroundColor = [UIColor blackColor];

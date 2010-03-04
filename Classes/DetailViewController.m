@@ -265,7 +265,8 @@ static UIImage *ukFlag = nil;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	// make the background transparent here.  won't work in cellForRowAtIndexPath
-    cell.backgroundColor = [UIColor clearColor];
+    // cell.backgroundColor = [UIColor clearColor];
+	cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
 	
 	// adjust label widths for orientation
 	NSArray *labels = [NSArray arrayWithObjects:[cell viewWithTag:kDateTag], 

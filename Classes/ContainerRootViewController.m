@@ -151,7 +151,9 @@
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-		cell.backgroundColor = [UIColor clearColor];
+		cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+		cell.textLabel.backgroundColor = [UIColor clearColor];
+		cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

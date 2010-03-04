@@ -18,8 +18,12 @@
 		uiSwitch = [[UISwitch alloc] initWithFrame:frame];
 		
         // in case the parent view draws with a custom color or gradient, use a transparent color
+		self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
         uiSwitch.backgroundColor = [UIColor clearColor];
-		self.backgroundColor = [UIColor clearColor];
+		//self.backgroundColor = [UIColor clearColor];
+		self.textLabel.backgroundColor = [UIColor clearColor];
+		self.detailTextLabel.backgroundColor = [UIColor clearColor];
+		
 		
 		[uiSwitch addTarget:delegate action:action forControlEvents:UIControlEventValueChanged];
 		

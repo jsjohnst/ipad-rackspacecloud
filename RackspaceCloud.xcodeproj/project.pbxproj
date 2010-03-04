@@ -75,7 +75,6 @@
 		2757F6BB112131D900C55ED8 /* debian-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F6BA112131D900C55ED8 /* debian-logo.png */; };
 		2757F76911213A0C00C55ED8 /* ubuntu-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F76811213A0C00C55ED8 /* ubuntu-logo.png */; };
 		2757F76C11213A5500C55ED8 /* ubuntu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F76A11213A5500C55ED8 /* ubuntu-icon.png */; };
-		2757F76D11213A5500C55ED8 /* ubuntu-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F76B11213A5500C55ED8 /* ubuntu-large.png */; };
 		2757F7D611213B8800C55ED8 /* gentoo-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7D411213B8800C55ED8 /* gentoo-large.png */; };
 		2757F7D711213B8800C55ED8 /* gentoo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7D511213B8800C55ED8 /* gentoo-icon.png */; };
 		2757F7E111213D1C00C55ED8 /* windows-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2757F7DE11213D1C00C55ED8 /* windows-icon.png */; };
@@ -94,6 +93,7 @@
 		27614B391117EC1300D9C84E /* LogEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27614B381117EC1300D9C84E /* LogEntryCell.xib */; };
 		27614BE71117F60700D9C84E /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BD21117F5B100D9C84E /* libCorePlot-CocoaTouch.a */; };
 		27614BEE1117F69000D9C84E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BED1117F69000D9C84E /* QuartzCore.framework */; };
+		276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0F89113F63BE00E3DDCD /* ubuntu-large.png */; };
 		27A9086F111BFFD200407B55 /* MMCommonLogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A9086E111BFFD200407B55 /* MMCommonLogEntry.m */; };
 		27A90A79111FE26900407B55 /* ASICloudServersServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A90A78111FE26900407B55 /* ASICloudServersServer.m */; };
 		27A90A7C111FE27200407B55 /* ASICloudServersFlavor.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A90A7B111FE27200407B55 /* ASICloudServersFlavor.m */; };
@@ -306,7 +306,6 @@
 		2757F6BA112131D900C55ED8 /* debian-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "debian-logo.png"; sourceTree = "<group>"; };
 		2757F76811213A0C00C55ED8 /* ubuntu-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-logo.png"; sourceTree = "<group>"; };
 		2757F76A11213A5500C55ED8 /* ubuntu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-icon.png"; sourceTree = "<group>"; };
-		2757F76B11213A5500C55ED8 /* ubuntu-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-large.png"; sourceTree = "<group>"; };
 		2757F7D411213B8800C55ED8 /* gentoo-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gentoo-large.png"; sourceTree = "<group>"; };
 		2757F7D511213B8800C55ED8 /* gentoo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gentoo-icon.png"; sourceTree = "<group>"; };
 		2757F7DE11213D1C00C55ED8 /* windows-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windows-icon.png"; sourceTree = "<group>"; };
@@ -326,6 +325,7 @@
 		27614B381117EC1300D9C84E /* LogEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogEntryCell.xib; sourceTree = "<group>"; };
 		27614BC91117F5B100D9C84E /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../installed-software/core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		27614BED1117F69000D9C84E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		276E0F89113F63BE00E3DDCD /* ubuntu-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-large.png"; sourceTree = "<group>"; };
 		27A9086D111BFFD200407B55 /* MMCommonLogEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonLogEntry.h; sourceTree = "<group>"; };
 		27A9086E111BFFD200407B55 /* MMCommonLogEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonLogEntry.m; sourceTree = "<group>"; };
 		27A90A77111FE26900407B55 /* ASICloudServersServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersServer.h; sourceTree = "<group>"; };
@@ -705,8 +705,8 @@
 		2757F68211211FAF00C55ED8 /* Ubuntu */ = {
 			isa = PBXGroup;
 			children = (
+				276E0F89113F63BE00E3DDCD /* ubuntu-large.png */,
 				2757F76A11213A5500C55ED8 /* ubuntu-icon.png */,
-				2757F76B11213A5500C55ED8 /* ubuntu-large.png */,
 				2757F76811213A0C00C55ED8 /* ubuntu-logo.png */,
 			);
 			name = Ubuntu;
@@ -1170,7 +1170,6 @@
 				2757F6BB112131D900C55ED8 /* debian-logo.png in Resources */,
 				2757F76911213A0C00C55ED8 /* ubuntu-logo.png in Resources */,
 				2757F76C11213A5500C55ED8 /* ubuntu-icon.png in Resources */,
-				2757F76D11213A5500C55ED8 /* ubuntu-large.png in Resources */,
 				2757F7D611213B8800C55ED8 /* gentoo-large.png in Resources */,
 				2757F7D711213B8800C55ED8 /* gentoo-icon.png in Resources */,
 				2757F7E111213D1C00C55ED8 /* windows-icon.png in Resources */,
@@ -1210,6 +1209,7 @@
 				27425B911137322700EB084A /* rssgrey337.png in Resources */,
 				27425C951138667D00EB084A /* jQueryInject.txt in Resources */,
 				27425C961138667D00EB084A /* jQueryInjectLandscape.txt in Resources */,
+				276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
