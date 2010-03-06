@@ -19,14 +19,23 @@
 	// TODO: try out DTGridView for files view
 	// TODO: multiple account support
 	// TODO: fix silver navbar rotate problem
+	// TODO: fix fedora/arch logo mismatch
 	
 	IBOutlet UIView *noFilesView;
+	IBOutlet UIImageView *noFilesImage;
+	IBOutlet UILabel *noFilesTitle;
+	IBOutlet UILabel *noFilesMessage;
+	
 }
 
 @property (nonatomic, retain) ASICloudFilesContainer *container;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) UINavigationBar *navigationBar;
+
 @property (nonatomic, retain) IBOutlet UIView *noFilesView;
+@property (nonatomic, retain) IBOutlet UIImageView *noFilesImage;
+@property (nonatomic, retain) IBOutlet UILabel *noFilesTitle;
+@property (nonatomic, retain) IBOutlet UILabel *noFilesMessage;
 
 -(id)initWithNoContainersView;
 

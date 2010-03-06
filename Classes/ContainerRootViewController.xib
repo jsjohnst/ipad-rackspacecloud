@@ -60,15 +60,15 @@
 						<float key="IBUISectionHeaderHeight">10</float>
 						<float key="IBUISectionFooterHeight">10</float>
 					</object>
-					<object class="IBUIView" id="739383087">
+					<object class="IBUIView" id="715646572">
 						<reference key="NSNextResponder" ref="1019657337"/>
 						<int key="NSvFlags">-2147483356</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="768320431">
-								<reference key="NSNextResponder" ref="739383087"/>
+							<object class="IBUIImageView" id="177803071">
+								<reference key="NSNextResponder" ref="715646572"/>
 								<int key="NSvFlags">317</int>
 								<string key="NSFrame">{{134, 180}, {500, 500}}</string>
-								<reference key="NSSuperview" ref="739383087"/>
+								<reference key="NSSuperview" ref="715646572"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -80,11 +80,11 @@
 									<string key="NSResourceName">files500.png</string>
 								</object>
 							</object>
-							<object class="IBUILabel" id="827822827">
-								<reference key="NSNextResponder" ref="739383087"/>
+							<object class="IBUILabel" id="319533286">
+								<reference key="NSNextResponder" ref="715646572"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{333, 710}, {102, 22}}</string>
-								<reference key="NSSuperview" ref="739383087"/>
+								<reference key="NSSuperview" ref="715646572"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -104,11 +104,11 @@
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
 							</object>
-							<object class="IBUILabel" id="813448452">
-								<reference key="NSNextResponder" ref="739383087"/>
+							<object class="IBUILabel" id="422058390">
+								<reference key="NSNextResponder" ref="715646572"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{199, 766}, {370, 21}}</string>
-								<reference key="NSSuperview" ref="739383087"/>
+								<reference key="NSSuperview" ref="715646572"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -135,7 +135,7 @@
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="734383858">
+							<object class="NSColorSpace" key="NSCustomColorSpace" id="300105609">
 								<int key="NSID">2</int>
 							</object>
 						</object>
@@ -147,7 +147,7 @@
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<reference key="NSCustomColorSpace" ref="734383858"/>
+					<reference key="NSCustomColorSpace" ref="300105609"/>
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
@@ -190,9 +190,33 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">noFilesView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="739383087"/>
+						<reference key="destination" ref="715646572"/>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">noFilesImage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="177803071"/>
+					</object>
+					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">noFilesTitle</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="319533286"/>
+					</object>
+					<int key="connectionID">27</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">noFilesMessage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="422058390"/>
+					</object>
+					<int key="connectionID">28</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -220,7 +244,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="993928743"/>
 							<reference ref="619946038"/>
-							<reference ref="739383087"/>
+							<reference ref="715646572"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -236,28 +260,28 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">21</int>
-						<reference key="object" ref="739383087"/>
+						<reference key="object" ref="715646572"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="768320431"/>
-							<reference ref="827822827"/>
-							<reference ref="813448452"/>
+							<reference ref="177803071"/>
+							<reference ref="319533286"/>
+							<reference ref="422058390"/>
 						</array>
 						<reference key="parent" ref="1019657337"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="768320431"/>
-						<reference key="parent" ref="739383087"/>
+						<reference key="object" ref="177803071"/>
+						<reference key="parent" ref="715646572"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">23</int>
-						<reference key="object" ref="827822827"/>
-						<reference key="parent" ref="739383087"/>
+						<reference key="object" ref="319533286"/>
+						<reference key="parent" ref="715646572"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
-						<reference key="object" ref="813448452"/>
-						<reference key="parent" ref="739383087"/>
+						<reference key="object" ref="422058390"/>
+						<reference key="parent" ref="715646572"/>
 					</object>
 				</array>
 			</object>
@@ -279,7 +303,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -287,6 +311,9 @@
 					<string key="className">ContainerRootViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="noFilesImage">UIImageView</string>
+						<string key="noFilesMessage">UILabel</string>
+						<string key="noFilesTitle">UILabel</string>
 						<string key="noFilesView">UIView</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>

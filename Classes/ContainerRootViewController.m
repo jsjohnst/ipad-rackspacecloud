@@ -21,7 +21,7 @@
 @synthesize container;
 @synthesize tableView;
 @synthesize navigationBar;
-@synthesize noFilesView;
+@synthesize noFilesView, noFilesImage, noFilesTitle, noFilesMessage;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -56,11 +56,7 @@
 
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	
 	UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Overview", @"Files", @"Analytics", nil]];
@@ -102,10 +98,25 @@
 }
 */
 
+#pragma mark -
+#pragma mark Rotation Support
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Override to allow orientations other than the default portrait orientation.
     return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+	
+	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		self.noFilesImage.frame = CGRectMake(102, 37, 500, 500);
+		self.noFilesTitle.frame = CGRectMake(301, 567, 102, 22);
+		self.noFilesMessage.frame = CGRectMake(196, 623, 323, 21);
+	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+		self.noFilesImage.frame = CGRectMake(134, 180, 500, 500);
+		self.noFilesTitle.frame = CGRectMake(333, 710, 102, 22);
+		self.noFilesMessage.frame = CGRectMake(228, 766, 323, 21);
+	}
 }
 
 #pragma mark -
@@ -230,30 +241,6 @@
 
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 }
@@ -348,6 +335,9 @@
 	[tableView release];
 	[navigationBar release];
 	[noFilesView release];
+	[noFilesImage release];
+	[noFilesTitle release];
+	[noFilesMessage release];
     [super dealloc];
 }
 
