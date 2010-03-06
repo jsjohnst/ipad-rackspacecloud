@@ -22,6 +22,45 @@
 
 @implementation ContainersListViewController
 
+-(void)preselectContainer {
+	
+	/*
+	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];	
+	// TODO: subclass the navigationController and override shouldRotate
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+	vc.navigationBar = navigationController.navigationBar;	
+	vc.container = [containers objectAtIndex:indexPath.row];
+	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+	app.splitViewController.delegate = vc;
+	// TODO: release vc and navcontroller
+	*/
+	
+	
+	if ([containers count] == 0) {
+		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];	
+		// TODO: subclass the navigationController and override shouldRotate
+		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+		vc.navigationBar = navigationController.navigationBar;	
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+		app.splitViewController.delegate = vc;
+		// TODO: release vc and navcontroller
+	} else {
+		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];	
+		// TODO: subclass the navigationController and override shouldRotate
+		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+		vc.navigationBar = navigationController.navigationBar;	
+		vc.container = [containers objectAtIndex:0];
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+		app.splitViewController.delegate = vc;
+		// TODO: release vc and navcontroller
+		
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+	}
+}
+
 #pragma mark -
 #pragma mark HTTP Request Handlers
 
@@ -47,12 +86,17 @@
 		container.referrerACL = cdnContainer.referrerACL;
 		container.useragentACL = cdnContainer.useragentACL;			
 	}
+	
+	[self preselectContainer];
 }
 
 - (void)listContainersSuccess:(ASICloudFilesContainerRequest *)request {
 	[self hideSpinnerView];
 	[containers release];
-	containers = [[NSMutableArray alloc] initWithArray:[request containers]];
+	//containers = [[NSMutableArray alloc] initWithArray:[request containers]];
+	
+	containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
+	
 	[self request:[ASICloudFilesCDNRequest listRequest] behavior:@"retrieving your CDN containers" success:@selector(listCDNContainersSuccess:) showSpinner:NO];
 	[self.tableView reloadData];
 }
@@ -127,6 +171,7 @@
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
 	app.splitViewController.delegate = vc;
 	
+	// TODO: release vc and navcontroller
 }
 
 #pragma mark -

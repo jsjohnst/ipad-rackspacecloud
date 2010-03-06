@@ -21,6 +21,7 @@
 @synthesize container;
 @synthesize tableView;
 @synthesize navigationBar;
+@synthesize noFilesView;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -39,9 +40,22 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+-(id)initWithNoContainersView {
+    if ((self = [super initWithNibName:@"ContainerRootViewController" bundle:nil])) {
+        // Custom initialization
+		//self.view.hidden = YES;
+		noFilesView.hidden = NO;
+		[self.view bringSubviewToFront:self.noFilesView];
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+	
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -109,8 +123,14 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 3;
+    if (container) {
+		return 3;
+	} else {
+		self.tableView.backgroundView = nil;
+		self.noFilesView.hidden = NO;
+		[self.view bringSubviewToFront:self.noFilesView];
+		return 0;
+	}
 }
 
 
@@ -327,6 +347,7 @@
 	}
 	[tableView release];
 	[navigationBar release];
+	[noFilesView release];
     [super dealloc];
 }
 

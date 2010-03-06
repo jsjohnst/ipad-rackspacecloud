@@ -19,11 +19,15 @@
 	// TODO: try out DTGridView for files view
 	// TODO: multiple account support
 	// TODO: fix silver navbar rotate problem
+	
+	IBOutlet UIView *noFilesView;
 }
 
 @property (nonatomic, retain) ASICloudFilesContainer *container;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) UINavigationBar *navigationBar;
+@property (nonatomic, retain) IBOutlet UIView *noFilesView;
 
+-(id)initWithNoContainersView;
 
 @end

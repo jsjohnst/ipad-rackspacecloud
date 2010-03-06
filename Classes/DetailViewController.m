@@ -94,7 +94,6 @@ static UIImage *ukFlag = nil;
 
 - (void)orientationDidChange:(NSNotification *)notification {
 	// reload the table view to correct UILabel widths
-	// TODO: make this only call when the rss view is present
 	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self.tableView selector:@selector(reloadData) userInfo:nil repeats:NO];	
 }
 

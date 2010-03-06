@@ -81,6 +81,7 @@
     [super viewDidLoad];
 
 	serverDetailViewController = nil;
+	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	
 	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadServers)];
 	refreshButton.style = UIBarStyleBlackOpaque;
