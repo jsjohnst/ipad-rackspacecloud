@@ -115,20 +115,15 @@
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
 
 	
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-//	navigationController.navigationBar.backgroundColor = [UIColor blackColor];
-//	navigationController.navigationBar.opaque = YES;
-	
 	// TODO: subclass the navigationController and override shouldRotate
-	
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
 	vc.navigationBar = navigationController.navigationBar;
 	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
 	//vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-    
-	
+    	
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
 	app.splitViewController.delegate = vc;
 	

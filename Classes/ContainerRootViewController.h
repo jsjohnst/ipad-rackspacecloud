@@ -17,6 +17,8 @@
 	IBOutlet UITableView *tableView;
 	
 	// TODO: try out DTGridView for files view
+	// TODO: multiple account support
+	// TODO: fix silver navbar rotate problem
 }
 
 @property (nonatomic, retain) ASICloudFilesContainer *container;

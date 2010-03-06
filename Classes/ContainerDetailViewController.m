@@ -376,7 +376,6 @@
 	self.cdnUrlTextField.text = container.cdnURL;
 	self.cdnUrlTextField.delegate = self;
 	
-	// TODO: cdnEnabled flag may not be working
 	//if (container.cdnEnabled) {
 		ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest logFileListForCDNEnabledContainer:self.container.name];
 		containerLogFileObjects = nil;
