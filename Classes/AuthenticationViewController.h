@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class RSSTableViewDelegateAndDataSource;
 
-@interface AuthenticationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface AuthenticationViewController : UIViewController {
 	
 	// "Authenticating..."
 	IBOutlet UIActivityIndicatorView *smallSpinner;
@@ -40,23 +41,13 @@
 	
 	IBOutlet UIView *statusView;
 	
-	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
-    IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
-
 	CGPoint startPosition;
 	BOOL statusViewExpanded;
 	IBOutlet UIToolbar *statusToolbar;
 	IBOutlet UITableView *tableView;
 	BOOL dragging;
 	
-	
-	NSMutableArray *feedItems;
-	NSMutableArray *sitesFeedItems;
-	NSMutableArray *serversFeedItems;
-	NSMutableArray *filesFeedItems;
-	
-    NSUInteger rssRequestCompletionCount;
-	
+	RSSTableViewDelegateAndDataSource *tableViewDelegate;
 }
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *smallSpinner;
@@ -73,14 +64,7 @@
 @property (nonatomic, retain) IBOutlet UIToolbar *statusToolbar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 
-@property (nonatomic, retain) NSMutableArray *feedItems;
-@property (nonatomic, retain) NSMutableArray *sitesFeedItems;
-@property (nonatomic, retain) NSMutableArray *serversFeedItems;
-@property (nonatomic, retain) NSMutableArray *filesFeedItems;
-
-@property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedFeedItemCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
-
+@property (nonatomic, retain) RSSTableViewDelegateAndDataSource *tableViewDelegate;
 
 -(void)loginButtonPressed:(id)sender;
 -(void)loadSettings;

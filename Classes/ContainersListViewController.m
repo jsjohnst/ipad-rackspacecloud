@@ -93,9 +93,8 @@
 - (void)listContainersSuccess:(ASICloudFilesContainerRequest *)request {
 	[self hideSpinnerView];
 	[containers release];
-	//containers = [[NSMutableArray alloc] initWithArray:[request containers]];
-	
-	containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
+	containers = [[NSMutableArray alloc] initWithArray:[request containers]];
+	//containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
 	
 	[self request:[ASICloudFilesCDNRequest listRequest] behavior:@"retrieving your CDN containers" success:@selector(listCDNContainersSuccess:) showSpinner:NO];
 	[self.tableView reloadData];

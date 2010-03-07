@@ -133,6 +133,7 @@
 		27BC513F1142056400D7879A /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC513B1142056400D7879A /* Default-PortraitUpsideDown.png */; };
 		27BC5143114205BA00D7879A /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC5142114205BA00D7879A /* Default-Portrait.png */; };
 		27BC51991142EBCF00D7879A /* files500.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC51981142EBCF00D7879A /* files500.png */; };
+		27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */; };
 		27BE5FE211169BC900CA6704 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE5FE011169BC900CA6704 /* ContainersListViewController.m */; };
 		27BE5FE311169BC900CA6704 /* ContainersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */; };
 		27BE600D11169CEC00CA6704 /* ContainerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */; };
@@ -402,6 +403,8 @@
 		27BC513B1142056400D7879A /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
 		27BC5142114205BA00D7879A /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		27BC51981142EBCF00D7879A /* files500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = files500.png; sourceTree = "<group>"; };
+		27BC523E114309AE00D7879A /* RSSTableViewDelegateAndDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSTableViewDelegateAndDataSource.h; sourceTree = "<group>"; };
+		27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSTableViewDelegateAndDataSource.m; sourceTree = "<group>"; };
 		27BE5FDF11169BC900CA6704 /* ContainersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainersListViewController.h; sourceTree = "<group>"; };
 		27BE5FE011169BC900CA6704 /* ContainersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainersListViewController.m; sourceTree = "<group>"; };
 		27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainersListViewController.xib; sourceTree = "<group>"; };
@@ -902,6 +905,8 @@
 				273C80D8112E0235005F36C3 /* NSString+Rubyisms.m */,
 				273C8135112F3FDC005F36C3 /* UIViewController+RackspaceCloud.h */,
 				273C8136112F3FDC005F36C3 /* UIViewController+RackspaceCloud.m */,
+				27BC523E114309AE00D7879A /* RSSTableViewDelegateAndDataSource.h */,
+				27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1403,6 +1408,7 @@
 				27BC50CF11407B4800D7879A /* DTSnapGridView.m in Sources */,
 				27BC50D011407B4800D7879A /* DTSnapGridViewCell.m in Sources */,
 				27BC50D111407B4800D7879A /* DTInfiniteGridView.m in Sources */,
+				27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
