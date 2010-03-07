@@ -12,6 +12,7 @@
 #import "RSSParser.h"
 #import "AtomParser.h"
 #import "FeedItem.h"
+#import "RSSTableViewDelegateAndDataSource.h"
 
 // Feed Item Cell Tags
 #define kDateTag 1
@@ -19,25 +20,30 @@
 #define kBodyTag 3
 #define kAuthorTag 4
 
-static UIImage *usFlag = nil;
-static UIImage *ukFlag = nil;
+//static UIImage *usFlag = nil;
+//static UIImage *ukFlag = nil;
 
 
 @implementation DetailViewController
 
 @synthesize navigationBar, popoverController, detailItem;
-@synthesize sitesFeedItems, serversFeedItems, filesFeedItems;
-@synthesize tableView, nibLoadedFeedItemCell, nibLoadedRSSEmptyCell;
-@synthesize feedItems;
+//@synthesize sitesFeedItems, serversFeedItems, filesFeedItems;
+@synthesize tableView; //, nibLoadedFeedItemCell, nibLoadedRSSEmptyCell;
+@synthesize tableViewDelegate;
 
+//@synthesize feedItems;
+
+/*
 +(void)initialize {
 	usFlag = [[UIImage imageNamed:@"usflag.png"] retain];
 	ukFlag = [[UIImage imageNamed:@"ukflag.png"] retain];
 }
+ */
 
 #pragma mark -
 #pragma mark Date Formatting
 
+/*
 - (NSString *)dateToString:(NSDate *)date {
 	NSString *result = @"";
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -47,7 +53,7 @@ static UIImage *ukFlag = nil;
 	[dateFormatter release];
 	return result;
 }
-
+*/
 
 #pragma mark -
 #pragma mark Managing the popover controller
@@ -124,6 +130,7 @@ static UIImage *ukFlag = nil;
 #pragma mark -
 #pragma mark HTTP Response Handlers
 
+/*
 - (void)appendFeedItems:(NSMutableArray *)newFeedItems {
 	if (self.feedItems == nil) {
 		self.feedItems = [[NSMutableArray alloc] initWithCapacity:[newFeedItems count]];
@@ -148,7 +155,8 @@ static UIImage *ukFlag = nil;
 	[xmlParser release];
 	[self.tableView reloadData];
 }
-
+ */
+/*
 - (void)serversStatusRequestFailed:(ASIHTTPRequest *)request {
     requestCompletionCount++;
 	[self.tableView reloadData];
@@ -175,7 +183,8 @@ static UIImage *ukFlag = nil;
     requestCompletionCount++;
 	[self.tableView reloadData];
 }
-
+*/
+/*
 - (void)sitesStatusRequestFinished:(ASIHTTPRequest *)request {
     requestCompletionCount++;
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:[request responseData]];
@@ -197,7 +206,7 @@ static UIImage *ukFlag = nil;
     requestCompletionCount++;
 	[self.tableView reloadData];
 }
-
+*/
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -206,15 +215,20 @@ static UIImage *ukFlag = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	tableView.backgroundView = nil;
-    requestCompletionCount = 0;
+    //requestCompletionCount = 0;
     
+	self.tableViewDelegate = [[RSSTableViewDelegateAndDataSource alloc] initWithTableView:self.tableView];
+	self.tableView.delegate = self.tableViewDelegate;
+	self.tableView.dataSource = self.tableViewDelegate;
+	
+	
 	// register for rotation events to keep the rss feed width correct
 	[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(orientationDidChange:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];	
-	[self loadRSSFeeds];
+	//[self loadRSSFeeds];
 }
 
 - (void)viewDidUnload {
@@ -223,13 +237,16 @@ static UIImage *ukFlag = nil;
     self.popoverController = nil;
 }
 
+/*
 - (BOOL)allRSSRequestsFailed {
     return [self.feedItems count] == 0 && requestCompletionCount == 3;
 }
+ */
 
 #pragma mark -
 #pragma mark Table view data source
 
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
     // Return the number of sections.
     return 2;
@@ -254,14 +271,16 @@ static UIImage *ukFlag = nil;
 		return @"Rackspace Cloud System Status";
 	}
 }
-
+*/
+/*
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
     //NSLog(@"String size height = %f", stringSize.height);
     return stringSize.height;
 }
-
+*/
+/*
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	// make the background transparent here.  won't work in cellForRowAtIndexPath
     cell.backgroundColor = [UIColor clearColor];
@@ -304,7 +323,8 @@ static UIImage *ukFlag = nil;
     return cell;
     
 }
-
+*/
+/*
 - (UITableViewCell *)tableView:(UITableView *)aTableView emptyRSSCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EmptyRSSCell"];
 	if (cell == nil) {
@@ -368,7 +388,8 @@ static UIImage *ukFlag = nil;
 
     return cell;
 }
-
+*/
+/*
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
@@ -387,17 +408,7 @@ static UIImage *ukFlag = nil;
 	//return 700.0;
 	return ((UITableViewCell *)[self tableView:aTableView cellForRowAtIndexPath:indexPath]).frame.size.height;
 }
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    /*
-     When a row is selected, set the detail view controller's detail item to the item associated with the selected row.
-     */
-    //detailViewController.detailItem = [NSString stringWithFormat:@"Row %d", indexPath.row];
-}
+*/
 
 
 
@@ -411,6 +422,7 @@ static UIImage *ukFlag = nil;
     [detailItem release];
 	
 	[tableView release];
+	/*
 	[nibLoadedFeedItemCell release];
     [nibLoadedRSSEmptyCell release];
 	
@@ -418,6 +430,9 @@ static UIImage *ukFlag = nil;
 	[serversFeedItems release];
 	[filesFeedItems release];
 	[feedItems release];
+	 */
+	[tableViewDelegate release];
+
 	[super dealloc];
 }
 

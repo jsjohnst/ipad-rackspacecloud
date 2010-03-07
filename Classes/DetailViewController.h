@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class RSSTableViewDelegateAndDataSource;
+
 @interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate> {
     
     UIPopoverController *popoverController;
@@ -16,8 +18,8 @@
     id detailItem;
 
 	IBOutlet UITableView *tableView;
-	IBOutlet UITableViewCell *nibLoadedFeedItemCell;
-    IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
+	//IBOutlet UITableViewCell *nibLoadedFeedItemCell;
+    //IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
 	
 	// this is the initial detail view.
 	// since servers or files isn't selected when the app launches,
@@ -26,12 +28,15 @@
 	// pre-select a System Status row on the master view
 	// also consider feed://twitter.com/statuses/user_timeline/6979812.rss
 	
+	/*
 	NSMutableArray *feedItems;
 	NSMutableArray *sitesFeedItems;
 	NSMutableArray *serversFeedItems;
 	NSMutableArray *filesFeedItems;
 	
     NSUInteger requestCompletionCount;
+	 */
+	RSSTableViewDelegateAndDataSource *tableViewDelegate;
 }
 
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -40,6 +45,8 @@
 @property (nonatomic, retain) id detailItem;
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+
+/*
 @property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedFeedItemCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedRSSEmptyCell;
 
@@ -47,5 +54,9 @@
 @property (nonatomic, retain) NSMutableArray *sitesFeedItems;
 @property (nonatomic, retain) NSMutableArray *serversFeedItems;
 @property (nonatomic, retain) NSMutableArray *filesFeedItems;
+*/
+
+@property (nonatomic, retain) RSSTableViewDelegateAndDataSource *tableViewDelegate;
+
 
 @end
