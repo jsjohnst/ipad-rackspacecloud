@@ -14,7 +14,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier delegate:(id)delegate action:(SEL)action value:(BOOL)value {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         // Initialization code
-        CGRect frame = CGRectMake(462.0, 9.0, 94.0, 27.0);
+        CGRect frame = CGRectMake(513.0, 9.0, 94.0, 27.0);
 		uiSwitch = [[UISwitch alloc] initWithFrame:frame];
 		
         // in case the parent view draws with a custom color or gradient, use a transparent color

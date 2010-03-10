@@ -212,7 +212,7 @@ static UIImage *ukFlag = nil;
 	for (int i = 0; i < [labels count]; i++) {
 		UILabel *label = (UILabel *) [labels objectAtIndex:i];
 		CGRect rect = label.frame;
-		rect.size.width = cell.frame.size.width - 40;
+		rect.size.width = cell.frame.size.width - 40 - 64;
 		//NSLog(@"width: %f", rect.size.width);
 		label.frame = rect;		
 	}
