@@ -22,7 +22,20 @@
 }
 
 - (NSString *)toXML {
-	NSString *xml = [NSString stringWithFormat:@"<server xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" name=\"%@\" imageId=\"%i\" flavorId=\"%i\"></server>", self.name, self.imageId, self.flavorId];	
+	NSString *xml = @"";
+	if (self.metadata && [self.metadata count] > 0) {
+		NSString *metas = @"";
+		NSArray *keys = [self.metadata allKeys];
+		for (int i = 0; i < [keys count]; i++) {
+			NSString *key = [keys objectAtIndex:i];
+			metas = [NSString stringWithFormat:@"%@<meta key = \"%@\">%@</meta>", metas, key, [self.metadata objectForKey:key]];
+		}
+		NSString *meta = [NSString stringWithFormat:@"<metadata>%@</metadata>", metas];
+		
+		xml = [NSString stringWithFormat:@"<server xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" name=\"%@\" imageId=\"%i\" flavorId=\"%i\">%@</server>", self.name, self.imageId, self.flavorId, meta];	
+	} else {
+		xml = [NSString stringWithFormat:@"<server xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" name=\"%@\" imageId=\"%i\" flavorId=\"%i\"></server>", self.name, self.imageId, self.flavorId];	
+	}
 	return xml;
 }
 

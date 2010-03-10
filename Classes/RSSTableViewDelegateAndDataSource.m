@@ -200,7 +200,6 @@ static UIImage *ukFlag = nil;
 	// cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
 	
 	
-	// TODO: DRY up rss views duplication
 	// TODO: fix this in both rss views
 	// cell.imageView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
 	// cell.backgroundView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];

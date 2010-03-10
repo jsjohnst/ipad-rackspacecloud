@@ -52,6 +52,8 @@
 		serverXMLParserDelegate = [[ASICloudServersServerXMLParserDelegate alloc] init];
 	}
 	
+	// TODO: if multiple servers have metadata, there's a bad access problem
+	
 	[parser setDelegate:serverXMLParserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
