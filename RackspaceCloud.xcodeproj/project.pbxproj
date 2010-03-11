@@ -90,6 +90,7 @@
 		27614B391117EC1300D9C84E /* LogEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27614B381117EC1300D9C84E /* LogEntryCell.xib */; };
 		27614BE71117F60700D9C84E /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BD21117F5B100D9C84E /* libCorePlot-CocoaTouch.a */; };
 		27614BEE1117F69000D9C84E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BED1117F69000D9C84E /* QuartzCore.framework */; };
+		2768BDA11148519500758718 /* ASICloudFilesFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2768BDA01148519500758718 /* ASICloudFilesFolder.m */; };
 		276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0F89113F63BE00E3DDCD /* ubuntu-large.png */; };
 		276E0FB9113F694F00E3DDCD /* ubuntu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */; };
 		276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E104A113F866D00E3DDCD /* rackspace1081.png */; };
@@ -335,6 +336,8 @@
 		27614B381117EC1300D9C84E /* LogEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogEntryCell.xib; sourceTree = "<group>"; };
 		27614BC91117F5B100D9C84E /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../installed-software/core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		27614BED1117F69000D9C84E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2768BD9F1148519500758718 /* ASICloudFilesFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudFilesFolder.h; sourceTree = "<group>"; };
+		2768BDA01148519500758718 /* ASICloudFilesFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudFilesFolder.m; sourceTree = "<group>"; };
 		276E0F89113F63BE00E3DDCD /* ubuntu-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-large.png"; sourceTree = "<group>"; };
 		276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-icon.png"; sourceTree = "<group>"; };
 		276E104A113F866D00E3DDCD /* rackspace1081.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspace1081.png; sourceTree = "<group>"; };
@@ -1010,6 +1013,8 @@
 				27D6675E111156FF00654554 /* ASICloudFilesObjectRequest.m */,
 				27D6675F111156FF00654554 /* ASICloudFilesRequest.h */,
 				27D66760111156FF00654554 /* ASICloudFilesRequest.m */,
+				2768BD9F1148519500758718 /* ASICloudFilesFolder.h */,
+				2768BDA01148519500758718 /* ASICloudFilesFolder.m */,
 			);
 			name = "Cloud Files";
 			sourceTree = "<group>";
@@ -1409,6 +1414,7 @@
 				27BC50D011407B4800D7879A /* DTSnapGridViewCell.m in Sources */,
 				27BC50D111407B4800D7879A /* DTInfiniteGridView.m in Sources */,
 				27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */,
+				2768BDA11148519500758718 /* ASICloudFilesFolder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

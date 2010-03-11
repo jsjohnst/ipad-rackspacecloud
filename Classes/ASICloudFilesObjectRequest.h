@@ -6,7 +6,7 @@
 
 #import "ASICloudFilesRequest.h"
 
-@class ASICloudFilesObject;
+@class ASICloudFilesObject, ASICloudFilesFolder;
 
 
 // Prevent warning about missing NSXMLParserDelegate on Leopard and iPhone
@@ -44,6 +44,7 @@
 // to get metadata
 + (id)objectInfoRequest:(NSString *)containerName objectPath:(NSString *)objectPath;
 - (NSArray *)objects;
+- (ASICloudFilesFolder *)folders;
 
 + (id)listRequestWithContainer:(NSString *)containerName;
 + (id)listRequestWithContainer:(NSString *)containerName limit:(NSUInteger)limit marker:(NSString *)marker prefix:(NSString *)prefix path:(NSString *)path;

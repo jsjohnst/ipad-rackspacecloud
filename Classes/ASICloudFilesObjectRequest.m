@@ -6,6 +6,8 @@
 
 #import "ASICloudFilesObjectRequest.h"
 #import "ASICloudFilesObject.h"
+#import "ASICloudFilesFolder.h"
+#import "NSString+Rubyisms.h"
 
 
 @implementation ASICloudFilesObjectRequest
@@ -123,6 +125,90 @@
 	[parser setShouldResolveExternalEntities:NO];
 	[parser parse];
 	return objects;
+}
+
+// TODO: for the app, consider making marker requests during drill downs?
+// TODO: recursively build folder tree, trimming from the front of name
+
+- (ASICloudFilesFolder *)buildFolder:(NSString *)path withFiles:(NSArray *)files andParent:(ASICloudFilesFolder *)parent {
+    
+    NSLog(@"Entering buildFolder:%@", path);
+    
+	ASICloudFilesFolder *root = [[ASICloudFilesFolder alloc] init];
+    root.name = [[path split:@"/"] lastObject];
+    root.parent = parent;
+    
+	NSMutableArray *folderedFiles = [[NSMutableArray alloc] init];
+    NSMutableArray *folderNames = [[NSMutableArray alloc] init];
+	
+	// build foldered and unfoldered file arrays
+	for (int i = 0; i < [files count]; i++) {
+		ASICloudFilesObject *file = [files objectAtIndex:i];		
+        NSRange pathRange = [file.name rangeOfString:path];
+		
+		// if the name doesn't contain the path, it doesn't belong in this folder
+		if ([path isEqualToString:@""] || pathRange.location != NSNotFound) {
+    		// strip the path so we can tell if it's subfoldered
+    		
+    		if ([path isEqualToString:@""]) {
+    		    // TODO: don't really need this line
+    			file.name = [file.name stringByReplacingOccurrencesOfString:path withString:@""];
+    		} else {
+    		    file.name = [file.name stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/", path] withString:@""];
+    		}
+			
+    		if ([file.contentType isEqualToString:@"application/directory"]) {			
+                [folderedFiles addObject:file];
+    		} else {
+    			// the file's not a folder object, but does it belong in a folder?
+    			NSRange range = [file.name rangeOfString:@"/"];
+    			if (range.location == NSNotFound) {
+					NSLog(@"  file name = %@", file.name);
+    				[root.files addObject:file];
+    			} else {
+					NSLog(@"  foldered file name = %@", file.name);
+    				[folderedFiles addObject:file];
+    			}
+    		}
+		}
+	}
+	
+	// build folder names array
+    for (int i = 0; i < [folderedFiles count]; i++) {
+        ASICloudFilesObject *file = [folderedFiles objectAtIndex:i];
+        NSString *folderName = [[file.name split:@"/"] objectAtIndex:0];
+        [folderNames addObject:folderName];
+    }	
+	
+	// delete duplicate folder names
+	NSArray *copy = [folderNames copy];
+    NSInteger index = [copy count] - 1;
+    for (id object in [copy reverseObjectEnumerator]) {
+        if ([folderNames indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
+            [folderNames removeObjectAtIndex:index];
+        }
+        index--;
+    }
+    [copy release];
+	
+	// go through each folder name, and recursively call this method
+    for (int i = 0; i < [folderNames count]; i++) {
+		NSString *folderName = [folderNames objectAtIndex:i];
+		NSLog(@"folder = %@, foldered files count = %i", folderName, [folderedFiles count]);
+        ASICloudFilesFolder *folder = [self buildFolder:folderName withFiles:folderedFiles andParent:root];
+        //[root.folders addObject:folder];
+    }
+	
+    [folderNames release];
+	
+	return root;
+}
+
+- (ASICloudFilesFolder *)folders {
+	// TODO: split files into folders, foldered files, and root folder files
+	// perhaps simply a dictionary or array of folders, starting with /
+	// be sure to not count application/directory type files	
+	return [self buildFolder:@"" withFiles:[self objects] andParent:nil];
 }
 
 #pragma mark -
