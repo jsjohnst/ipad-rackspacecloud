@@ -128,13 +128,14 @@
 }
 
 // TODO: for the app, consider making marker requests during drill downs?
-// TODO: recursively build folder tree, trimming from the front of name
 
 - (ASICloudFilesFolder *)buildFolder:(NSString *)path withFiles:(NSArray *)files andParent:(ASICloudFilesFolder *)parent {
     
     NSLog(@"Entering buildFolder:%@", path);
     
 	ASICloudFilesFolder *root = [[ASICloudFilesFolder alloc] init];
+	root.files = [[NSMutableArray alloc] init];
+	root.folders = [[NSMutableArray alloc] init];
     root.name = [[path split:@"/"] lastObject];
     root.parent = parent;
     
@@ -150,10 +151,7 @@
 		if ([path isEqualToString:@""] || pathRange.location != NSNotFound) {
     		// strip the path so we can tell if it's subfoldered
     		
-    		if ([path isEqualToString:@""]) {
-    		    // TODO: don't really need this line
-    			file.name = [file.name stringByReplacingOccurrencesOfString:path withString:@""];
-    		} else {
+    		if (![path isEqualToString:@""]) {
     		    file.name = [file.name stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/", path] withString:@""];
     		}
 			
@@ -196,7 +194,7 @@
 		NSString *folderName = [folderNames objectAtIndex:i];
 		NSLog(@"folder = %@, foldered files count = %i", folderName, [folderedFiles count]);
         ASICloudFilesFolder *folder = [self buildFolder:folderName withFiles:folderedFiles andParent:root];
-        //[root.folders addObject:folder];
+        [root.folders addObject:folder];
     }
 	
     [folderNames release];
@@ -204,10 +202,7 @@
 	return root;
 }
 
-- (ASICloudFilesFolder *)folders {
-	// TODO: split files into folders, foldered files, and root folder files
-	// perhaps simply a dictionary or array of folders, starting with /
-	// be sure to not count application/directory type files	
+- (ASICloudFilesFolder *)folder {
 	return [self buildFolder:@"" withFiles:[self objects] andParent:nil];
 }
 

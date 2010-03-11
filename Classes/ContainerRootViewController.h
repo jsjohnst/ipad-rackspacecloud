@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class ASICloudFilesContainer;
+@class ASICloudFilesContainer, ASICloudFilesFolder;
 
 @interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
     UINavigationBar *navigationBar;
 	ASICloudFilesContainer *container;
 	NSArray *files;
+    ASICloudFilesFolder *rootFolder;
 	IBOutlet UITableView *tableView;
 	
 	// TODO: try out DTGridView for files view

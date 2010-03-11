@@ -44,7 +44,7 @@
 // to get metadata
 + (id)objectInfoRequest:(NSString *)containerName objectPath:(NSString *)objectPath;
 - (NSArray *)objects;
-- (ASICloudFilesFolder *)folders;
+- (ASICloudFilesFolder *)folder;
 
 + (id)listRequestWithContainer:(NSString *)containerName;
 + (id)listRequestWithContainer:(NSString *)containerName limit:(NSUInteger)limit marker:(NSString *)marker prefix:(NSString *)prefix path:(NSString *)path;

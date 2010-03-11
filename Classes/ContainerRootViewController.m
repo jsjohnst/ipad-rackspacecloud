@@ -14,6 +14,7 @@
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+RackspaceCloud.h"
 #import "RackspaceCloudAppDelegate.h"
+#import "ASICloudFilesFolder.h"
 
 
 @implementation ContainerRootViewController
@@ -30,7 +31,7 @@
 
 -(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
 	[self hideSpinnerView];
-	files = [[NSArray alloc] initWithArray:[request objects]];
+	//files = [[NSArray alloc] initWithArray:[request objects]];
 	
 	NSLog(@"files count = %d", [files count]);
 	
@@ -42,7 +43,8 @@
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"CALLING FOLDERS");
-	[request folders];	
+	rootFolder = [request folder];
+    NSLog(@"files count in root folder: %i", [rootFolder.files count]);
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"------------------------------------------------------");
@@ -50,10 +52,6 @@
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"------------------------------------------------------");
-	
-	// TODO: split files into folders, foldered files, and root folder files
-	// perhaps simply a dictionary of folders, starting with /
-	// be sure to not count application/directory type files
 	
 	[self.tableView reloadData];
 }
@@ -90,6 +88,7 @@
 	
 	
 	files = nil;
+    rootFolder = nil;
 	
 	[self request:[ASICloudFilesObjectRequest listRequestWithContainer:self.container.name] behavior:@"listing your files" success:@selector(listFilesSuccess:)];
 	
@@ -156,7 +155,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (container) {
-		return 3;
+        if (rootFolder) {
+            if ([rootFolder.folders count] > 0) {
+                return 4;
+            } else {
+                return 3;
+            }            
+        } else {
+			return 2;
+        }
 	} else {
 		self.tableView.backgroundView = nil;
 		self.noFilesView.hidden = NO;
@@ -173,8 +180,20 @@
 	} else if (section == 1) {
 		return 4;
 	} else {
-		if (files != nil) {
-			return [files count];
+		if (rootFolder != nil) {
+		    if (section == 2) {
+		        if ([rootFolder.folders count] > 0) {
+                    return [rootFolder.folders count];
+	            } else if ([rootFolder.files count] > 0) {
+                    return [rootFolder.files count];
+                } else {
+                    return 0;
+                }
+		    } else if (section == 3) {
+		        return [rootFolder.files count];
+		    } else {
+                return 0;
+		    }
 		} else {
 			return 0;
 		}
@@ -187,7 +206,21 @@
 	} else if (section == 1) {
 		return @"Content Delivery Network";
 	} else {
-		return @"Files";
+	    if (section == 2) {
+            if ([rootFolder.folders count] > 0) {
+                return @"Folders";
+            } else if ([rootFolder.files count] > 0) {
+                return @"Files";
+            } else {
+                return 0;
+            }
+	    } else {
+	        if ([rootFolder.files count] > 0) {
+                return @"Files";
+            } else {
+                return @"";
+            }
+	    }
 	}
 }
 
@@ -218,6 +251,8 @@
 		cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     // Configure the cell...
 	cell.textLabel.text = @"Field";
@@ -250,11 +285,27 @@
 		}
 		
 		
-	} else if (indexPath.section > 1) {
+	} else if (indexPath.section == 2) {
 		// either files or folders
-		ASICloudFilesObject *file = [files objectAtIndex:indexPath.row];
+		
+        if ([rootFolder.folders count] > 0) {
+            ASICloudFilesFolder *folder = [rootFolder.folders objectAtIndex:indexPath.row];
+    		cell.textLabel.text = folder.name;
+    	    // TODO: include humanized size in folder object and detailText here
+    		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
+        } else {
+    		ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
+    		cell.textLabel.text = file.name;
+    		cell.detailTextLabel.text = file.contentType;
+		}
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+	} else if (indexPath.section == 3) {
+	    // definitely files
+		ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
 		cell.textLabel.text = file.name;
 		cell.detailTextLabel.text = file.contentType;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
     
     return cell;
@@ -319,7 +370,7 @@
 	 [detailViewController release];
 	 */
 	
-	ASICloudFilesObject *file = [files objectAtIndex:indexPath.row];
+	ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
 	ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:file.name];
 	[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
 	
@@ -352,6 +403,9 @@
 	[container release];
 	if (files != nil) {
 		[files release];
+	}
+	if (rootFolder != nil) {
+        [rootFolder release];
 	}
 	[tableView release];
 	[navigationBar release];
