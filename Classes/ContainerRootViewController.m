@@ -15,6 +15,7 @@
 #import "UIViewController+RackspaceCloud.h"
 #import "RackspaceCloudAppDelegate.h"
 #import "ASICloudFilesFolder.h"
+#import "FolderViewController.h"
 
 
 @implementation ContainerRootViewController
@@ -370,16 +371,20 @@
 	 [detailViewController release];
 	 */
 	
-	ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
-	ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:file.name];
-	[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
 	
-	/*
-	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
-	vc.container = self.container;
+	//ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
+	//ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:file.name];
+	//[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
+	
+	
+	
+	
+	FolderViewController *vc = [[FolderViewController alloc] initWithNibName:@"FolderViewController" bundle:nil];
+	//vc.container = self.container;
+	vc.folder = [rootFolder.folders objectAtIndex:indexPath.row];
 	[self.navigationController pushViewController:vc animated:YES];
 	[vc release];
-	 */
+	// */
 }
 
 

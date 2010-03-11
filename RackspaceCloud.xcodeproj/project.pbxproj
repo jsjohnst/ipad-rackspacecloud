@@ -91,6 +91,8 @@
 		27614BE71117F60700D9C84E /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BD21117F5B100D9C84E /* libCorePlot-CocoaTouch.a */; };
 		27614BEE1117F69000D9C84E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27614BED1117F69000D9C84E /* QuartzCore.framework */; };
 		2768BDA11148519500758718 /* ASICloudFilesFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2768BDA01148519500758718 /* ASICloudFilesFolder.m */; };
+		2768BF661149744A00758718 /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2768BF641149744A00758718 /* FolderViewController.m */; };
+		2768BF671149744A00758718 /* FolderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2768BF651149744A00758718 /* FolderViewController.xib */; };
 		276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0F89113F63BE00E3DDCD /* ubuntu-large.png */; };
 		276E0FB9113F694F00E3DDCD /* ubuntu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */; };
 		276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E104A113F866D00E3DDCD /* rackspace1081.png */; };
@@ -338,6 +340,9 @@
 		27614BED1117F69000D9C84E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2768BD9F1148519500758718 /* ASICloudFilesFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudFilesFolder.h; sourceTree = "<group>"; };
 		2768BDA01148519500758718 /* ASICloudFilesFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudFilesFolder.m; sourceTree = "<group>"; };
+		2768BF631149744A00758718 /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
+		2768BF641149744A00758718 /* FolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderViewController.m; sourceTree = "<group>"; };
+		2768BF651149744A00758718 /* FolderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderViewController.xib; sourceTree = "<group>"; };
 		276E0F89113F63BE00E3DDCD /* ubuntu-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-large.png"; sourceTree = "<group>"; };
 		276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-icon.png"; sourceTree = "<group>"; };
 		276E104A113F866D00E3DDCD /* rackspace1081.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspace1081.png; sourceTree = "<group>"; };
@@ -810,6 +815,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2768BF61114973A800758718 /* File Viewing and Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				2768BF631149744A00758718 /* FolderViewController.h */,
+				2768BF641149744A00758718 /* FolderViewController.m */,
+				2768BF651149744A00758718 /* FolderViewController.xib */,
+			);
+			name = "File Viewing and Navigation";
+			sourceTree = "<group>";
+		};
 		27A9086C111BFFB200407B55 /* Common Log File Parser */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,6 +1104,7 @@
 		27D66A28111220F200654554 /* Cloud Files */ = {
 			isa = PBXGroup;
 			children = (
+				2768BF61114973A800758718 /* File Viewing and Navigation */,
 				27BE5FDF11169BC900CA6704 /* ContainersListViewController.h */,
 				27BE5FE011169BC900CA6704 /* ContainersListViewController.m */,
 				27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */,
@@ -1317,6 +1333,7 @@
 				27BC513F1142056400D7879A /* Default-PortraitUpsideDown.png in Resources */,
 				27BC5143114205BA00D7879A /* Default-Portrait.png in Resources */,
 				27BC51991142EBCF00D7879A /* files500.png in Resources */,
+				2768BF671149744A00758718 /* FolderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1415,6 +1432,7 @@
 				27BC50D111407B4800D7879A /* DTInfiniteGridView.m in Sources */,
 				27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */,
 				2768BDA11148519500758718 /* ASICloudFilesFolder.m in Sources */,
+				2768BF661149744A00758718 /* FolderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
