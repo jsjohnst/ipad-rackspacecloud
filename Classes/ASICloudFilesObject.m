@@ -16,6 +16,20 @@
 	return object;
 }
 
+-(NSString *)humanizedBytes {
+	NSString *result;	
+	if (self.bytes >= 1024000000) {
+		result = [NSString stringWithFormat:@"%.2f GB", self.bytes / 1024000000.0];
+	} else if (self.bytes >= 1024000) {
+		result = [NSString stringWithFormat:@"%.2f MB", self.bytes / 1024000.0];
+	} else if (self.bytes >= 1024) {
+		result = [NSString stringWithFormat:@"%.2f KB", self.bytes / 1024.0];
+	} else {
+		result = [NSString stringWithFormat:@"%@ %@", self.bytes, NSLocalizedString(@"bytes", @"bytes")];
+	}
+	return result;
+}
+
 -(void)dealloc {
 	[name release];
 	[hash release];

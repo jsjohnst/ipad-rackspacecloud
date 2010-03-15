@@ -7,6 +7,7 @@
 //
 
 #import "FileViewController.h"
+#import "ASICloudFilesObject.h"
 
 
 @implementation FileViewController
@@ -86,14 +87,37 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    aTableView.backgroundView = nil;
+    
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+		cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+		cell.textLabel.backgroundColor = [UIColor clearColor];
+		cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     }
     
     // Configure the cell...
+    cell.textLabel.text = @"Hello world.";
+    
+    if (indexPath.section == 0) {
+        // file attributes
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"Name";
+            cell.detailTextLabel.text = file.name;
+        } else if (indexPath.row == 1) {
+            cell.textLabel.text = @"Size";
+            cell.detailTextLabel.text = [file humanizedBytes];
+        } else if (indexPath.row == 2) {
+            cell.textLabel.text = @"Content Type";
+            cell.detailTextLabel.text = file.contentType;
+        }
+    } else if (indexPath.section == 1) {
+        // actions
+    }
+    
     
     return cell;
 }

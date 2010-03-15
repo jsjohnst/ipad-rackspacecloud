@@ -26,5 +26,6 @@
 @property (retain) NSMutableDictionary *metadata;
 
 + (id)object;
+- (NSString *)humanizedBytes;
 
 @end
