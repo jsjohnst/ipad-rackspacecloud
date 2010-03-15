@@ -9,6 +9,7 @@
 #import "FolderViewController.h"
 #import "ASICloudFilesFolder.h"
 #import "ASICloudFilesObject.h"
+#import "FileViewController.h"
 
 
 @implementation FolderViewController
@@ -102,10 +103,16 @@
 			[self.navigationController pushViewController:vc animated:YES];
 			[vc release];
 		} else {
-			// TODO: push file view controller
+            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
+            vc.file = [folder.files objectAtIndex:indexPath.row];
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
 		}
 	} else {
-		// TODO: push file view controller
+        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
+        vc.file = [folder.files objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc release];
 	}
 }
 

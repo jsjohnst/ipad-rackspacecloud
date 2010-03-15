@@ -11,6 +11,8 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		27089D42114A2AC600A1BFE8 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27089D40114A2AC600A1BFE8 /* FileViewController.m */; };
+		27089D43114A2AC600A1BFE8 /* FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27089D41114A2AC600A1BFE8 /* FileViewController.xib */; };
 		273C74AE11249C48005F36C3 /* CloudServersActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */; };
 		273C75721125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */; };
 		273C75751125ED37005F36C3 /* ASICloudServersBackupSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */; };
@@ -203,6 +205,9 @@
 		1D3623250D0F684500981E51 /* RackspaceCloudAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RackspaceCloudAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* RackspaceCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RackspaceCloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		27089D3F114A2AC600A1BFE8 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
+		27089D40114A2AC600A1BFE8 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
+		27089D41114A2AC600A1BFE8 /* FileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileViewController.xib; sourceTree = "<group>"; };
 		273C74AC11249C48005F36C3 /* CloudServersActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudServersActionViewController.h; sourceTree = "<group>"; };
 		273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudServersActionViewController.m; sourceTree = "<group>"; };
 		273C75701125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersBackupScheduleXMLParserDelegate.h; sourceTree = "<group>"; };
@@ -821,6 +826,9 @@
 				2768BF631149744A00758718 /* FolderViewController.h */,
 				2768BF641149744A00758718 /* FolderViewController.m */,
 				2768BF651149744A00758718 /* FolderViewController.xib */,
+				27089D3F114A2AC600A1BFE8 /* FileViewController.h */,
+				27089D40114A2AC600A1BFE8 /* FileViewController.m */,
+				27089D41114A2AC600A1BFE8 /* FileViewController.xib */,
 			);
 			name = "File Viewing and Navigation";
 			sourceTree = "<group>";
@@ -1334,6 +1342,7 @@
 				27BC5143114205BA00D7879A /* Default-Portrait.png in Resources */,
 				27BC51991142EBCF00D7879A /* files500.png in Resources */,
 				2768BF671149744A00758718 /* FolderViewController.xib in Resources */,
+				27089D43114A2AC600A1BFE8 /* FileViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1433,6 +1442,7 @@
 				27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */,
 				2768BDA11148519500758718 /* ASICloudFilesFolder.m in Sources */,
 				2768BF661149744A00758718 /* FolderViewController.m in Sources */,
+				27089D42114A2AC600A1BFE8 /* FileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
