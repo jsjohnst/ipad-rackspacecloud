@@ -14,7 +14,7 @@
 
 @implementation FolderViewController
 
-@synthesize folder, tableView;
+@synthesize container, folder, tableView;
 
 #pragma mark -
 #pragma mark Utilities
@@ -105,12 +105,14 @@
 		} else {
             FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
             vc.file = [folder.files objectAtIndex:indexPath.row];
+            vc.container = self.container;
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
 		}
 	} else {
         FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
         vc.file = [folder.files objectAtIndex:indexPath.row];
+        vc.container = self.container;
         [self.navigationController pushViewController:vc animated:YES];
         [vc release];
 	}
@@ -121,6 +123,7 @@
 #pragma mark Memory management
 
 - (void)dealloc {
+    [container release];
 	[folder release];
 	[tableView release];
     [super dealloc];

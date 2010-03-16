@@ -380,7 +380,7 @@
 	
 	
 	FolderViewController *vc = [[FolderViewController alloc] initWithNibName:@"FolderViewController" bundle:nil];
-	//vc.container = self.container;
+	vc.container = self.container;
 	vc.folder = [rootFolder.folders objectAtIndex:indexPath.row];
 	[self.navigationController pushViewController:vc animated:YES];
 	[vc release];

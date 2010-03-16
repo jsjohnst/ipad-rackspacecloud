@@ -8,11 +8,12 @@
 
 #import "FileViewController.h"
 #import "ASICloudFilesObject.h"
+#import "ASICloudFilesContainer.h"
 
 
 @implementation FileViewController
 
-@synthesize file, tableView;
+@synthesize container, file, tableView;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -78,8 +79,12 @@
 		 Shorten CDN URL with bit.ly (if CDN enabled)
 		 Tweet Link to File (if CDN enabled)
 		 Delete File
-		 */
-		return 1;
+		 */        
+        if (container.cdnEnabled) {
+            return 6;
+        } else {
+            return 3;
+        }        
 	}
 }
 
@@ -104,6 +109,8 @@
     
     if (indexPath.section == 0) {
         // file attributes
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Name";
             cell.detailTextLabel.text = file.name;
@@ -116,6 +123,43 @@
         }
     } else if (indexPath.section == 1) {
         // actions
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.detailTextLabel.text = @"";
+        
+		/*
+		 Preview File
+		 Email Link to File (if CDN enabled)
+		 Email File as Attachment
+		 Shorten CDN URL with bit.ly (if CDN enabled)
+		 Tweet Link to File (if CDN enabled)
+		 Delete File
+		 */
+        
+        if (container.cdnEnabled) {
+            if (indexPath.row == 0) {
+                cell.textLabel.text = @"Preview File";
+            } else if (indexPath.row == 1) {
+                cell.textLabel.text = @"Email Link to File";
+            } else if (indexPath.row == 2) {
+                cell.textLabel.text = @"Email File as Attachment";
+            } else if (indexPath.row == 3) {
+                cell.textLabel.text = @"Shorten URL with bit.ly";
+            } else if (indexPath.row == 4) {
+                cell.textLabel.text = @"Tweet Link to File";
+            } else if (indexPath.row == 5) {
+                cell.textLabel.text = @"Delete File";
+            }
+        } else {
+            if (indexPath.row == 0) {
+                cell.textLabel.text = @"Preview File";
+            } else if (indexPath.row == 1) {
+                cell.textLabel.text = @"Email File as Attachment";
+            } else if (indexPath.row == 2) {
+                cell.textLabel.text = @"Delete File";
+            }
+        }
+        
+        
     }
     
     
@@ -175,6 +219,32 @@
 	 [self.navigationController pushViewController:detailViewController animated:YES];
 	 [detailViewController release];
 	 */
+    if (indexPath.section == 0) {
+        if (container.cdnEnabled) {
+            if (indexPath.row == 0) {
+                //cell.textLabel.text = @"Preview File";
+            } else if (indexPath.row == 1) {
+                //cell.textLabel.text = @"Email Link to File";
+            } else if (indexPath.row == 2) {
+                //cell.textLabel.text = @"Email File as Attachment";
+            } else if (indexPath.row == 3) {
+                //cell.textLabel.text = @"Shorten URL with bit.ly";
+            } else if (indexPath.row == 4) {
+                //cell.textLabel.text = @"Tweet Link to File";
+            } else if (indexPath.row == 5) {
+                //cell.textLabel.text = @"Delete File";
+            }
+        } else {
+            if (indexPath.row == 0) {
+                //cell.textLabel.text = @"Preview File";
+            } else if (indexPath.row == 1) {
+                //cell.textLabel.text = @"Email File as Attachment";
+            } else if (indexPath.row == 2) {
+                //cell.textLabel.text = @"Delete File";
+            }
+        }
+    }
+    
 }
 
 
@@ -195,6 +265,7 @@
 
 
 - (void)dealloc {
+    [container release];
 	[file release];
 	[tableView release];
     [super dealloc];

@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class ASICloudFilesObject;
+@class ASICloudFilesObject, ASICloudFilesContainer;
 
 @interface FileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    ASICloudFilesContainer *container;
 	ASICloudFilesObject *file;
 	IBOutlet UITableView *tableView;
 }
 
+@property (nonatomic, retain) ASICloudFilesContainer *container;
 @property (nonatomic, retain) ASICloudFilesObject *file;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 
