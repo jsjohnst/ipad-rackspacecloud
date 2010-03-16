@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @class ASICloudFilesObject, ASICloudFilesContainer;
 
-@interface FileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface FileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate> {
     ASICloudFilesContainer *container;
 	ASICloudFilesObject *file;
 	IBOutlet UITableView *tableView;

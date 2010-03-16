@@ -16,6 +16,7 @@
 #import "RackspaceCloudAppDelegate.h"
 #import "ASICloudFilesFolder.h"
 #import "FolderViewController.h"
+#import "FileViewController.h"
 
 
 @implementation ContainerRootViewController
@@ -377,14 +378,29 @@
 	//[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
 	
 	
+    if (indexPath.section == 2) {
+        if ([rootFolder.folders count] > 0) {
+            FolderViewController *vc = [[FolderViewController alloc] initWithNibName:@"FolderViewController" bundle:nil];
+            vc.container = self.container;
+            vc.folder = [rootFolder.folders objectAtIndex:indexPath.row];
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+        } else {
+            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
+            vc.file = [rootFolder.files objectAtIndex:indexPath.row];
+            vc.container = self.container;
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+        }
+    } else if (indexPath.section == 3) {
+        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
+        vc.file = [rootFolder.files objectAtIndex:indexPath.row];
+        vc.container = self.container;
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc release];
+    }
 	
 	
-	FolderViewController *vc = [[FolderViewController alloc] initWithNibName:@"FolderViewController" bundle:nil];
-	vc.container = self.container;
-	vc.folder = [rootFolder.folders objectAtIndex:indexPath.row];
-	[self.navigationController pushViewController:vc animated:YES];
-	[vc release];
-	// */
 }
 
 

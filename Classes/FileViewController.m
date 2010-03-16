@@ -9,6 +9,9 @@
 #import "FileViewController.h"
 #import "ASICloudFilesObject.h"
 #import "ASICloudFilesContainer.h"
+#import "ASICloudFilesObjectRequest.h"
+#import "UIViewController+RackspaceCloud.h"
+#import "UIViewController+SpinnerView.h"
 
 
 @implementation FileViewController
@@ -110,6 +113,7 @@
     if (indexPath.section == 0) {
         // file attributes
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Name";
@@ -124,6 +128,7 @@
     } else if (indexPath.section == 1) {
         // actions
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         cell.detailTextLabel.text = @"";
         
 		/*
@@ -206,6 +211,46 @@
 }
 */
 
+#pragma mark -
+#pragma mark Actions
+
+- (void)emailLinkToFile {
+    MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+    vc.mailComposeDelegate = self;		
+    [vc setSubject:self.file.name];
+    NSString *emailBody = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [self.file.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [vc setMessageBody:emailBody isHTML:NO];
+    [self presentModalViewController:vc animated:YES];
+    [vc release];
+}
+
+- (void)downloadFileToAttachSuccess:(ASICloudFilesObjectRequest *)request {
+    [self hideSpinnerView];
+    MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+    vc.mailComposeDelegate = self;
+    [vc setSubject:self.file.name];
+    
+    //NSString *urlString = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [self.file.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    //NSURL *url = [NSURL URLWithString:urlString];
+    //NSData *attachmentData = [NSData dataWithContentsOfURL:url];
+    
+    ASICloudFilesObject *object = [request object];
+    
+    [vc addAttachmentData:object.data mimeType:self.file.contentType fileName:self.file.name];
+    
+    // Fill out the email body text
+    NSString *emailBody = @"";
+    [vc setMessageBody:emailBody isHTML:NO];
+    
+    [self presentModalViewController:vc animated:YES];
+    [vc release];    
+}
+
+- (void)emailFileAsAttachment {
+    // TODO: make this handle folder heirarchy
+    ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:self.file.name];
+    [self request:request behavior:@"attaching your file" success:@selector(downloadFileToAttachSuccess:)];
+}
 
 #pragma mark -
 #pragma mark Table view delegate
@@ -219,14 +264,16 @@
 	 [self.navigationController pushViewController:detailViewController animated:YES];
 	 [detailViewController release];
 	 */
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         if (container.cdnEnabled) {
             if (indexPath.row == 0) {
                 //cell.textLabel.text = @"Preview File";
             } else if (indexPath.row == 1) {
                 //cell.textLabel.text = @"Email Link to File";
+                [self emailLinkToFile];
             } else if (indexPath.row == 2) {
                 //cell.textLabel.text = @"Email File as Attachment";
+                [self emailFileAsAttachment];
             } else if (indexPath.row == 3) {
                 //cell.textLabel.text = @"Shorten URL with bit.ly";
             } else if (indexPath.row == 4) {
@@ -247,6 +294,12 @@
     
 }
 
+#pragma mark Mail Composer Delegate
+
+// Dismisses the email composition interface when users tap Cancel or Send.
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {	
+	[self dismissModalViewControllerAnimated:YES];
+}
 
 #pragma mark -
 #pragma mark Memory management

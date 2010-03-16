@@ -98,6 +98,7 @@
 		276E0F8A113F63BE00E3DDCD /* ubuntu-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0F89113F63BE00E3DDCD /* ubuntu-large.png */; };
 		276E0FB9113F694F00E3DDCD /* ubuntu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */; };
 		276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */ = {isa = PBXBuildFile; fileRef = 276E104A113F866D00E3DDCD /* rackspace1081.png */; };
+		276ECFE8114F347500329215 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276ECFE7114F347500329215 /* MessageUI.framework */; };
 		27A9086F111BFFD200407B55 /* MMCommonLogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A9086E111BFFD200407B55 /* MMCommonLogEntry.m */; };
 		27A90A79111FE26900407B55 /* ASICloudServersServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A90A78111FE26900407B55 /* ASICloudServersServer.m */; };
 		27A90A7C111FE27200407B55 /* ASICloudServersFlavor.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A90A7B111FE27200407B55 /* ASICloudServersFlavor.m */; };
@@ -351,6 +352,7 @@
 		276E0F89113F63BE00E3DDCD /* ubuntu-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-large.png"; sourceTree = "<group>"; };
 		276E0FB8113F694F00E3DDCD /* ubuntu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ubuntu-icon.png"; sourceTree = "<group>"; };
 		276E104A113F866D00E3DDCD /* rackspace1081.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspace1081.png; sourceTree = "<group>"; };
+		276ECFE7114F347500329215 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		27A9086D111BFFD200407B55 /* MMCommonLogEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonLogEntry.h; sourceTree = "<group>"; };
 		27A9086E111BFFD200407B55 /* MMCommonLogEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonLogEntry.m; sourceTree = "<group>"; };
 		27A90A77111FE26900407B55 /* ASICloudServersServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersServer.h; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				27614BEE1117F69000D9C84E /* QuartzCore.framework in Frameworks */,
 				27425C7D1138666E00EB084A /* libOAuth.a in Frameworks */,
 				27425CDC113873E600EB084A /* libxml2.dylib in Frameworks */,
+				276ECFE8114F347500329215 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,6 +1204,7 @@
 				27D66F1A11135FDA00654554 /* MapKit.framework */,
 				27614BED1117F69000D9C84E /* QuartzCore.framework */,
 				27425CDB113873E600EB084A /* libxml2.dylib */,
+				276ECFE7114F347500329215 /* MessageUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
