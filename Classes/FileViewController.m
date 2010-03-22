@@ -19,6 +19,18 @@
 @synthesize container, file, tableView;
 
 #pragma mark -
+#pragma mark Initialization
+
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil file:(ASICloudFilesObject *)aFile {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        // Custom initialization
+        file = aFile;
+    }
+    return self;
+}
+
+#pragma mark -
 #pragma mark View lifecycle
 
 /*
@@ -108,7 +120,7 @@
     }
     
     // Configure the cell...
-    cell.textLabel.text = @"Hello world.";
+    NSLog(@"File: %@, %i, %@", file.name, file.bytes, file.contentType);
     
     if (indexPath.section == 0) {
         // file attributes

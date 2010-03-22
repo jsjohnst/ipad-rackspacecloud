@@ -33,9 +33,6 @@
 
 -(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
 	[self hideSpinnerView];
-	//files = [[NSArray alloc] initWithArray:[request objects]];
-	
-	NSLog(@"files count = %d", [files count]);
 	
 	NSLog(@"------------------------------------------------------");
 	NSLog(@"------------------------------------------------------");
@@ -90,7 +87,6 @@
 	[segmentedControl release];
 	*/
 	
-	files = nil;
     rootFolder = nil;
 	
 	[self request:[ASICloudFilesObjectRequest listRequestWithContainer:self.container.name] behavior:@"listing your files" success:@selector(listFilesSuccess:)];
@@ -365,19 +361,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
 	
 	
 	//ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
 	//ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:file.name];
 	//[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
 	
+    NSLog(@"root folder files count: %i", [rootFolder.files count]);
 	
     if (indexPath.section == 2) {
         if ([rootFolder.folders count] > 0) {
@@ -387,14 +377,13 @@
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
         } else {
-            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
-            vc.file = [rootFolder.files objectAtIndex:indexPath.row];
+            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil file:[rootFolder.files objectAtIndex:indexPath.row]];
             vc.container = self.container;
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
         }
     } else if (indexPath.section == 3) {
-        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
+        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil file:[rootFolder.files objectAtIndex:indexPath.row]];
         vc.file = [rootFolder.files objectAtIndex:indexPath.row];
         vc.container = self.container;
         [self.navigationController pushViewController:vc animated:YES];
@@ -423,9 +412,6 @@
 
 - (void)dealloc {
 	[container release];
-	if (files != nil) {
-		[files release];
-	}
 	if (rootFolder != nil) {
         [rootFolder release];
 	}
