@@ -80,6 +80,7 @@
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	
+    /*
 	UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Overview", @"Files", @"Analytics", nil]];
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	segmentedControl.frame = CGRectMake(231.0, 7.0, 307.0, 29.0);
@@ -87,7 +88,7 @@
 	self.navigationItem.titleView = segmentedControl;
 	
 	[segmentedControl release];
-	
+	*/
 	
 	files = nil;
     rootFolder = nil;

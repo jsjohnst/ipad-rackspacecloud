@@ -16,9 +16,7 @@
 #import "ASICloudFilesCDNRequest.h"
 #import "UIViewController+RackspaceCloud.h"
 #import "UIViewController+SpinnerView.h"
-
-// TODO: how to extract album art from mp3
-// TODO: preview icon as metadata?
+#import "ContainerNavigationController.h"
 
 @implementation ContainersListViewController
 
@@ -159,14 +157,15 @@
 
 	
 	// TODO: subclass the navigationController and override shouldRotate
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+	//UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    ContainerNavigationController *navigationController = [[ContainerNavigationController alloc] initWithRootViewController:vc];
 	vc.navigationBar = navigationController.navigationBar;
 	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
 	//vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-    	
+    
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
 	app.splitViewController.delegate = vc;
 	

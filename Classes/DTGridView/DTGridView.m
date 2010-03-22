@@ -226,7 +226,6 @@ NSInteger intSort(id info1, id info2, void *context) {
 	
 	[cellInfoForCellsOnScreen removeObject:info];
 	
-	// TODO: Should this be set?
 	//cell.frame = CGRectZero;
 	
 	[freeCells addObject:cell];

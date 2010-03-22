@@ -248,6 +248,9 @@
 
 - (void)emailFileAsAttachment {
     // TODO: make this handle folder heirarchy
+    NSLog(@"container name: %@", container.name);
+    NSLog(@"file name:      %@", file.name);
+    
     ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:self.file.name];
     [self request:request behavior:@"attaching your file" success:@selector(downloadFileToAttachSuccess:)];
 }
@@ -269,10 +272,8 @@
             if (indexPath.row == 0) {
                 //cell.textLabel.text = @"Preview File";
             } else if (indexPath.row == 1) {
-                //cell.textLabel.text = @"Email Link to File";
                 [self emailLinkToFile];
             } else if (indexPath.row == 2) {
-                //cell.textLabel.text = @"Email File as Attachment";
                 [self emailFileAsAttachment];
             } else if (indexPath.row == 3) {
                 //cell.textLabel.text = @"Shorten URL with bit.ly";
@@ -285,7 +286,7 @@
             if (indexPath.row == 0) {
                 //cell.textLabel.text = @"Preview File";
             } else if (indexPath.row == 1) {
-                //cell.textLabel.text = @"Email File as Attachment";
+                [self emailFileAsAttachment];
             } else if (indexPath.row == 2) {
                 //cell.textLabel.text = @"Delete File";
             }

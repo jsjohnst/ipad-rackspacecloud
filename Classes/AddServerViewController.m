@@ -40,9 +40,9 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	server = [[ASICloudServersServer alloc] init];
-	server.metadata = [[NSMutableDictionary alloc] init];
-	// TODO: don't be so cocky!
-	[server.metadata setObject:@"Created on the Rackspace Cloud iPad App" forKey:@"Description"];
+	//server.metadata = [[NSMutableDictionary alloc] init];
+	// TODO: should we do this?
+	//[server.metadata setObject:@"Created on the Rackspace Cloud iPad App" forKey:@"Description"];
 }
 
 /*

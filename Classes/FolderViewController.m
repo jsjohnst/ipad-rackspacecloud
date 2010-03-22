@@ -105,14 +105,14 @@
 		} else {
             FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
             vc.file = [folder.files objectAtIndex:indexPath.row];
-            vc.container = self.container;
+            vc.container = [self.container retain];
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
 		}
 	} else {
         FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
         vc.file = [folder.files objectAtIndex:indexPath.row];
-        vc.container = self.container;
+        vc.container = [self.container retain];
         [self.navigationController pushViewController:vc animated:YES];
         [vc release];
 	}

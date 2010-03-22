@@ -47,6 +47,18 @@
     [super viewDidLoad];	
 }
 
+- (void)viewDidAppear:(BOOL)animated {    
+    [super viewDidAppear:animated];
+
+    // preselect system status
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    detailViewController.detailItem = @"Rackspace Cloud System Status";
+    RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
+    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
+    app.splitViewController.delegate = app.detailViewController;
+    [detailViewController.tableView reloadData];
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
