@@ -25,6 +25,8 @@
     
     // ui elements
     IBOutlet UITableView *tableView;
+    
+    NSMutableArray *currentFolderNavigation;
 }
 
 // data

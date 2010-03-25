@@ -33,23 +33,31 @@
 -(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
 	[self hideSpinnerView];
 	
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"CALLING FOLDERS");
+	if (currentFolderNavigation != nil) {
+        [currentFolderNavigation release];
+        currentFolderNavigation = [[NSMutableArray alloc] initWithCapacity:10];
+	}
+	
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"CALLING FOLDERS");
 	rootFolder = [request folder];
-    NSLog(@"files count in root folder: %i", [rootFolder.files count]);
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
+    NSLog(@"adding to currentFolderNavigation");
+    [currentFolderNavigation addObject:rootFolder];
+    NSLog(@"currentFolderNavigation has %i objects", [currentFolderNavigation count]);
+    //     NSLog(@"files count in root folder: %i", [rootFolder.files count]);
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
+    // NSLog(@"------------------------------------------------------");
 	
 	[self.tableView reloadData];
 }
@@ -64,6 +72,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    currentFolderNavigation = [[NSMutableArray alloc] initWithCapacity:10];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -109,7 +119,7 @@
     if (container) {
         if (rootFolder) {
             if ([rootFolder.folders count] > 0) {
-                return 4;
+                return 3 + [currentFolderNavigation count];
             } else {
                 return 3;
             }            
@@ -133,19 +143,35 @@
 		return 4;
 	} else {
 		if (rootFolder != nil) {
-		    if (section == 2) {
-		        if ([rootFolder.folders count] > 0) {
-                    return [rootFolder.folders count];
-	            } else if ([rootFolder.files count] > 0) {
-                    return [rootFolder.files count];
-                } else {
-                    return 0;
-                }
-		    } else if (section == 3) {
-		        return [rootFolder.files count];
-		    } else {
-                return 0;
-		    }
+		    
+            NSInteger offsetSection = section - 2;
+		    
+            NSLog(@"[currentFolderNavigation count] = ", [currentFolderNavigation count]);
+		    
+            if (offsetSection < [currentFolderNavigation count]) {
+                // it's a folder in the stack
+                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];
+                NSLog(@"number of rows: %i", [folder.folders count]);
+                return [folder.folders count] + 1; // +1 for "/"
+            } else {
+                // it's the files in the current folder
+                ASICloudFilesFolder *folder = [currentFolderNavigation lastObject];
+                return [folder.files count];
+            }
+		    
+            // if (section == 2) {
+            //     if ([rootFolder.folders count] > 0) {
+            //                     return [rootFolder.folders count];
+            //              } else if ([rootFolder.files count] > 0) {
+            //                     return [rootFolder.files count];
+            //                 } else {
+            //                     return 0;
+            //                 }
+            // } else if (section == 3) {
+            //     return [rootFolder.files count];
+            // } else {
+            //                 return 0;
+            // }
 		} else {
 			return 0;
 		}
@@ -238,27 +264,66 @@
 		}
 		
 		
-	} else if (indexPath.section == 2) {
+	} else if (indexPath.section >= 2) {
 		// either files or folders
+        NSInteger offsetSection = indexPath.section - 2;
+	    
+	    
+        if (offsetSection < [currentFolderNavigation count]) {
+            // it's a folder in the stack
+            if (indexPath.row > 0) {
+                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
+                ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
+        		cell.textLabel.text = currentFolder.name;
+        	    // TODO: include humanized size in folder object and detailText here
+        		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [currentFolder.files count]];            
+
+        		// TODO: checkmark if it's in the stack
+            } else {
+                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
+                cell.textLabel.text = @"/";
+        	    // TODO: include humanized size in folder object and detailText here
+        		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];            
+            }
+            
+            // TODO: make this work with more than one folder
+            if (indexPath.row == [currentFolderNavigation count] - 1) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
+        } else {
+            // it's the files in the current folder
+            ASICloudFilesFolder *folder = [currentFolderNavigation lastObject];
+    		ASICloudFilesObject *file = [folder.files objectAtIndex:indexPath.row];
+    		cell.textLabel.text = file.name;
+    		cell.detailTextLabel.text = file.contentType;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
 		
+		/*
         if ([rootFolder.folders count] > 0) {
+            NSLog(@"cell section 2 folders > 0");
             ASICloudFilesFolder *folder = [rootFolder.folders objectAtIndex:indexPath.row];
     		cell.textLabel.text = folder.name;
     	    // TODO: include humanized size in folder object and detailText here
     		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
         } else {
+            NSLog(@"cell section 2 folders == 0");
     		ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
     		cell.textLabel.text = file.name;
     		cell.detailTextLabel.text = file.contentType;
 		}
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		*/
         
-	} else if (indexPath.section == 3) {
-	    // definitely files
-		ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
-		cell.textLabel.text = file.name;
-		cell.detailTextLabel.text = file.contentType;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    // } else if (indexPath.section == 3) {
+    //     // definitely files
+    //         NSLog(@"cell section 3");
+    //  ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
+    //  cell.textLabel.text = file.name;
+    //  cell.detailTextLabel.text = file.contentType;
+    //         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
     
     return cell;
@@ -308,15 +373,52 @@
 #pragma mark -
 #pragma mark Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // if the section is >= 2 and not the last section it's a folder.
+    // either push it on the stack, or position the stack to that folder and reload
+    
+    
+    // if it's the last section, it's a file, so show a modal dialog or action sheet
+    
+ 	if (indexPath.section >= 2) {
+        // either files or folders
+        NSInteger offsetSection = indexPath.section - 2;
+
+        if (offsetSection < [currentFolderNavigation count]) {
+            // it's a folder in the stack
+            if (indexPath.row > 0) {
+                // it's a subfolder
+
+                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];
+                ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
+                
+                if ([currentFolderNavigation count] == (offsetSection - 1)) {
+                    // we're at the deepest folder, so push on the stack
+                    NSLog(@"adding to currentFolderNavigation");
+                    [currentFolderNavigation addObject:currentFolder];
+                    NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                    [aTableView reloadData];
+                } else {
+                    // we need to adjust the stack since we're going up the tree                    
+                    while (offsetSection < ([currentFolderNavigation count] - 1)) {
+                        NSLog(@"remove from folder nav");
+                        [currentFolderNavigation removeLastObject];
+                    }
+                    NSLog(@"adding to currentFolderNavigation");
+                    [currentFolderNavigation addObject:currentFolder];
+                    NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                    [aTableView reloadData];
+                }
+            } else {
+                // it's the root of the current folder in the section
+                // ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
+                // cell.textLabel.text = @"/";
+                // // TODO: include humanized size in folder object and detailText here
+                // cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
+            }
+        }
+	}
 }
 
 #pragma mark -
@@ -343,6 +445,7 @@
     [noFilesTitle release];
     [noFilesMessage release];
     [tableView release];
+    [currentFolderNavigation release];
     
     [super dealloc];
 }
