@@ -17,12 +17,50 @@
 #import "UIViewController+RackspaceCloud.h"
 #import "UIViewController+SpinnerView.h"
 #import "ContainerNavigationController.h"
+#import "MasterViewController.h"
+#import "ContainerViewController.h"
 
 @implementation ContainersListViewController
 
 @synthesize containerRootViewController;
 
 -(void)preselectContainer {
+	if ([containers count] == 0) {
+	    // TODO: ContainerViewController here
+		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];	
+		// TODO: subclass the navigationController and override shouldRotate
+		
+        
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+		vc.navigationBar = navigationController.navigationBar;
+        vc.navigationBar.barStyle = UIBarStyleBlack;
+        vc.navigationBar.translucent = NO;
+        vc.detailItem = @"Container Details";	
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+		//app.splitViewController.delegate = vc;
+		// TODO: release vc and navcontroller
+        
+        [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
+                
+	} else {
+        ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
+		//vc.container = [containers objectAtIndex:0];
+		
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
+		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:app.masterViewController];		
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, vc, nil];		
+		//app.splitViewController.delegate = vc;
+		// TODO: release vc and navcontroller
+		
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+		// TODO: restore this after some IB voodoo
+        [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
+    }
+}
+
+-(void)preselectContainer2 {
 	
 	/*
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];	
@@ -38,6 +76,7 @@
 	
 	
 	if ([containers count] == 0) {
+	    // TODO: ContainerViewController here
 		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];	
 		// TODO: subclass the navigationController and override shouldRotate
 		
@@ -52,8 +91,11 @@
         //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
 		//app.splitViewController.delegate = vc;
 		// TODO: release vc and navcontroller
+        
+        [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
                 
 	} else {
+	    // TODO: ContainerViewController here
 		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];	
 		// TODO: subclass the navigationController and override shouldRotate
 		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -67,7 +109,9 @@
 		// TODO: release vc and navcontroller
 		
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-	}
+
+        [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,8 +153,8 @@
 - (void)listContainersSuccess:(ASICloudFilesContainerRequest *)request {
 	[self hideSpinnerView];
 	[containers release];
-	//containers = [[NSMutableArray alloc] initWithArray:[request containers]];
-	containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
+	containers = [[NSMutableArray alloc] initWithArray:[request containers]];
+	//containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
 	
 	[self request:[ASICloudFilesCDNRequest listRequest] behavior:@"retrieving your CDN containers" success:@selector(listCDNContainersSuccess:) showSpinner:NO];
 	[self.tableView reloadData];
@@ -204,6 +248,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    // TODO: ContainerViewController here
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
 
 	// TODO: subclass the navigationController and override shouldRotate
