@@ -30,6 +30,8 @@
 		
 		uiSwitch.on = value;
 		
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
 		[self.contentView addSubview:uiSwitch];
     }
     return self;
