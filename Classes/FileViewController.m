@@ -22,9 +22,10 @@
 #pragma mark Initialization
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil file:(ASICloudFilesObject *)aFile {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil container:(ASICloudFilesContainer *)aContainer file:(ASICloudFilesObject *)aFile {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
+        container = aContainer;
         file = aFile;
     }
     return self;
@@ -259,11 +260,12 @@
 }
 
 - (void)emailFileAsAttachment {
-    // TODO: make this handle folder heirarchy
+    // TODO: container.name is failing
     NSLog(@"container name: %@", container.name);
     NSLog(@"file name:      %@", file.name);
+    NSLog(@"file path:      %@", file.fullPath);
     
-    ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:self.file.name];
+    ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:self.file.fullPath];
     [self request:request behavior:@"attaching your file" success:@selector(downloadFileToAttachSuccess:)];
 }
 

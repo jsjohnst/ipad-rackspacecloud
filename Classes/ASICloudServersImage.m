@@ -41,6 +41,9 @@ static UIImage *redhatIcon = nil;
 static UIImage *redhatLogo = nil;
 static UIImage *redhatBackground = nil;
 
+static UIImage *cloudServersIcon = nil;
+static UIImage *cloudServersBackground = nil;
+
 @implementation ASICloudServersImage
 
 @synthesize status, updated, name, imageId;
@@ -77,6 +80,9 @@ static UIImage *redhatBackground = nil;
 	redhatIcon = [[UIImage imageNamed:@"redhat-icon.png"] retain];
 	redhatLogo = [[UIImage imageNamed:@"redhat-logo.png"] retain];
 	redhatBackground = [[UIImage imageNamed:@"redhat-large.png"] retain];	
+
+	cloudServersIcon = [[UIImage imageNamed:@"cloudservers-icon.png"] retain];
+	cloudServersBackground = [[UIImage imageNamed:@"cloudserver2.png"] retain];	
 }
 
 +(UIImage *)iconForImageId:(NSUInteger)imageId {
@@ -127,7 +133,7 @@ static UIImage *redhatBackground = nil;
 	} else if (imageId == 187811) {
 		return centosIcon;
 	} else {
-
+        return cloudServersIcon;
 	}
 	
 	return nil;
@@ -180,7 +186,7 @@ static UIImage *redhatBackground = nil;
 	} else if (imageId == 187811) {
 		return centosLogo;
 	} else {
-
+        return cloudServersBackground;
 	}
 	
 	return nil;
@@ -233,7 +239,7 @@ static UIImage *redhatBackground = nil;
 	} else if (imageId == 187811) {
 		return centosBackground;
 	} else {
-
+        return cloudServersBackground;
 	}
 	
 	return nil;

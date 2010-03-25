@@ -9,6 +9,7 @@
 
 @interface ASICloudFilesObject : NSObject {
 	NSString *name;
+    NSString *fullPath;
 	NSString *hash;
 	NSUInteger bytes;
 	NSString *contentType;
@@ -18,6 +19,7 @@
 }
 
 @property (retain) NSString *name;
+@property (retain) NSString *fullPath;
 @property (retain) NSString *hash;
 @property (assign) NSUInteger bytes;
 @property (retain) NSString *contentType;

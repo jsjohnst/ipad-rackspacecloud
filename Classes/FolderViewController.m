@@ -42,6 +42,17 @@
 	}	
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if ([self hasSubfolders]) {
+        if (section == 0) {
+            return @"Folders";
+        } else {
+            return @"Files";
+        }
+    } else {
+        return @"Files";
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
@@ -103,16 +114,12 @@
 			[self.navigationController pushViewController:vc animated:YES];
 			[vc release];
 		} else {
-            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
-            vc.file = [folder.files objectAtIndex:indexPath.row];
-            vc.container = [self.container retain];
+            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil container:self.container file:[folder.files objectAtIndex:indexPath.row]];
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
 		}
 	} else {
-        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil];
-        vc.file = [folder.files objectAtIndex:indexPath.row];
-        vc.container = [self.container retain];
+        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil container:self.container file:[folder.files objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:vc animated:YES];
         [vc release];
 	}

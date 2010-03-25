@@ -41,7 +41,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	server = [[ASICloudServersServer alloc] init];
 	//server.metadata = [[NSMutableDictionary alloc] init];
-	// TODO: should we do this?
 	//[server.metadata setObject:@"Created on the Rackspace Cloud iPad App" forKey:@"Description"];
 }
 

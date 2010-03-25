@@ -307,7 +307,7 @@ static UIImage *ukFlag = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	NSLog(@"feed item count = %i", [self.feedItems count]);
+	//NSLog(@"feed item count = %i", [self.feedItems count]);
 	
 	
     tableView.backgroundView = nil; // clear background

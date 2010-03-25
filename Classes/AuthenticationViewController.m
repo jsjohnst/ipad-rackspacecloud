@@ -141,21 +141,22 @@
 -(void)transitionToAppView {
 	
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-	app.splitViewController.view.alpha = 0.0;
+	//app.splitViewController.view.alpha = 0.0;
 	[app.window addSubview:app.splitViewController.view];
-	//[app.window makeKeyAndVisible];
 	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.5];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(transitionComplete)];
-	//CGRect disappearFrame = self.view.frame;
-	//disappearFrame.origin.x -= 768;
-	self.view.alpha = 0.0;
-	app.splitViewController.view.alpha = 1.0;
+    //[app.window makeKeyAndVisible];
 	
-	//self.view.frame = disappearFrame;	
-	[UIView commitAnimations];
+    // the animation causes weirdness with the split view, so try again later
+    /**/
+//	[UIView beginAnimations:nil context:NULL];
+//	[UIView setAnimationDuration:0.5];
+//	[UIView setAnimationDelegate:self];
+//	[UIView setAnimationDidStopSelector:@selector(transitionComplete)];
+//	self.view.alpha = 0.0;
+//	app.splitViewController.view.alpha = 1.0;
+//	[UIView commitAnimations];
+    /* */
+    [self.view removeFromSuperview];
 	
 }
 
@@ -207,6 +208,10 @@
 		[ASICloudFilesRequest setCdnManagementURL:[responseHeaders objectForKey:@"X-Cdn-Management-Url"]];
 		[ASICloudFilesRequest setServerManagementURL:[responseHeaders objectForKey:@"X-Server-Management-Url"]];	
 		self.smallAuthenticatingLabel.text = @"Loading server images...";
+        
+        
+        // TODO: restore
+        //[self transitionToAppView];
 		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"authenticating"];

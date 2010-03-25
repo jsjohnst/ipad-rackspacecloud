@@ -9,7 +9,7 @@
 
 @implementation ASICloudFilesObject
 
-@synthesize name, hash, bytes, contentType, lastModified, data, metadata;
+@synthesize name, fullPath, hash, bytes, contentType, lastModified, data, metadata;
 
 + (id)object {
 	ASICloudFilesObject *object = [[[self alloc] init] autorelease];
@@ -32,6 +32,7 @@
 
 -(void)dealloc {
 	[name release];
+    [fullPath release];
 	[hash release];
 	[contentType release];
 	[lastModified release];

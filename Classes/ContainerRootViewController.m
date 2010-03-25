@@ -25,6 +25,7 @@
 @synthesize tableView;
 @synthesize navigationBar;
 @synthesize noFilesView, noFilesImage, noFilesTitle, noFilesMessage;
+@synthesize popoverController;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -122,6 +123,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Override to allow orientations other than the default portrait orientation.
+    NSLog(@"shouldAutorotateToInterfaceOrientation");
     return YES;
 }
 
@@ -148,6 +150,46 @@
 - (void)logSwitchChanged:(id)sender {
 	NSLog(@"log switch tapped %@", sender);
 }
+
+#pragma mark -
+#pragma mark Managing the popover controller
+
+/*
+ When setting the detail item, update the view and dismiss the popover controller if it's showing.
+ */
+- (void)setDetailItem:(id)newDetailItem {
+    if (detailItem != newDetailItem) {
+        [detailItem release];
+        detailItem = [newDetailItem retain];
+        
+        // Update the view.
+        navigationBar.topItem.title = [detailItem description];
+    }
+	
+    if (popoverController != nil) {
+        [popoverController dismissPopoverAnimated:YES];
+    }        
+}
+
+#pragma mark -
+#pragma mark Split view support
+
+- (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)pc {
+    
+    barButtonItem.title = @"Containers";
+    [navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:YES];
+    self.popoverController = pc;
+}
+
+
+// Called when the view is shown again in the split view, invalidating the button and popover controller.
+- (void)splitViewController: (UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+    
+    [navigationBar.topItem setLeftBarButtonItem:nil animated:YES];
+    self.popoverController = nil;
+}
+
+
 
 #pragma mark -
 #pragma mark Table view data source
@@ -377,13 +419,12 @@
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
         } else {
-            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil file:[rootFolder.files objectAtIndex:indexPath.row]];
-            vc.container = self.container;
+            FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil container:self.container file:[rootFolder.files objectAtIndex:indexPath.row]];
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
         }
     } else if (indexPath.section == 3) {
-        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil file:[rootFolder.files objectAtIndex:indexPath.row]];
+        FileViewController *vc = [[FileViewController alloc] initWithNibName:@"FileViewController" bundle:nil container:self.container file:[rootFolder.files objectAtIndex:indexPath.row]];
         vc.file = [rootFolder.files objectAtIndex:indexPath.row];
         vc.container = self.container;
         [self.navigationController pushViewController:vc animated:YES];
@@ -406,7 +447,7 @@
 
 - (void)viewDidUnload {
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
+    self.popoverController = nil;
 }
 
 
@@ -421,6 +462,8 @@
 	[noFilesImage release];
 	[noFilesTitle release];
 	[noFilesMessage release];
+    [detailItem release];
+    [popoverController release];
     [super dealloc];
 }
 

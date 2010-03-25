@@ -38,10 +38,14 @@
 	if ([containers count] == 0) {
 		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];	
 		// TODO: subclass the navigationController and override shouldRotate
-		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-		vc.navigationBar = navigationController.navigationBar;	
+		
+        
+        //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+		//vc.navigationBar = navigationController.navigationBar;	
+        vc.detailItem = @"Container Details";	
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+		//app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+        app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
 		app.splitViewController.delegate = vc;
 		// TODO: release vc and navcontroller
 	} else {
@@ -49,6 +53,7 @@
 		// TODO: subclass the navigationController and override shouldRotate
 		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
 		vc.navigationBar = navigationController.navigationBar;	
+        vc.detailItem = @"Container Details";	
 		vc.container = [containers objectAtIndex:0];
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
@@ -162,11 +167,12 @@
 	vc.navigationBar = navigationController.navigationBar;
 	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
-	//vc.detailItem = @"Container Details";	
+	vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
     
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+    //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
 	app.splitViewController.delegate = vc;
 	
 	// TODO: release vc and navcontroller

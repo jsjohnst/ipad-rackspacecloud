@@ -14,6 +14,12 @@
 		27089D42114A2AC600A1BFE8 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27089D40114A2AC600A1BFE8 /* FileViewController.m */; };
 		27089D43114A2AC600A1BFE8 /* FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27089D41114A2AC600A1BFE8 /* FileViewController.xib */; };
 		271A8F0D11572F4F00B34C91 /* ContainerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A8F0C11572F4F00B34C91 /* ContainerNavigationController.m */; };
+		271A90A71157FF4000B34C91 /* cloudfiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A90A51157FF4000B34C91 /* cloudfiles.png */; };
+		271A90A81157FF4000B34C91 /* cloudservers.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A90A61157FF4000B34C91 /* cloudservers.png */; };
+		271A910E1158247600B34C91 /* cloudservers-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A910D1158247600B34C91 /* cloudservers-icon.png */; };
+		271A912111584E9800B34C91 /* cloudfiles2.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A911F11584E9800B34C91 /* cloudfiles2.png */; };
+		271A912211584E9800B34C91 /* cloudserver2.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A912011584E9800B34C91 /* cloudserver2.png */; };
+		271A91D011585A7800B34C91 /* ContainerNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */; };
 		273C74AE11249C48005F36C3 /* CloudServersActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */; };
 		273C75721125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75711125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.m */; };
 		273C75751125ED37005F36C3 /* ASICloudServersBackupSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 273C75741125ED37005F36C3 /* ASICloudServersBackupSchedule.m */; };
@@ -214,6 +220,12 @@
 		27089D41114A2AC600A1BFE8 /* FileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileViewController.xib; sourceTree = "<group>"; };
 		271A8F0B11572F4F00B34C91 /* ContainerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerNavigationController.h; sourceTree = "<group>"; };
 		271A8F0C11572F4F00B34C91 /* ContainerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerNavigationController.m; sourceTree = "<group>"; };
+		271A90A51157FF4000B34C91 /* cloudfiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudfiles.png; sourceTree = "<group>"; };
+		271A90A61157FF4000B34C91 /* cloudservers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudservers.png; sourceTree = "<group>"; };
+		271A910D1158247600B34C91 /* cloudservers-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloudservers-icon.png"; sourceTree = "<group>"; };
+		271A911F11584E9800B34C91 /* cloudfiles2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudfiles2.png; sourceTree = "<group>"; };
+		271A912011584E9800B34C91 /* cloudserver2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudserver2.png; sourceTree = "<group>"; };
+		271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerNavigationController.xib; sourceTree = "<group>"; };
 		273C74AC11249C48005F36C3 /* CloudServersActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudServersActionViewController.h; sourceTree = "<group>"; };
 		273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudServersActionViewController.m; sourceTree = "<group>"; };
 		273C75701125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersBackupScheduleXMLParserDelegate.h; sourceTree = "<group>"; };
@@ -548,9 +560,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		271A91B21158593200B34C91 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
 		273C7D12112CC826005F36C3 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				271A911F11584E9800B34C91 /* cloudfiles2.png */,
+				271A912011584E9800B34C91 /* cloudserver2.png */,
+				271A910D1158247600B34C91 /* cloudservers-icon.png */,
 				27BC51981142EBCF00D7879A /* files500.png */,
 				27425B611137006500EB084A /* RSS */,
 				273C8B15113465E1005F36C3 /* trans100.png */,
@@ -1066,6 +1089,7 @@
 		27D667801111582E00654554 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				271A91B21158593200B34C91 /* Test */,
 				27B4473D11229E6B008A3BA6 /* Utilities */,
 				27D667811111583500654554 /* Authentication */,
 				27D66A27111220EC00654554 /* Cloud Servers */,
@@ -1087,6 +1111,8 @@
 		27D66788111159A800654554 /* Rackspace Logos */ = {
 			isa = PBXGroup;
 			children = (
+				271A90A51157FF4000B34C91 /* cloudfiles.png */,
+				271A90A61157FF4000B34C91 /* cloudservers.png */,
 				276E104A113F866D00E3DDCD /* rackspace1081.png */,
 				27D669E911120BF400654554 /* rackspacecloud72.png */,
 				27D667CF111160E200654554 /* cloud-hosting.png */,
@@ -1369,6 +1395,12 @@
 				2768BF671149744A00758718 /* FolderViewController.xib in Resources */,
 				27089D43114A2AC600A1BFE8 /* FileViewController.xib in Resources */,
 				276ED08F114F421800329215 /* TweetLinkViewController.xib in Resources */,
+				271A90A71157FF4000B34C91 /* cloudfiles.png in Resources */,
+				271A90A81157FF4000B34C91 /* cloudservers.png in Resources */,
+				271A910E1158247600B34C91 /* cloudservers-icon.png in Resources */,
+				271A912111584E9800B34C91 /* cloudfiles2.png in Resources */,
+				271A912211584E9800B34C91 /* cloudserver2.png in Resources */,
+				271A91D011585A7800B34C91 /* ContainerNavigationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

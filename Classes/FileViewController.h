@@ -22,6 +22,6 @@
 @property (nonatomic, retain) ASICloudFilesObject *file;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil file:(ASICloudFilesObject *)aFile;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil container:(ASICloudFilesContainer *)aContainer file:(ASICloudFilesObject *)aFile;
 
 @end

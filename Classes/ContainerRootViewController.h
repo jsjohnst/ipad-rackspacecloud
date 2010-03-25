@@ -10,7 +10,7 @@
 
 @class ASICloudFilesContainer, ASICloudFilesFolder;
 
-@interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
+@interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
     UINavigationBar *navigationBar;
 	ASICloudFilesContainer *container;
     ASICloudFilesFolder *rootFolder;
@@ -26,6 +26,9 @@
 	IBOutlet UILabel *noFilesTitle;
 	IBOutlet UILabel *noFilesMessage;
 	
+    id detailItem;
+	UIPopoverController *popoverController;
+    
 }
 
 @property (nonatomic, retain) ASICloudFilesContainer *container;
@@ -36,6 +39,9 @@
 @property (nonatomic, retain) IBOutlet UIImageView *noFilesImage;
 @property (nonatomic, retain) IBOutlet UILabel *noFilesTitle;
 @property (nonatomic, retain) IBOutlet UILabel *noFilesMessage;
+
+@property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic, retain) id detailItem;
 
 -(id)initWithNoContainersView;
 

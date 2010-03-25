@@ -125,6 +125,12 @@
 	[parser setShouldReportNamespacePrefixes:NO];
 	[parser setShouldResolveExternalEntities:NO];
 	[parser parse];
+
+    for (int i = 0; i < [objects count]; i++) {
+        ASICloudFilesObject *file = [objects objectAtIndex:i];
+        file.fullPath = [NSString stringWithString:file.name];
+    }
+    
 	return objects;
 }
 
@@ -146,6 +152,7 @@
 	// build foldered and unfoldered file arrays
 	for (int i = 0; i < [files count]; i++) {
 		ASICloudFilesObject *file = [files objectAtIndex:i];		
+
         NSRange pathRange = [file.name rangeOfString:path];
 		
 		// if the name doesn't contain the path, it doesn't belong in this folder

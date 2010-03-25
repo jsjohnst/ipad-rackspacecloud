@@ -16,6 +16,7 @@
         // Initialization code
         CGRect frame = CGRectMake(513.0, 9.0, 94.0, 27.0);
 		uiSwitch = [[UISwitch alloc] initWithFrame:frame];
+        //uiSwitch.bounds = CGRectMake(513.0, 9.0, 94.0, 27.0);
 		
         // in case the parent view draws with a custom color or gradient, use a transparent color
 		self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
