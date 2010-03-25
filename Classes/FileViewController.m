@@ -97,7 +97,7 @@
 		 Delete File
 		 */        
         if (container.cdnEnabled) {
-            return 6;
+            return 4;
         } else {
             return 3;
         }        
@@ -161,11 +161,12 @@
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Email File as Attachment";
             } else if (indexPath.row == 3) {
-                cell.textLabel.text = @"Shorten URL with bit.ly";
-            } else if (indexPath.row == 4) {
-                cell.textLabel.text = @"Tweet Link to File";
-            } else if (indexPath.row == 5) {
                 cell.textLabel.text = @"Delete File";
+//                cell.textLabel.text = @"Shorten URL with bit.ly";
+//            } else if (indexPath.row == 4) {
+//                cell.textLabel.text = @"Tweet Link to File";
+//            } else if (indexPath.row == 5) {
+//                cell.textLabel.text = @"Delete File";
             }
         } else {
             if (indexPath.row == 0) {
@@ -290,11 +291,14 @@
             } else if (indexPath.row == 2) {
                 [self emailFileAsAttachment];
             } else if (indexPath.row == 3) {
-                //cell.textLabel.text = @"Shorten URL with bit.ly";
-            } else if (indexPath.row == 4) {
-                //cell.textLabel.text = @"Tweet Link to File";
-            } else if (indexPath.row == 5) {
-                //cell.textLabel.text = @"Delete File";
+                // TODO: delete file
+
+//            } else if (indexPath.row == 3) {
+//                //cell.textLabel.text = @"Shorten URL with bit.ly";
+//            } else if (indexPath.row == 4) {
+//                //cell.textLabel.text = @"Tweet Link to File";
+//            } else if (indexPath.row == 5) {
+//                //cell.textLabel.text = @"Delete File";
             }
         } else {
             if (indexPath.row == 0) {

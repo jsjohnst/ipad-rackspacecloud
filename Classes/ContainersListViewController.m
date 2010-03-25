@@ -64,6 +64,13 @@
 	}
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.opaque = YES;
+    [super viewWillAppear:animated];
+}
+
+
 #pragma mark -
 #pragma mark HTTP Request Handlers
 
