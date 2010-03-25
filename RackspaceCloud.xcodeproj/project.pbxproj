@@ -229,6 +229,7 @@
 		271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerNavigationController.xib; sourceTree = "<group>"; };
 		271A955E115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RackspaceCloudSplitViewDelegate.h; sourceTree = "<group>"; };
 		271A955F115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RackspaceCloudSplitViewDelegate.m; sourceTree = "<group>"; };
+		271A9684115B49BB00B34C91 /* SubstitutableDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutableDetailViewController.h; sourceTree = "<group>"; };
 		273C74AC11249C48005F36C3 /* CloudServersActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudServersActionViewController.h; sourceTree = "<group>"; };
 		273C74AD11249C48005F36C3 /* CloudServersActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudServersActionViewController.m; sourceTree = "<group>"; };
 		273C75701125EBAD005F36C3 /* ASICloudServersBackupScheduleXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersBackupScheduleXMLParserDelegate.h; sourceTree = "<group>"; };
@@ -989,6 +990,7 @@
 				27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */,
 				271A955E115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.h */,
 				271A955F115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m */,
+				271A9684115B49BB00B34C91 /* SubstitutableDetailViewController.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";

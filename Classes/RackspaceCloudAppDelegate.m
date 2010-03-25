@@ -45,20 +45,32 @@
 	// TODO: add metadata (made with Rackspace Cloud iPad app)
 	
     // Override point for customization after app launch    
-	window.backgroundColor = [UIColor blackColor];
+	// window.backgroundColor = [UIColor blackColor];
 
     authenticationViewController = [[AuthenticationViewController alloc] initWithNibName:@"AuthenticationViewController" bundle:nil];
 
+    
     masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
     
     detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
-    masterViewController.detailViewController = detailViewController;
+    
+    
+    //masterViewController.detailViewController = detailViewController;
 
+    
     splitViewController = [[UISplitViewController alloc] init];
     splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, detailViewController, nil];
     //splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, authenticationViewController, nil];
-	splitViewController.delegate = detailViewController;
+	
+    // TODO: hope this works
+    //splitViewController.delegate = detailViewController;
+    
+    masterViewController.splitViewController = splitViewController;
+    
+    splitViewController.delegate = masterViewController;
+    
+    
     
     // TODO: this may not work
 //	[window addSubview:splitViewController.view];

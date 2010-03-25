@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RackspaceCloudSplitViewDelegate.h"
 
 
-@interface ContainerNavigationController : UINavigationController {
+@interface ContainerNavigationController : RackspaceCloudSplitViewDelegate {
 
 }
 

@@ -52,6 +52,20 @@
 }
 
 #pragma mark -
+#pragma mark Defined in SubstitutableDetailViewController protocol
+
+- (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem 
+{
+	[navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
+}
+
+- (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem
+{
+	[navigationBar.topItem setLeftBarButtonItem:nil animated:NO];
+}
+
+
+#pragma mark -
 #pragma mark Memory management
 
 - (void)dealloc {

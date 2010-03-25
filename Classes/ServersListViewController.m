@@ -14,6 +14,7 @@
 #import "ASICloudServersImage.h"
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+RackspaceCloud.h"
+#import "MasterViewController.h"
 
 
 @implementation ServersListViewController
@@ -32,6 +33,7 @@
 }
 
 -(void)preselectServer {
+    RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 	if ([servers count] == 0) {
 		if (serverDetailViewController != nil) {
 			[serverDetailViewController release];
@@ -39,9 +41,9 @@
 		serverDetailViewController = [[ServerDetailViewController alloc] initWithNoServersView];
 		serverDetailViewController.serversListViewController = self;
 		serverDetailViewController.detailItem = @"Server Details";
-		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-		app.splitViewController.delegate = serverDetailViewController;			
+		//app.splitViewController.delegate = serverDetailViewController;
+        [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 	} else {
 		if (serverDetailViewController != nil) {
 			[serverDetailViewController release];
@@ -50,12 +52,13 @@
 		serverDetailViewController.serversListViewController = self;
 		serverDetailViewController.detailItem = @"Server Details";
 		serverDetailViewController.server = [servers objectAtIndex:0];
-		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-		app.splitViewController.delegate = serverDetailViewController;
-		
+		//app.splitViewController.delegate = serverDetailViewController;
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 	}
+    
+    
 }
 
 #pragma mark -
@@ -164,7 +167,7 @@
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 	
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-	app.splitViewController.delegate = serverDetailViewController;
+	//app.splitViewController.delegate = serverDetailViewController;
 }
 
 - (void)dealloc {

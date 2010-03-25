@@ -7,13 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SubstitutableDetailViewController.h"
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController {
+@interface MasterViewController : UITableViewController <UISplitViewControllerDelegate> {
     DetailViewController *detailViewController;
+
+	UISplitViewController *splitViewController;	
+	UIPopoverController *popoverController;
+	UIBarButtonItem *rootPopoverBarButtonItem;
 }
 
 @property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+
+@property(nonatomic, assign) IBOutlet UISplitViewController *splitViewController;
+@property(nonatomic, assign) UIPopoverController *popoverController;
+@property(nonatomic, assign) UIBarButtonItem *rootPopoverBarButtonItem;
 
 @end

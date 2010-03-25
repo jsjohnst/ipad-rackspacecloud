@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SubstitutableDetailViewController.h"
 
 
 @class MasterViewController;
@@ -20,7 +21,8 @@
     UISplitViewController *splitViewController;
     
     MasterViewController *masterViewController;
-    DetailViewController *detailViewController;
+    //DetailViewController *detailViewController;
+    UIViewController<SubstitutableDetailViewController> *detailViewController;
 	AuthenticationViewController *authenticationViewController;
 }
 
@@ -28,7 +30,9 @@
 
 @property (nonatomic,retain) IBOutlet UISplitViewController *splitViewController;
 @property (nonatomic,retain) IBOutlet MasterViewController *masterViewController;
-@property (nonatomic,retain) IBOutlet DetailViewController *detailViewController;
+//@property (nonatomic,retain) IBOutlet DetailViewController *detailViewController;
+@property (nonatomic, retain) IBOutlet UIViewController<SubstitutableDetailViewController> *detailViewController;
+
 @property (nonatomic,retain) IBOutlet AuthenticationViewController *authenticationViewController;
 
 - (NSString *)applicationDocumentsDirectory;

@@ -16,6 +16,9 @@
 @implementation MasterViewController
 
 @synthesize detailViewController;
+@synthesize splitViewController;
+@synthesize rootPopoverBarButtonItem;
+@synthesize popoverController;
 
 
 #pragma mark -
@@ -44,6 +47,9 @@
 	self.navigationItem.title = @"Services";
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	
+    self.clearsSelectionOnViewWillAppear = NO;
+	self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+
     [super viewDidLoad];	
 }
 
@@ -61,7 +67,8 @@
     detailViewController.detailItem = @"Rackspace Cloud System Status";
     RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
-    app.splitViewController.delegate = app.detailViewController;
+    //app.splitViewController.delegate = app.detailViewController;
+    app.splitViewController.delegate = self;
     [detailViewController.tableView reloadData];
 }
 
@@ -120,7 +127,8 @@
 		detailViewController.detailItem = @"Rackspace Cloud System Status";
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
-		app.splitViewController.delegate = app.detailViewController;
+		//app.splitViewController.delegate = app.detailViewController;
+        app.splitViewController.delegate = self;
 	} else if (indexPath.row == 1) {
 		ServersListViewController *vc = [[ServersListViewController alloc] initWithNibName:@"ServersListViewController" bundle:nil];
 		[self.navigationController pushViewController:vc animated:YES];
@@ -133,6 +141,31 @@
 	
 }
 
+#pragma mark -
+#pragma mark SplitViewController Delegate methods
+
+- (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc 
+{	
+	barButtonItem.title = @"Button Title";
+	self.popoverController = pc;
+	self.rootPopoverBarButtonItem = barButtonItem;
+	UIViewController <SubstitutableDetailViewController> *detailVC = [splitViewController.viewControllers objectAtIndex:1];
+    
+    if ([NSStringFromClass([detailVC class]) isEqualToString:@"UINavigationController"]) {
+        UINavigationController *nav = (UINavigationController *)detailVC;
+        [nav.topViewController showRootPopoverButtonItem:self.rootPopoverBarButtonItem];
+    } else {
+        [detailVC showRootPopoverButtonItem:self.rootPopoverBarButtonItem];
+    }    
+}
+
+- (void)splitViewController:(UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem 
+{
+	UIViewController <SubstitutableDetailViewController> *detailVC = [splitViewController.viewControllers objectAtIndex:1];
+	[detailVC invalidateRootPopoverButtonItem:self.rootPopoverBarButtonItem];
+	self.popoverController = nil;
+	self.rootPopoverBarButtonItem = nil;
+}
 
 #pragma mark -
 #pragma mark Memory management
@@ -140,6 +173,11 @@
 - (void)dealloc {
     
     [detailViewController release];
+    
+	self.rootPopoverBarButtonItem = nil;
+	self.popoverController = nil;
+	self.splitViewController = nil;
+    
     [super dealloc];
 }
 

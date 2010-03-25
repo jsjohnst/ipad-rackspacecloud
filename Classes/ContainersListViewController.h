@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class ContainerRootViewController;
 
 @interface ContainersListViewController : UITableViewController {
 	NSMutableArray *containers;
 	NSMutableDictionary *containersDict; // for quick id-based lookup
+    ContainerRootViewController *containerRootViewController;
 }
+
+@property (nonatomic, retain) ContainerRootViewController *containerRootViewController;
 
 - (void)loadContainers;
 - (void)loadContainers:(BOOL)showSpinner;

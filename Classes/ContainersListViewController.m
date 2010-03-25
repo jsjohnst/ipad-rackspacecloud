@@ -20,6 +20,8 @@
 
 @implementation ContainersListViewController
 
+@synthesize containerRootViewController;
+
 -(void)preselectContainer {
 	
 	/*
@@ -30,7 +32,7 @@
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
-	app.splitViewController.delegate = vc;
+	//app.splitViewController.delegate = vc;
 	// TODO: release vc and navcontroller
 	*/
 	
@@ -40,13 +42,15 @@
 		// TODO: subclass the navigationController and override shouldRotate
 		
         
-        //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-		//vc.navigationBar = navigationController.navigationBar;	
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+		vc.navigationBar = navigationController.navigationBar;
+        vc.navigationBar.barStyle = UIBarStyleBlack;
+        vc.navigationBar.translucent = NO;
         vc.detailItem = @"Container Details";	
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-		//app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
-        app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-		app.splitViewController.delegate = vc;
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
+        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+		//app.splitViewController.delegate = vc;
 		// TODO: release vc and navcontroller
                 
 	} else {
@@ -56,9 +60,10 @@
 		vc.navigationBar = navigationController.navigationBar;	
         vc.detailItem = @"Container Details";	
 		vc.container = [containers objectAtIndex:0];
+        vc.navigationController = navigationController;
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
-		app.splitViewController.delegate = vc;
+		//app.splitViewController.delegate = vc;
 		// TODO: release vc and navcontroller
 		
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
@@ -104,8 +109,8 @@
 - (void)listContainersSuccess:(ASICloudFilesContainerRequest *)request {
 	[self hideSpinnerView];
 	[containers release];
-	containers = [[NSMutableArray alloc] initWithArray:[request containers]];
-	//containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
+	//containers = [[NSMutableArray alloc] initWithArray:[request containers]];
+	containers = [[NSMutableArray alloc] initWithCapacity:0]; // TODO: remove!!!  this is for testing
 	
 	[self request:[ASICloudFilesCDNRequest listRequest] behavior:@"retrieving your CDN containers" success:@selector(listCDNContainersSuccess:) showSpinner:NO];
 	[self.tableView reloadData];
@@ -171,7 +176,7 @@
 	vc.container = [containers objectAtIndex:indexPath.row];
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];    
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-	app.splitViewController.delegate = vc;
+	//app.splitViewController.delegate = vc;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -181,24 +186,40 @@
 }
 */
 
+/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (containerRootViewController != nil) {
+		[containerRootViewController release];
+	}
+	containerRootViewController = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
+	//containerRootViewController.serversListViewController = self;
+	containerRootViewController.detailItem = @"Container Details";
+	containerRootViewController.container = [containers objectAtIndex:indexPath.row];
+	
+	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];	
+    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, containerRootViewController, nil];
+	//app.splitViewController.delegate = containerRootViewController;
+}
+ */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
 
 	// TODO: subclass the navigationController and override shouldRotate
-	//UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-    ContainerNavigationController *navigationController = [[ContainerNavigationController alloc] initWithRootViewController:vc];
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    //ContainerNavigationController *navigationController = [[ContainerNavigationController alloc] initWithRootViewController:vc];
 	vc.navigationBar = navigationController.navigationBar;
 	
 	//ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
 	vc.detailItem = @"Container Details";	
 	vc.container = [containers objectAtIndex:indexPath.row];
+    vc.navigationController = navigationController;
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
     
 	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
     //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-	app.splitViewController.delegate = vc;
+	//app.splitViewController.delegate = vc;
 	
 	// TODO: release vc and navcontroller
 }

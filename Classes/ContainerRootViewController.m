@@ -26,6 +26,7 @@
 //@synthesize navigationBar;
 @synthesize noFilesView, noFilesImage, noFilesTitle, noFilesMessage;
 //@synthesize popoverController, detailItem;
+@synthesize navigationController;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -92,6 +93,16 @@
 	
 	[self request:[ASICloudFilesObjectRequest listRequestWithContainer:self.container.name] behavior:@"listing your files" success:@selector(listFilesSuccess:)];
 	
+	if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		// 704
+		
+		//self.noServersImage.frame = CGRectMake(102, 134, 500, 500);
+	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+		self.noFilesImage.frame = CGRectMake(102, 37, 500, 500);
+		self.noFilesTitle.frame = CGRectMake(301, 567, 102, 22);
+		self.noFilesMessage.frame = CGRectMake(172, 623, 370, 21);
+		
+	}
 	
 	
 }
@@ -132,11 +143,11 @@
 	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
 		self.noFilesImage.frame = CGRectMake(102, 37, 500, 500);
 		self.noFilesTitle.frame = CGRectMake(301, 567, 102, 22);
-		self.noFilesMessage.frame = CGRectMake(196, 623, 323, 21);
+		self.noFilesMessage.frame = CGRectMake(172, 623, 370, 21);        
 	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
 		self.noFilesImage.frame = CGRectMake(134, 180, 500, 500);
 		self.noFilesTitle.frame = CGRectMake(333, 710, 102, 22);
-		self.noFilesMessage.frame = CGRectMake(228, 766, 323, 21);
+		self.noFilesMessage.frame = CGRectMake(204, 766, 370, 21);
 	}
 }
 
@@ -437,6 +448,21 @@
 	
 }
 
+#pragma mark -
+#pragma mark Defined in SubstitutableDetailViewController protocol
+
+- (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem 
+{
+// TODO: access navigation controller
+    [self.navigationController.navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
+	//[navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
+}
+
+- (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    [self.navigationController.navigationBar.topItem setLeftBarButtonItem:nil animated:NO];
+	//[navigationBar.topItem setLeftBarButtonItem:nil animated:NO];
+}
 
 #pragma mark -
 #pragma mark Memory management
@@ -467,6 +493,7 @@
 	[noFilesMessage release];
     [detailItem release];
     [popoverController release];
+    [navigationController release];
     [super dealloc];
 }
 

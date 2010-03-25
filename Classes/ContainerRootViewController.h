@@ -14,6 +14,8 @@
 //@interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
 @interface ContainerRootViewController : RackspaceCloudSplitViewDelegate <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
     
+    UINavigationController *navigationController;
+    
     //UINavigationBar *navigationBar;
 	ASICloudFilesContainer *container;
     ASICloudFilesFolder *rootFolder;
@@ -45,6 +47,8 @@
 
 //@property (nonatomic, retain) UIPopoverController *popoverController;
 //@property (nonatomic, retain) id detailItem;
+
+@property (nonatomic, retain) UINavigationController *navigationController;
 
 -(id)initWithNoContainersView;
 

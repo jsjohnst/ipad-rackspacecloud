@@ -14,6 +14,20 @@
 @synthesize navigationBar, popoverController, detailItem;
 
 #pragma mark -
+#pragma mark Defined in SubstitutableDetailViewController protocol
+
+- (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem 
+{
+	[navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
+}
+
+- (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem
+{
+	[navigationBar.topItem setLeftBarButtonItem:nil animated:NO];
+}
+
+
+#pragma mark -
 #pragma mark Managing the popover controller
 
 // When setting the detail item, update the view and dismiss the popover controller if it's showing.
