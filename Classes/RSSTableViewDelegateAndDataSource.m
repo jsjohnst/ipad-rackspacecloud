@@ -329,19 +329,6 @@ static UIImage *ukFlag = nil;
 }
 
 #pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    /*
-     When a row is selected, set the detail view controller's detail item to the item associated with the selected row.
-     */
-    //detailViewController.detailItem = [NSString stringWithFormat:@"Row %d", indexPath.row];
-}
-
-
-
-#pragma mark -
 #pragma mark Memory Management
 
 -(void)dealloc {

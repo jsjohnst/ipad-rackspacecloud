@@ -48,6 +48,7 @@
         app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
 		app.splitViewController.delegate = vc;
 		// TODO: release vc and navcontroller
+                
 	} else {
 		ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];	
 		// TODO: subclass the navigationController and override shouldRotate
@@ -163,11 +164,28 @@
     return cell;
 }
 
+/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ContainerDetailViewController *vc = [[ContainerDetailViewController alloc] initWithNibName:@"ContainerDetailViewController" bundle:nil];
+	vc.detailItem = @"Container Details";	
+	vc.container = [containers objectAtIndex:indexPath.row];
+	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];    
+	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+	app.splitViewController.delegate = vc;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
+	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];    
+	app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+}
+*/
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];
 
-	
 	// TODO: subclass the navigationController and override shouldRotate
 	//UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     ContainerNavigationController *navigationController = [[ContainerNavigationController alloc] initWithRootViewController:vc];

@@ -14,6 +14,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier delegate:(id)delegate action:(SEL)action value:(BOOL)value {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         // Initialization code
+
         CGRect frame = CGRectMake(513.0, 9.0, 94.0, 27.0);
 		uiSwitch = [[UISwitch alloc] initWithFrame:frame];
         //uiSwitch.bounds = CGRectMake(513.0, 9.0, 94.0, 27.0);

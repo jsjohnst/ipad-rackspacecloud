@@ -7,36 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RackspaceCloudSplitViewDelegate.h"
 
 @class RSSTableViewDelegateAndDataSource;
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate> {
+@interface DetailViewController : RackspaceCloudSplitViewDelegate {
     
-    UIPopoverController *popoverController;
-    UINavigationBar *navigationBar;
-    
-    id detailItem;
-
-	IBOutlet UITableView *tableView;
-	
-	// this is the initial detail view.
-	// since servers or files isn't selected when the app launches,
-	// load data from feed://status.mosso.com/rss.xml to give the user
-	// an update on the status of the rackspace cloud
-	// pre-select a System Status row on the master view
-	// also consider feed://twitter.com/statuses/user_timeline/6979812.rss
-	
+	IBOutlet UITableView *tableView;	
 	RSSTableViewDelegateAndDataSource *tableViewDelegate;
 }
 
-@property (nonatomic, retain) UIPopoverController *popoverController;
-@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
-
-@property (nonatomic, retain) id detailItem;
-
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-
 @property (nonatomic, retain) RSSTableViewDelegateAndDataSource *tableViewDelegate;
-
 
 @end

@@ -23,9 +23,9 @@
 
 @synthesize container;
 @synthesize tableView;
-@synthesize navigationBar;
+//@synthesize navigationBar;
 @synthesize noFilesView, noFilesImage, noFilesTitle, noFilesMessage;
-@synthesize popoverController;
+//@synthesize popoverController, detailItem;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -157,6 +157,7 @@
 /*
  When setting the detail item, update the view and dismiss the popover controller if it's showing.
  */
+/*
 - (void)setDetailItem:(id)newDetailItem {
     if (detailItem != newDetailItem) {
         [detailItem release];
@@ -170,10 +171,12 @@
         [popoverController dismissPopoverAnimated:YES];
     }        
 }
+ */
 
 #pragma mark -
 #pragma mark Split view support
 
+/*
 - (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)pc {
     
     barButtonItem.title = @"Containers";
@@ -188,7 +191,7 @@
     [navigationBar.topItem setLeftBarButtonItem:nil animated:YES];
     self.popoverController = nil;
 }
-
+*/
 
 
 #pragma mark -

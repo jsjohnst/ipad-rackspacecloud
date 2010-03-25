@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RackspaceCloudSplitViewDelegate.h"
 
 @class ASICloudFilesContainer, ASICloudFilesFolder;
 
-@interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
-    UINavigationBar *navigationBar;
+//@interface ContainerRootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
+@interface ContainerRootViewController : RackspaceCloudSplitViewDelegate <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIDocumentInteractionControllerDelegate> {
+    
+    //UINavigationBar *navigationBar;
 	ASICloudFilesContainer *container;
     ASICloudFilesFolder *rootFolder;
 	IBOutlet UITableView *tableView;
@@ -26,22 +29,22 @@
 	IBOutlet UILabel *noFilesTitle;
 	IBOutlet UILabel *noFilesMessage;
 	
-    id detailItem;
-	UIPopoverController *popoverController;
+    //id detailItem;
+	//UIPopoverController *popoverController;
     
 }
 
 @property (nonatomic, retain) ASICloudFilesContainer *container;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) UINavigationBar *navigationBar;
+//@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
 
 @property (nonatomic, retain) IBOutlet UIView *noFilesView;
 @property (nonatomic, retain) IBOutlet UIImageView *noFilesImage;
 @property (nonatomic, retain) IBOutlet UILabel *noFilesTitle;
 @property (nonatomic, retain) IBOutlet UILabel *noFilesMessage;
 
-@property (nonatomic, retain) UIPopoverController *popoverController;
-@property (nonatomic, retain) id detailItem;
+//@property (nonatomic, retain) UIPopoverController *popoverController;
+//@property (nonatomic, retain) id detailItem;
 
 -(id)initWithNoContainersView;
 

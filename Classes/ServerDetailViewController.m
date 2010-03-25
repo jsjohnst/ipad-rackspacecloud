@@ -40,7 +40,7 @@
 
 @implementation ServerDetailViewController
 
-@synthesize navigationBar, popoverController, detailItem;
+//@synthesize navigationBar, popoverController, detailItem;
 @synthesize tableView;
 @synthesize server;
 //@synthesize logoImageView;
@@ -147,6 +147,7 @@
 /*
  When setting the detail item, update the view and dismiss the popover controller if it's showing.
  */
+/*
 - (void)setDetailItem:(id)newDetailItem {
     if (detailItem != newDetailItem) {
         [detailItem release];
@@ -160,7 +161,7 @@
         [popoverController dismissPopoverAnimated:YES];
     }        
 }
-
+*/
 #pragma mark -
 #pragma mark Table View Methods
 
@@ -519,7 +520,7 @@
 
 #pragma mark -
 #pragma mark Split view support
-
+/*
 - (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)pc {
     
     barButtonItem.title = @"Servers";
@@ -534,7 +535,7 @@
     [navigationBar.topItem setLeftBarButtonItem:nil animated:YES];
     self.popoverController = nil;
 }
-
+*/
 
 #pragma mark -
 #pragma mark Rotation support
@@ -544,8 +545,7 @@
     return YES;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {	
 	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
 		self.noServersImage.frame = CGRectMake(102, 37, 500, 500);
 		self.noServersTitle.frame = CGRectMake(301, 567, 102, 22);
@@ -602,11 +602,11 @@
  }
  */
 
-- (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.popoverController = nil;
-}
+//- (void)viewDidUnload {
+//    // Release any retained subviews of the main view.
+//    // e.g. self.myOutlet = nil;
+//    self.popoverController = nil;
+//}
 
 
 #pragma mark -
@@ -622,10 +622,9 @@
  */
 
 - (void)dealloc {
-    [popoverController release];
-    [navigationBar release];
-    
-    [detailItem release];
+//    [popoverController release];
+//    [navigationBar release];
+//    [detailItem release];
 	
 	[tableView release];
 	[server release];
