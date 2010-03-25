@@ -31,8 +31,6 @@
 #pragma mark -
 #pragma mark HTTP Request Handlers
 
-// TODO: figure out UIDocumentInteractionController
-
 -(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
 	[self hideSpinnerView];
 	
@@ -90,7 +88,6 @@
 	*/
 	
     rootFolder = nil;
-	
 	[self request:[ASICloudFilesObjectRequest listRequestWithContainer:self.container.name] behavior:@"listing your files" success:@selector(listFilesSuccess:)];
 	
 	if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
