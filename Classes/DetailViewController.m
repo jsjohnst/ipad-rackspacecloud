@@ -24,7 +24,7 @@
 
 - (void)orientationDidChange:(NSNotification *)notification {
 	// reload the table view to correct UILabel widths
-	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self.tableView selector:@selector(reloadData) userInfo:nil repeats:NO];	
+	[NSTimer scheduledTimerWithTimeInterval:0.25 target:self.tableView selector:@selector(reloadData) userInfo:nil repeats:NO];	
 }
 
 // Ensure that the view controller supports rotation and that the split view can therefore show in both portrait and landscape.

@@ -81,6 +81,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self loadFiles];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(orientationDidChange:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];    
 }
 
 /*
@@ -105,6 +106,13 @@
 }
 */
 
+#pragma mark -
+#pragma mark Rotation Support
+
+- (void)orientationDidChange:(NSNotification *)notification {
+	// reload the table view to correct UILabel widths
+	[NSTimer scheduledTimerWithTimeInterval:0.25 target:self.tableView selector:@selector(reloadData) userInfo:nil repeats:NO];	
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Override to allow orientations other than the default portrait orientation.
@@ -148,11 +156,15 @@
 		    
             NSLog(@"[currentFolderNavigation count] = ", [currentFolderNavigation count]);
 		    
-            if (offsetSection < [currentFolderNavigation count]) {
+            if ([rootFolder.folders count] > 0 && offsetSection < [currentFolderNavigation count]) {
                 // it's a folder in the stack
                 ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];
                 NSLog(@"number of rows: %i", [folder.folders count]);
-                return [folder.folders count] + 1; // +1 for "/"
+                if ([folder.folders count] > 0) {
+                    return [folder.folders count] + 1; // +1 for "/"
+                } else {
+                    return [folder.folders count];
+                }
             } else {
                 // it's the files in the current folder
                 ASICloudFilesFolder *folder = [currentFolderNavigation lastObject];
@@ -209,6 +221,15 @@
 	if (cell == nil) {
 		cell = [[UISwitchCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:label delegate:self action:action value:value];
 	}
+    
+    // handle orientation placement issues
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        CGRect frame = CGRectMake(574.0, 9.0, 94.0, 27.0);
+        cell.uiSwitch.frame = frame;
+    } else {
+        CGRect frame = CGRectMake(513.0, 9.0, 94.0, 27.0);
+        cell.uiSwitch.frame = frame;
+    }
     
 	cell.textLabel.text = label;
 	
@@ -269,28 +290,45 @@
         NSInteger offsetSection = indexPath.section - 2;
 	    
 	    
-        if (offsetSection < [currentFolderNavigation count]) {
+        if ([rootFolder.folders count] > 0 && offsetSection < [currentFolderNavigation count]) {
             // it's a folder in the stack
-            if (indexPath.row > 0) {
-                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
-                ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
-        		cell.textLabel.text = currentFolder.name;
-        	    // TODO: include humanized size in folder object and detailText here
-        		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [currentFolder.files count]];            
-
-        		// TODO: checkmark if it's in the stack
-            } else {
-                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
-                cell.textLabel.text = @"/";
-        	    // TODO: include humanized size in folder object and detailText here
-        		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];            
-            }
+            ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection]; 
             
-            // TODO: make this work with more than one folder
-            if (indexPath.row == [currentFolderNavigation count] - 1) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if (indexPath.row > 0) {
+                ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
+        		//cell.textLabel.text = currentFolder.name;
+                cell.textLabel.text = [NSString stringWithFormat:@"%@/%@", self.container.name, currentFolder.name];
+        	    // TODO: include humanized size in folder object and detailText here
+                if ([currentFolder.files count] == 1) {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i file", [currentFolder.files count]];
+                } else {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [currentFolder.files count]];
+                }
+                
+                if ([currentFolderNavigation count] > offsetSection + 1) {
+                    ASICloudFilesFolder *nextFolder = [currentFolderNavigation objectAtIndex:offsetSection + 1];
+                    if ([currentFolder.name isEqualToString:nextFolder.name]) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    } else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                }
+                
             } else {
-                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.textLabel.text = [NSString stringWithFormat:@"%@/", self.container.name];
+        	    // TODO: include humanized size in folder object and detailText here
+                if ([folder.files count] == 1) {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i file", [folder.files count]];
+                } else {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
+                }
+                
+                if ([currentFolderNavigation count] == offsetSection + 1) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                
             }
             
         } else {
@@ -399,6 +437,12 @@
                     [currentFolderNavigation addObject:currentFolder];
                     NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
                     [aTableView reloadData];
+                    
+                    // TODO: this is how to animate it
+                    //NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
+                    //NSIndexSet *sections = [NSindexSet indexSetWithIndexesInRange:NSMakeRange(0, count)];                    
+                    //[aTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
+                    
                 } else {
                     // we need to adjust the stack since we're going up the tree                    
                     while (offsetSection < ([currentFolderNavigation count] - 1)) {
@@ -411,6 +455,12 @@
                     [aTableView reloadData];
                 }
             } else {
+                while (offsetSection < ([currentFolderNavigation count] - 1)) {
+                    NSLog(@"remove from folder nav");
+                    [currentFolderNavigation removeLastObject];
+                }
+                NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                [aTableView reloadData];
                 // it's the root of the current folder in the section
                 // ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
                 // cell.textLabel.text = @"/";
