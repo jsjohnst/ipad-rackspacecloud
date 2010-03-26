@@ -73,6 +73,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    noFilesMessage.text = @""; // TODO: remove this when file creation support is added
+    
     currentFolderNavigation = [[NSMutableArray alloc] initWithCapacity:10];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -82,13 +84,24 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self loadFiles];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(orientationDidChange:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];    
+    
+	if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		// 704
+		
+		//self.noServersImage.frame = CGRectMake(102, 134, 500, 500);
+	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+		self.noFilesImage.frame = CGRectMake(102, 37, 500, 500);
+		self.noFilesTitle.frame = CGRectMake(301, 567, 102, 22);
+		self.noFilesMessage.frame = CGRectMake(172, 623, 370, 21);
+		
+	}
+    
 }
 
-/*
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-*/
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -119,6 +132,19 @@
     return YES;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+	
+	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		self.noFilesImage.frame = CGRectMake(102, 37, 500, 500);
+		self.noFilesTitle.frame = CGRectMake(301, 567, 102, 22);
+		self.noFilesMessage.frame = CGRectMake(172, 623, 370, 21);        
+	} else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+		self.noFilesImage.frame = CGRectMake(134, 180, 500, 500);
+		self.noFilesTitle.frame = CGRectMake(333, 710, 102, 22);
+		self.noFilesMessage.frame = CGRectMake(204, 766, 370, 21);
+	}
+}
+
 
 #pragma mark -
 #pragma mark Table view data source
@@ -127,7 +153,14 @@
     if (container) {
         if (rootFolder) {
             if ([rootFolder.folders count] > 0) {
-                return 3 + [currentFolderNavigation count];
+                
+                //ASICloudFilesFolder *lastFolder = [currentFolderNavigation lastObject];
+                //if ([lastFolder.folders count] > 0) {
+                    return 3 + [currentFolderNavigation count];
+                //} else {
+                //    return 3 + [currentFolderNavigation count] - 1;
+                //}
+                
             } else {
                 return 3;
             }            
@@ -148,7 +181,11 @@
 	if (section == 0) {
 		return 2;
 	} else if (section == 1) {
-		return 4;
+        if (self.container.cdnEnabled) {
+            return 4;
+        } else {
+            return 1;
+        }
 	} else {
 		if (rootFolder != nil) {
 		    
@@ -197,19 +234,24 @@
 		return @"Content Delivery Network";
 	} else {
 	    if (section == 2) {
-            if ([rootFolder.folders count] > 0) {
-                return @"Folders";
-            } else if ([rootFolder.files count] > 0) {
-                return @"Files";
-            } else {
-                return 0;
-            }
-	    } else {
-	        if ([rootFolder.files count] > 0) {
+            if ([rootFolder.folders count] > 0 || [rootFolder.files count] > 0 ) {
                 return @"Files";
             } else {
                 return @"";
             }
+//            if ([rootFolder.folders count] > 0) {
+//                return @"Folders";
+//            } else if ([rootFolder.files count] > 0) {
+//                return @"Files";
+//            } else {
+//                return 0;
+//            }
+	    } else {
+//	        if ([rootFolder.files count] > 0) {
+//                return @"Files";
+//            } else {
+                return @"";
+//            }
 	    }
 	}
 }
@@ -297,7 +339,7 @@
             if (indexPath.row > 0) {
                 ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
         		//cell.textLabel.text = currentFolder.name;
-                cell.textLabel.text = [NSString stringWithFormat:@"%@/%@", self.container.name, currentFolder.name];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@/%@", folder.name, currentFolder.name];
         	    // TODO: include humanized size in folder object and detailText here
                 if ([currentFolder.files count] == 1) {
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%i file", [currentFolder.files count]];
@@ -315,7 +357,7 @@
                 }
                 
             } else {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@/", self.container.name];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@/", folder.name];
         	    // TODO: include humanized size in folder object and detailText here
                 if ([folder.files count] == 1) {
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%i file", [folder.files count]];
@@ -338,78 +380,23 @@
     		cell.textLabel.text = file.name;
     		cell.detailTextLabel.text = file.contentType;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-		
-		/*
-        if ([rootFolder.folders count] > 0) {
-            NSLog(@"cell section 2 folders > 0");
-            ASICloudFilesFolder *folder = [rootFolder.folders objectAtIndex:indexPath.row];
-    		cell.textLabel.text = folder.name;
-    	    // TODO: include humanized size in folder object and detailText here
-    		cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
-        } else {
-            NSLog(@"cell section 2 folders == 0");
-    		ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
-    		cell.textLabel.text = file.name;
-    		cell.detailTextLabel.text = file.contentType;
-		}
-		*/
-        
-    // } else if (indexPath.section == 3) {
-    //     // definitely files
-    //         NSLog(@"cell section 3");
-    //  ASICloudFilesObject *file = [rootFolder.files objectAtIndex:indexPath.row];
-    //  cell.textLabel.text = file.name;
-    //  cell.detailTextLabel.text = file.contentType;
-    //         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }		
 	}
     
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark -
 #pragma mark Table view delegate
+
+- (NSString *)currentPath {
+    NSString *path = @"";
+    for (int i = 0; i < [currentFolderNavigation count]; i++) {
+        ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:i];
+        path = [path stringByAppendingString:[NSString stringWithFormat:@"%@/", folder.name]];
+    }
+    return path;
+}
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -429,30 +416,40 @@
                 // it's a subfolder
 
                 ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];
-                ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
                 
-                if ([currentFolderNavigation count] == (offsetSection - 1)) {
-                    // we're at the deepest folder, so push on the stack
-                    NSLog(@"adding to currentFolderNavigation");
-                    [currentFolderNavigation addObject:currentFolder];
-                    NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
-                    [aTableView reloadData];
+                if ([folder.folders count] > 0) {
+                
+                    ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
                     
-                    // TODO: this is how to animate it
-                    //NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
-                    //NSIndexSet *sections = [NSindexSet indexSetWithIndexesInRange:NSMakeRange(0, count)];                    
-                    //[aTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
-                    
-                } else {
-                    // we need to adjust the stack since we're going up the tree                    
-                    while (offsetSection < ([currentFolderNavigation count] - 1)) {
-                        NSLog(@"remove from folder nav");
-                        [currentFolderNavigation removeLastObject];
+                    if ([currentFolderNavigation count] == (offsetSection - 1)) {
+                        // we're at the deepest folder, so push on the stack
+                        NSLog(@"adding to currentFolderNavigation");
+                        [currentFolderNavigation addObject:currentFolder];
+                        NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                        [aTableView reloadData];
+                        
+                        // TODO: this is how to animate it
+                        //NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
+                        //NSIndexSet *sections = [NSindexSet indexSetWithIndexesInRange:NSMakeRange(0, count)];                    
+                        //[aTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
+                        
+                    } else {
+                        // we need to adjust the stack since we're going up the tree                    
+                        while (offsetSection < ([currentFolderNavigation count] - 1)) {
+                            NSLog(@"remove from folder nav");
+                            [currentFolderNavigation removeLastObject];
+                        }
+                        NSLog(@"adding to currentFolderNavigation");
+                        [currentFolderNavigation addObject:currentFolder];
+                        NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                        [aTableView reloadData];
                     }
-                    NSLog(@"adding to currentFolderNavigation");
-                    [currentFolderNavigation addObject:currentFolder];
-                    NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
-                    [aTableView reloadData];
+                } else {
+                    // it's a file!
+                    ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
+                    ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+                    
+                    [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
                 }
             } else {
                 while (offsetSection < ([currentFolderNavigation count] - 1)) {
@@ -467,6 +464,12 @@
                 // // TODO: include humanized size in folder object and detailText here
                 // cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
             }
+        } else {
+            // it's a file!
+            ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection - 1];
+            ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+            
+            [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
         }
 	}
 }

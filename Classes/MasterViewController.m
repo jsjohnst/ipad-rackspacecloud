@@ -67,7 +67,6 @@
     detailViewController.detailItem = @"Rackspace Cloud System Status";
     RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
-    //app.splitViewController.delegate = app.detailViewController;
     app.splitViewController.delegate = self;
     [detailViewController.tableView reloadData];
 }

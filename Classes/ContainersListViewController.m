@@ -26,6 +26,22 @@
 
 -(void)preselectContainer {
 	if ([containers count] == 0) {
+        ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
+		
+		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
+		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:app.masterViewController];
+        [navigationController pushViewController:self animated:NO];
+		app.splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, vc, nil];
+        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], vc, nil];
+        
+        //[app.splitViewController
+        
+		//app.splitViewController.delegate = vc;
+		// TODO: release vc and navcontroller
+		
+		// TODO: restore this after handling didSelect
+		//[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 	    // TODO: ContainerViewController here
         // ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];    
         // // TODO: subclass the navigationController and override shouldRotate
@@ -68,47 +84,6 @@
     self.navigationController.navigationBar.opaque = YES;
     
 }
-
-// -(void)preselectContainer2 {
-//  
-//  if ([containers count] == 0) {
-//      // TODO: ContainerViewController here
-//      ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];   
-//      // TODO: subclass the navigationController and override shouldRotate
-//      
-//         
-//         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-//      vc.navigationBar = navigationController.navigationBar;
-//         vc.navigationBar.barStyle = UIBarStyleBlack;
-//         vc.navigationBar.translucent = NO;
-//         vc.detailItem = @"Container Details";    
-//      RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-//      app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
-//         //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-//      //app.splitViewController.delegate = vc;
-//      // TODO: release vc and navcontroller
-//         
-//         [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-//                 
-//  } else {
-//      // TODO: ContainerViewController here
-//      ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNibName:@"ContainerRootViewController" bundle:nil];  
-//      // TODO: subclass the navigationController and override shouldRotate
-//      UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-//      vc.navigationBar = navigationController.navigationBar;  
-//         vc.detailItem = @"Container Details";    
-//      vc.container = [containers objectAtIndex:0];
-//         vc.navigationController = navigationController;
-//      RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-//      app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
-//      //app.splitViewController.delegate = vc;
-//      // TODO: release vc and navcontroller
-//      
-//      [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-// 
-//         [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-//     }
-// }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;

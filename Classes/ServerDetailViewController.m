@@ -38,6 +38,8 @@
 #define kActionSection 5
 
 
+// TODO: when server doesn't need to be polled, update in server list
+
 @implementation ServerDetailViewController
 
 //@synthesize navigationBar, popoverController, detailItem;
@@ -266,7 +268,7 @@
 		if (progressView == nil) {
 			progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
 			CGRect r = progressView.frame;
-			r.origin.x += 175;
+			r.origin.x += 260; // TODO: +63 more for portrait mode
 			r.origin.y += 18;
 			r.size.width += 230;
 			progressView.frame = r;		
@@ -450,7 +452,8 @@
 		if (publicIPActionSheet != nil) {
 			[publicIPActionSheet release];
 		}
-		publicIPActionSheet = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Ping IP Address", @"Copy IP Address", @"Open in Safari", nil];
+		//publicIPActionSheet = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Ping IP Address", @"Copy IP Address", @"Open in Safari", nil];
+        publicIPActionSheet = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Ping IP Address", @"Copy IP Address", nil];
 		// would be nice to show as a popover, but i'm having trouble positioning it properly
 		[publicIPActionSheet showInView:self.view];
 	} else if (indexPath.section == kPrivateIPSection) {

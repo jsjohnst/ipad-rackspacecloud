@@ -211,8 +211,8 @@
         
         
         // TODO: restore
-        [self transitionToAppView];
-		//[self loadImages];
+        //[self transitionToAppView];
+		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"authenticating"];
 		[self hideSpinners];

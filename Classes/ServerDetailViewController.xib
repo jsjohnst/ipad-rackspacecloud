@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="4"/>
+			<integer value="8"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -99,7 +99,6 @@
 						<reference key="NSSuperview" ref="434767828"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<int key="IBUIIndicatorStyle">2</int>
 						<bool key="IBUIBouncesZoom">NO</bool>
 						<int key="IBUIStyle">1</int>
 						<int key="IBUISeparatorStyle">2</int>
@@ -362,11 +361,6 @@
 						<reference key="parent" ref="434767828"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">22</int>
-						<reference key="object" ref="371392782"/>
-						<reference key="parent" ref="396348433"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
 						<reference key="object" ref="502418055"/>
 						<object class="NSMutableArray" key="children">
@@ -396,6 +390,11 @@
 						<int key="objectID">41</int>
 						<reference key="object" ref="558081008"/>
 						<reference key="parent" ref="434767828"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">22</int>
+						<reference key="object" ref="371392782"/>
+						<reference key="parent" ref="396348433"/>
 					</object>
 				</object>
 			</object>
@@ -430,7 +429,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{1017, -136}, {768, 1004}}</string>
+					<string>{{410, 67}, {768, 1004}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -474,8 +473,29 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">ServerDetailViewController</string>
+					<string key="className">RackspaceCloudSplitViewDelegate</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>detailItem</string>
+							<string>navigationBar</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>UINavigationBar</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/RackspaceCloudSplitViewDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ServerDetailViewController</string>
+					<string key="superclassName">RackspaceCloudSplitViewDelegate</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">addButtonPressed:</string>
 						<string key="NS.object.0">id</string>
@@ -485,8 +505,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundImageView</string>
-							<string>detailItem</string>
-							<string>navigationBar</string>
 							<string>noServersImage</string>
 							<string>noServersMessage</string>
 							<string>noServersTitle</string>
@@ -496,8 +514,6 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIImageView</string>
-							<string>id</string>
-							<string>UINavigationBar</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
