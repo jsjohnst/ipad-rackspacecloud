@@ -41,8 +41,6 @@
     
 	// TODO: tweet cdn link to file, use bit.ly
 	// TODO: UIWebView for Ping IP address?  make it 785px wide to fit justping.com properly
-	// TODO: consider preloading servers, containers, and first file list
-	// TODO: add metadata (made with Rackspace Cloud iPad app)
 	
     // Override point for customization after app launch    
 	// window.backgroundColor = [UIColor blackColor];

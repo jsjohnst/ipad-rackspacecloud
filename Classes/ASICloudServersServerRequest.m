@@ -169,7 +169,6 @@
 + (id)listBackupScheduleRequest:(NSUInteger)serverId {
 	NSString *now = [[[NSDate date] description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *urlString = [NSString stringWithFormat:@"%@/servers/%u/backup_schedule.xml?now=%@", [ASICloudFilesRequest serverManagementURL], serverId, now];
-	NSLog(@"URL: %@", urlString);
 	ASICloudServersServerRequest *request = [[[ASICloudServersServerRequest alloc] initWithURL:[NSURL URLWithString:urlString]] autorelease];
 	[request setRequestMethod:@"GET"];
 	[request addRequestHeader:@"X-Auth-Token" value:[ASICloudFilesRequest authToken]];
@@ -204,7 +203,6 @@
 + (id)updateBackupScheduleRequest:(NSUInteger)serverId daily:(NSString *)daily weekly:(NSString *)weekly {
 	NSString *now = [[[NSDate date] description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *urlString = [NSString stringWithFormat:@"%@/servers/%u/backup_schedule.xml?now=%@", [ASICloudFilesRequest serverManagementURL], serverId, now];
-	NSLog(@"URL: %@", urlString);
 	ASICloudServersServerRequest *request = [[[ASICloudServersServerRequest alloc] initWithURL:[NSURL URLWithString:urlString]] autorelease];
 	[request setRequestMethod:@"POST"];
 	[request addRequestHeader:@"X-Auth-Token" value:[ASICloudFilesRequest authToken]];
@@ -214,7 +212,6 @@
 	schedule.daily = daily;
 	schedule.weekly = weekly;
 
-	NSLog(@"Pushing schedule: %@", [schedule toXML]);
 	NSData* data = [[schedule toXML] dataUsingEncoding:NSASCIIStringEncoding];
 	[request setPostBody:[NSMutableData dataWithData:data]];
 	return request;

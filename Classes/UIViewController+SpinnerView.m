@@ -28,7 +28,7 @@
 		// do nothing if this fails
 	}
 	
-	NSLog(@"center: %f, %f", center.x, center.y);
+	////NSLog(@"center: %f, %f", center.x, center.y);
 	center.y = center.y / 3; // move it up a bit
 	
 	center.y = center.y + offset.y;

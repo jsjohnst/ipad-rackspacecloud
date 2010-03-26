@@ -41,7 +41,7 @@
 #pragma mark HTTP Response Handlers
 
 -(void)cloudServerRequestFinished:(ASICloudServersServerRequest *)request successSelector:(SEL)successSelector {
-	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
+	//NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
 	[self hideSpinnerView];
 	
 	if ([request isSuccess]) {
@@ -105,7 +105,7 @@
 }
 
 -(void)cloudServerRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Request Failed: %@", [request url]);
+	//NSLog(@"Request Failed: %@", [request url]);
 	[self hideSpinnerView];
 	NSString *title = @"Connection Failure";
 	NSString *errorMessage = @"Please check your connection and try again.";

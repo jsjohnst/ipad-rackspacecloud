@@ -25,6 +25,7 @@
 @synthesize containerViewController;
 
 -(void)preselectContainer {
+    
 	if ([containers count] == 0) {
         ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
 		
@@ -32,35 +33,25 @@
 		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:app.masterViewController];
         [navigationController pushViewController:self animated:NO];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, vc, nil];
-        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], vc, nil];
-        
-        //[app.splitViewController
-        
-		//app.splitViewController.delegate = vc;
-		// TODO: release vc and navcontroller
-		
-		// TODO: restore this after handling didSelect
-		//[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
         [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-	    // TODO: ContainerViewController here
-        // ContainerRootViewController *vc = [[ContainerRootViewController alloc] initWithNoContainersView];    
-        // // TODO: subclass the navigationController and override shouldRotate
-        // 
-        //         
-        //         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-        // vc.navigationBar = navigationController.navigationBar;
-        //         vc.navigationBar.barStyle = UIBarStyleBlack;
-        //         vc.navigationBar.translucent = NO;
-        //         vc.detailItem = @"Container Details";    
-        // RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-        // app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, navigationController, nil];
-        //         //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
-        // //app.splitViewController.delegate = vc;
-        // // TODO: release vc and navcontroller
-        //         
-        //         [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-                
 	} else {
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+
+        if (containerViewController != nil) {
+            [containerViewController release];
+        }
+        containerViewController = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
+        containerViewController.container = [containers objectAtIndex:0];
+        [containerViewController loadFiles];
+        RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
+        app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], containerViewController, nil];
+        if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+            // force the button to stay
+            [containerViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
+        }
+        
+        
+        /*
         ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
 		vc.container = [containers objectAtIndex:0];
 		
@@ -68,21 +59,12 @@
 		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:app.masterViewController];
         [navigationController pushViewController:self animated:NO];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, vc, nil];
-        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], vc, nil];
-        
-        //[app.splitViewController
-        
-		//app.splitViewController.delegate = vc;
-		// TODO: release vc and navcontroller
-		
-		// TODO: restore this after handling didSelect
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
         [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-        //[vc loadFiles];
+        */
     }
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.opaque = YES;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,7 +91,7 @@
 	for (int i = 0; i < [cdnContainers count]; i++) {
 		ASICloudFilesContainer *cdnContainer = [cdnContainers objectAtIndex:i];
 		ASICloudFilesContainer *container = [containersDict objectForKey:cdnContainer.name];
-        NSLog(@"%@ - CDN Enabled: %@", container.name, container.cdnEnabled ? @"YES" : @"NO");
+        //NSLog(@"%@ - CDN Enabled: %@", container.name, container.cdnEnabled ? @"YES" : @"NO");
 		container.cdnEnabled = cdnContainer.cdnEnabled;
 		container.cdnURL = cdnContainer.cdnURL;
 		container.ttl = cdnContainer.ttl;
@@ -224,20 +206,16 @@
 	if (containerViewController != nil) {
 		[containerViewController release];
 	}
-//	serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
-//	serverDetailViewController.serversListViewController = self;
-//	serverDetailViewController.detailItem = @"Server Details";
-//	serverDetailViewController.server = [servers objectAtIndex:indexPath.row];
-//	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-//    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-    
     containerViewController = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
     containerViewController.container = [containers objectAtIndex:indexPath.row];
     [containerViewController loadFiles];
     RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], containerViewController, nil];
-    //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, containerViewController, nil];
-    //[containerViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        // force the button to stay
+        [containerViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
+    }
+    
 }
 /*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath2:(NSIndexPath *)indexPath {
@@ -265,7 +243,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Override to allow orientations other than the default portrait orientation.
-    NSLog(@"container list shouldAutorotateToInterfaceOrientation");
+    //NSLog(@"container list shouldAutorotateToInterfaceOrientation");
     return YES;
 }
 

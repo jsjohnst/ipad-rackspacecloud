@@ -25,8 +25,9 @@
     for (int i = 0; i < [servers count]; i++) {
         ASICloudServersServer *currentServer = [servers objectAtIndex:i];
         if (currentServer.serverId == server.serverId) {
-            [servers replaceObjectAtIndex:i withObject:currentServer];
-            [self.tableView reloadData];
+            [servers replaceObjectAtIndex:i withObject:server];
+            [self.tableView reloadData];            
+            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
             break;
         }
     }
@@ -168,6 +169,12 @@
 	
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
 	//app.splitViewController.delegate = serverDetailViewController;
+    
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        // force the button to stay
+        [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
+    }
+    
 }
 
 - (void)dealloc {

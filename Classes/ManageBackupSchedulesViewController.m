@@ -27,7 +27,7 @@
 #pragma mark HTTP Response Handlers
 
 -(void)updateBackupScheduleRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
+	////NSLog(@"List Backup Response: %i - %@", [request responseStatusCode], [request responseString]);
 	[self hideSpinnerView];
 	
 	if ([request responseStatusCode] == 202 || [request responseStatusCode] == 204) {
@@ -44,7 +44,7 @@
 }
 
 -(void)updateBackupScheduleRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"update backup request failed - %i", [request responseStatusCode]);
+	////NSLog(@"update backup request failed - %i", [request responseStatusCode]);
 	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"saving your server's backup schedule"];
 }
 
@@ -130,7 +130,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
   
-	//NSLog(@"backup: %@ %@", backupSchedule.daily, backupSchedule.weekly);
+	////NSLog(@"backup: %@ %@", backupSchedule.daily, backupSchedule.weekly);
 	
     // Configure the cell...
 	if (indexPath.section == kDailySection) {

@@ -21,7 +21,6 @@
 #pragma mark HTTP Response Handlers
 
 -(void)rebootRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Reboot response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
 	if ([request isSuccess]) {
 		[self dismissModalViewControllerAnimated:YES];

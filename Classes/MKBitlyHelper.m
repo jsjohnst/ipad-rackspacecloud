@@ -55,7 +55,7 @@ static NSString *BITLYAPIURL = @"http://api.bit.ly/%@?version=2.0.1&login=%@&api
 		if([statusCode isEqualToString:@"OK"])
 		{
 			// retrieve shortURL from results
-			//NSLog([dict description]);
+			////NSLog([dict description]);
 			NSString *shortURL = [[[dict objectForKey:@"results"] 
 								   objectForKey:f_longURL] 
 								  objectForKey:@"shortUrl"];
@@ -103,7 +103,7 @@ static NSString *BITLYAPIURL = @"http://api.bit.ly/%@?version=2.0.1&login=%@&api
 				shortHash = [f_shortURL substringFromIndex:range.location+1];
 			}
 			
-			//NSLog([dict description]);
+			////NSLog([dict description]);
 			NSString *longURL = [[[dict objectForKey:@"results"] 
 								   objectForKey:shortHash] 
 								  objectForKey:@"longUrl"];

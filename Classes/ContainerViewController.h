@@ -33,6 +33,7 @@
     
     NSMutableArray *currentFolderNavigation;
     
+    BOOL showSpinner;
 }
 
 // data

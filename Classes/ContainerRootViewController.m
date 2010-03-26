@@ -34,23 +34,23 @@
 -(void)listFilesSuccess:(ASICloudFilesObjectRequest *)request {
 	[self hideSpinnerView];
 	
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"CALLING FOLDERS");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"CALLING FOLDERS");
 	rootFolder = [request folder];
-    NSLog(@"files count in root folder: %i", [rootFolder.files count]);
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
-	NSLog(@"------------------------------------------------------");
+    //NSLog(@"files count in root folder: %i", [rootFolder.files count]);
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
+	//NSLog(@"------------------------------------------------------");
 	
 	[self.tableView reloadData];
 }
@@ -131,7 +131,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Override to allow orientations other than the default portrait orientation.
-    NSLog(@"shouldAutorotateToInterfaceOrientation");
+    //NSLog(@"shouldAutorotateToInterfaceOrientation");
     return YES;
 }
 
@@ -152,11 +152,11 @@
 #pragma mark Switch Handlers
 
 - (void)cdnSwitchChanged:(id)sender {
-	NSLog(@"cdn switch tapped %@", sender);
+	//NSLog(@"cdn switch tapped %@", sender);
 }
 
 - (void)logSwitchChanged:(id)sender {
-	NSLog(@"log switch tapped %@", sender);
+	//NSLog(@"log switch tapped %@", sender);
 }
 
 #pragma mark -
@@ -390,7 +390,7 @@
 
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 	NSURL *url = [NSURL fileURLWithPath:[[app applicationDocumentsDirectory] stringByAppendingPathComponent:file.name]];
-	NSLog(@"file url: %@", url);
+	//NSLog(@"file url: %@", url);
 
 	NSData *data = file.data;
 	[data writeToURL:url atomically:YES];
@@ -400,7 +400,7 @@
 	c.delegate = self;
 	//[c presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];	
 	if ([c presentPreviewAnimated:YES] == NO) {
-		NSLog(@"UIDocumentInteractionController did not work.");
+		//NSLog(@"UIDocumentInteractionController did not work.");
 	}
 }
 
@@ -420,7 +420,7 @@
 	//ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:file.name];
 	//[self request:request behavior:@"downloading the file" success:@selector(fileDownloadSuccess:)];
 	
-    NSLog(@"root folder files count: %i", [rootFolder.files count]);
+    //NSLog(@"root folder files count: %i", [rootFolder.files count]);
 	
     if (indexPath.section == 2) {
         if ([rootFolder.folders count] > 0) {

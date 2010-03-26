@@ -33,7 +33,6 @@
 	} else if ([elementName isEqualToString:@"bytes"]) {
 		[self currentObject].bytes = [[self currentContent] intValue];
 	} else if ([elementName isEqualToString:@"cdn_enabled"]) {
-        NSLog(@"cdn_enabled: %@", [self currentContent]);
 		[self currentObject].cdnEnabled = [[[self currentContent] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@"True"];
 	} else if ([elementName isEqualToString:@"ttl"]) {
 		[self currentObject].ttl = [[self currentContent] intValue];

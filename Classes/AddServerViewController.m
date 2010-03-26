@@ -241,7 +241,7 @@
 
 -(void)createServerSuccess:(ASICloudServersServerRequest *)request {
 	
-	NSLog(@"CREATE %i - %@", [request responseStatusCode], [request responseString]);
+	////NSLog(@"CREATE %i - %@", [request responseStatusCode], [request responseString]);
 	
 	[self.serverDetailViewController.serversListViewController loadServers];
 	[self dismissModalViewControllerAnimated:YES];

@@ -75,10 +75,10 @@
 #pragma mark Log Files
 
 -(void)getLogFileRequestFinished:(ASICloudFilesObjectRequest *)request {
-	NSLog(@"Log file request: %i - %@", [request responseStatusCode], [request url]);
+	//NSLog(@"Log file request: %i - %@", [request responseStatusCode], [request url]);
 	ASICloudFilesObject	*object = [request unzippedObject];
 	
-	//NSLog(@"%@", object.data);
+	////NSLog(@"%@", object.data);
 	
 	NSString* string = [[NSString alloc] initWithData:object.data encoding:NSASCIIStringEncoding];
 	NSArray *entries = [string componentsSeparatedByString:@"\r\n"];
@@ -96,8 +96,8 @@
 		// we're just keeping a count of the number of times each user agent string shows up
 		// maybe later i'll get fancy and group multiple browser versions together
 		//NSString *userAgent = [[entry componentsSeparatedByString:@"\""] objectAtIndex:5];
-		NSLog(@"User Agent: %@", entry.userAgent);
-		NSLog(@"Browser: %@", entry.browser);
+		//NSLog(@"User Agent: %@", entry.userAgent);
+		//NSLog(@"Browser: %@", entry.browser);
 		NSNumber *count = [NSNumber numberWithUnsignedInt:0];
 		count = [userAgentCounts objectForKey:entry.browser];
 		if (count != nil) {
@@ -120,17 +120,17 @@
 }
 
 -(void)getLogFileRequestFailed:(ASICloudFilesObjectRequest *)request {
-	NSLog(@"Log file request failed.");
+	//NSLog(@"Log file request failed.");
 }
 
 -(void)logFileListRequestFinished:(ASICloudFilesObjectRequest *)request {
-	NSLog(@"Log files request: %i", [request responseStatusCode]);
+	//NSLog(@"Log files request: %i", [request responseStatusCode]);
 	//containerLogFileObjects = [request objects];
 	containerLogFileObjects = [[NSArray alloc] initWithArray:[request objects]];
 	
 	logEntries = [[NSMutableArray alloc] initWithCapacity:5];
 	userAgentCounts = [[NSMutableDictionary alloc] init];
-	NSLog(@"Number of log files: %i", [containerLogFileObjects count]);
+	//NSLog(@"Number of log files: %i", [containerLogFileObjects count]);
 	//[self.logEntryTableView reloadData];
 	
 	// load up to 25 log files to view
@@ -145,7 +145,7 @@
 }
 
 -(void)logFileListRequestFailed:(ASIHTTPRequest *)request {
-	NSLog(@"Log files request failed.");
+	//NSLog(@"Log files request failed.");
 }
 
 //+ (id)logFileListForCDNEnabledContainer:(NSString *)containerName
@@ -372,7 +372,7 @@
     [super viewDidLoad];
 	self.nameLabel.text = container.name;
 	self.sizeLabel.text = [NSString stringWithFormat:@"%@, %@", [self humanizedCount], [self humanizedBytes]];
-	NSLog(@"CDN URL: %@", container.cdnURL);
+	//NSLog(@"CDN URL: %@", container.cdnURL);
 	self.cdnUrlTextField.text = container.cdnURL;
 	self.cdnUrlTextField.delegate = self;
 	
@@ -550,7 +550,7 @@
 		UILabel *label = (UILabel *) [labels objectAtIndex:i];
 		CGRect rect = label.frame;
 		rect.size.width = cell.frame.size.width - 40;
-		NSLog(@"width: %f", rect.size.width);
+		//NSLog(@"width: %f", rect.size.width);
 		label.frame = rect;		
 	}
 	*/

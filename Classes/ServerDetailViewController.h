@@ -42,6 +42,7 @@
 	UIActionSheet *publicIPActionSheet;
 	UIActionSheet *privateIPActionSheet;
 	
+    BOOL showSpinner;
 }
 
 //@property (nonatomic, retain) UIPopoverController *popoverController;

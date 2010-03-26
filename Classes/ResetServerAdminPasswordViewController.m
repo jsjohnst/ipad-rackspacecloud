@@ -30,7 +30,7 @@
 
 -(void)updatePasswordRequestFinished:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
-	NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
+	//NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
 	
 	if ([request responseStatusCode] == 204) {
 		[self.serverDetailViewController.tableView reloadData];
@@ -41,7 +41,7 @@
 }
 
 -(void)updatePasswordRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Rename Server Request Failed");
+	//NSLog(@"Rename Server Request Failed");
 	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resetting your password"];
 }
 

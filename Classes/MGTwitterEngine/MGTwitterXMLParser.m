@@ -71,13 +71,13 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 
 - (void)parserDidStartDocument:(NSXMLParser *)theParser
 {
-    //NSLog(@"Parsing begun");
+    ////NSLog(@"Parsing begun");
 }
 
 
 - (void)parserDidEndDocument:(NSXMLParser *)theParser
 {
-    //NSLog(@"Parsing complete: %@", parsedObjects);
+    ////NSLog(@"Parsing complete: %@", parsedObjects);
     [delegate parsingSucceededForRequest:identifier ofResponseType:responseType 
                        withParsedObjects:parsedObjects];
 }
@@ -87,20 +87,20 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
   namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName 
     attributes:(NSDictionary *)attributeDict
 {
-    //NSLog(@"Started element: %@ (%@)", elementName, attributeDict);
+    ////NSLog(@"Started element: %@ (%@)", elementName, attributeDict);
 }
 
 
 - (void)parser:(NSXMLParser *)theParser foundCharacters:(NSString *)characters
 {
-    //NSLog(@"Found characters: %@", characters);
+    ////NSLog(@"Found characters: %@", characters);
 }
 
 
 - (void)parser:(NSXMLParser *)theParser didEndElement:(NSString *)elementName 
   namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    //NSLog(@"Ended element: %@", elementName);
+    ////NSLog(@"Ended element: %@", elementName);
     [self setLastOpenedElement:nil];
     
     if ([elementName isEqualToString:@"protected"] 
@@ -124,19 +124,19 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 - (void)parser:(NSXMLParser *)theParser foundAttributeDeclarationWithName:(NSString *)attributeName 
     forElement:(NSString *)elementName type:(NSString *)type defaultValue:(NSString *)defaultValue
 {
-    //NSLog(@"Found attribute: %@ (%@) [%@] {%@}", attributeName, elementName, type, defaultValue);
+    ////NSLog(@"Found attribute: %@ (%@) [%@] {%@}", attributeName, elementName, type, defaultValue);
 }
 
 
 - (void)parser:(NSXMLParser *)theParser foundIgnorableWhitespace:(NSString *)whitespaceString
 {
-    //NSLog(@"Found ignorable whitespace: %@", whitespaceString);
+    ////NSLog(@"Found ignorable whitespace: %@", whitespaceString);
 }
 
 
 - (void)parser:(NSXMLParser *)theParser parseErrorOccurred:(NSError *)parseError
 {
-    //NSLog(@"Parsing error occurred: %@", parseError);
+    ////NSLog(@"Parsing error occurred: %@", parseError);
     [delegate parsingFailedForRequest:identifier ofResponseType:responseType 
                             withError:parseError];
 }

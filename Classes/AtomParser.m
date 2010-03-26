@@ -62,8 +62,6 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	
-	//NSLog(@"Started Element: %@", elementName);
-	
 	//Extract the attribute here.
 	//aBook.bookID = [[attributeDict objectForKey:@"id"] integerValue];
 	
@@ -86,8 +84,6 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	
-	//NSLog(@"Ended Element:   %@", elementName);
-	
 	//	<pubDate>Fri, 15 Jan 2010 16:16:59 -0600</pubDate>
 	
 	if ([elementName isEqualToString:@"entry"]) {
@@ -103,7 +99,6 @@
 		feedItem.description = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	} else if ([elementName isEqualToString:@"content"]) {
 		//feedItem.content = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSLog(@"content = %@", feedItem.content);
         parsingContent = NO;        
 	} else if ([elementName isEqualToString:@"name"]) {
 		feedItem.creator = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -137,7 +132,6 @@
 	} else {
 		[currentElementValue appendString:string];
 	}
-	//NSLog(@"Processing Value: %@", currentElementValue);
 }
 
 #pragma mark -

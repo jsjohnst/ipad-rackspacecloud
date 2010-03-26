@@ -66,7 +66,7 @@
 			browserVersion = [browserComponents objectAtIndex:1];
 		}
 
-//		NSLog(@"Log Entry: %@ %@ %@ %@ %i %i %@ %@ %@",
+//		//NSLog(@"Log Entry: %@ %@ %@ %@ %i %i %@ %@ %@",
 //			  ipAddress, date, httpMethod, urlString, responseStatusCode,
 //			  contentLength, referrer, userAgent, browser);
 	}

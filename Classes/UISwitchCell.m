@@ -19,7 +19,6 @@
 
         CGRect frame = CGRectMake(513.0, 9.0, 94.0, 27.0);
         
-        // TODO: portrait should move x + 61.0
         
 		uiSwitch = [[UISwitch alloc] initWithFrame:frame];
         //uiSwitch.bounds = CGRectMake(513.0, 9.0, 94.0, 27.0);

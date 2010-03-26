@@ -86,7 +86,7 @@ static UIImage *ukFlag = nil;
 		[self appendFeedItems:rssParser.feedItems];
 	}
 	
-	//NSLog(@"Servers Feed Item Count: %i", [self.serversFeedItems count]);
+	////NSLog(@"Servers Feed Item Count: %i", [self.serversFeedItems count]);
 	
 	[rssParser release];
 	[xmlParser release];
@@ -108,7 +108,7 @@ static UIImage *ukFlag = nil;
 		[self appendFeedItems:rssParser.feedItems];
 	}	
 	
-	//NSLog(@"Files Feed Item Count: %i", [self.filesFeedItems count]);
+	////NSLog(@"Files Feed Item Count: %i", [self.filesFeedItems count]);
 	
 	[rssParser release];
 	[xmlParser release];
@@ -130,7 +130,7 @@ static UIImage *ukFlag = nil;
 		[self appendFeedItems:atomParser.feedItems];
 	}
 	
-	//NSLog(@"Sites Feed Item Count: %i", [self.sitesFeedItems count]);
+	////NSLog(@"Sites Feed Item Count: %i", [self.sitesFeedItems count]);
 	
 	[atomParser release];
 	[xmlParser release];	
@@ -190,7 +190,7 @@ static UIImage *ukFlag = nil;
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    //NSLog(@"String size height = %f", stringSize.height);
+    ////NSLog(@"String size height = %f", stringSize.height);
     return stringSize.height;
 }
 
@@ -213,7 +213,7 @@ static UIImage *ukFlag = nil;
 		UILabel *label = (UILabel *) [labels objectAtIndex:i];
 		CGRect rect = label.frame;
 		rect.size.width = cell.frame.size.width - 40 - 64;
-		//NSLog(@"width: %f", rect.size.width);
+		////NSLog(@"width: %f", rect.size.width);
 		label.frame = rect;		
 	}
 	
@@ -307,7 +307,7 @@ static UIImage *ukFlag = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	//NSLog(@"feed item count = %i", [self.feedItems count]);
+	////NSLog(@"feed item count = %i", [self.feedItems count]);
 	
 	
     tableView.backgroundView = nil; // clear background

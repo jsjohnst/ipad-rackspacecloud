@@ -23,7 +23,7 @@
 #pragma mark HTTP Response Handlers
 
 -(void)resizeRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Resize response: %i", [request responseStatusCode]);
+	////NSLog(@"Resize response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
 	if ([request isSuccess]) {
 		[self.serverDetailViewController loadServer];

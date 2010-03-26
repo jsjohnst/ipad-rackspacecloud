@@ -121,7 +121,7 @@
     }
     
     // Configure the cell...
-    NSLog(@"File: %@, %i, %@", file.name, file.bytes, file.contentType);
+    //NSLog(@"File: %@, %i, %@", file.name, file.bytes, file.contentType);
     
     if (indexPath.section == 0) {
         // file attributes
@@ -262,9 +262,9 @@
 
 - (void)emailFileAsAttachment {
     // TODO: container.name is failing
-    NSLog(@"container name: %@", container.name);
-    NSLog(@"file name:      %@", file.name);
-    NSLog(@"file path:      %@", file.fullPath);
+    //NSLog(@"container name: %@", container.name);
+    //NSLog(@"file name:      %@", file.name);
+    //NSLog(@"file path:      %@", file.fullPath);
     
     ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:self.file.fullPath];
     [self request:request behavior:@"attaching your file" success:@selector(downloadFileToAttachSuccess:)];

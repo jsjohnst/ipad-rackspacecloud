@@ -23,7 +23,6 @@
 #pragma mark HTTP Response Handlers
 
 -(void)rebuildRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Rebuild response: %i", [request responseStatusCode]);
 	[self hideSpinnerView];
 	if ([request isSuccess]) {
 		[self.serverDetailViewController loadServer];
@@ -34,7 +33,6 @@
 }
 
 -(void)rebuildRequestFailed:(ASICloudServersServerRequest *)request {
-	NSLog(@"Rebuild request failed.");
 	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"rebuilding your server"];
 }
 

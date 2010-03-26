@@ -38,8 +38,6 @@
 #define kActionSection 5
 
 
-// TODO: when server doesn't need to be polled, update in server list
-
 @implementation ServerDetailViewController
 
 //@synthesize navigationBar, popoverController, detailItem;
@@ -91,7 +89,7 @@
 }
 
 -(void)deleteServerRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Delete Response: %i - %@", [request responseStatusCode], [request responseString]);
+	//NSLog(@"Delete Response: %i - %@", [request responseStatusCode], [request responseString]);
 	[self hideSpinnerView];
 	
 	if ([request responseStatusCode] == 202) {
@@ -106,7 +104,7 @@
 }
 
 -(void)getServerRequestFinished:(ASICloudServersServerRequest *)request {
-	NSLog(@"Poll Server Response: %i - %@ Progress: %i", [request responseStatusCode], [request server].status, [request server].progress);
+	//NSLog(@"Poll Server Response: %i - %@ Progress: %i", [request responseStatusCode], [request server].status, [request server].progress);
 	if ([request isSuccess]) {
         self.server = [request server];
 		ASICloudServersServerRequest *backupRequest = [ASICloudServersServerRequest listBackupScheduleRequest:self.server.serverId];
@@ -119,7 +117,7 @@
 }
 
 -(void)getServerRequestFailed:(ASICloudServersServerRequest *)request {
-    NSLog(@"Poll Server Failed");
+    //NSLog(@"Poll Server Failed");
     [self.tableView reloadData]; // keep polling!
 }
 
@@ -136,7 +134,7 @@
 	if (progressView.progress < [self.server humanizedProgress] * 0.01) {
 		progressView.progress += 0.01;
 	} else if (progressView.progress > [self.server humanizedProgress] * 0.01) {
-		progressView.progress = [self.server humanizedProgress] * 0.01;
+		//progressView.progress = [self.server humanizedProgress] * 0.01;
 	} else if (progressView.progress == [self.server humanizedProgress] * 0.01) {
 		[progressTimer invalidate];
 		progressTimer = nil;
@@ -216,7 +214,7 @@
 	cell.textLabel.text = @"Status";
     cell.detailTextLabel.text = [server humanizedStatus];
 
-	NSLog(@"server status = %@", server.status);
+	//NSLog(@"server status = %@", server.status);
 	if ([server.status isEqualToString:@"VERIFY_RESIZE"]) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -459,7 +457,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (actionSheet == deleteServerActionSheet) {
 		if (buttonIndex	== 0) {
-			[self request:[ASICloudServersServerRequest deleteServerRequest:self.server.serverId] behavior:@"deleting your server" success:@selector(deleteServerSuccess:)];
+			[self request:[ASICloudServersServerRequest deleteServerRequest:self.server.serverId] behavior:@"deleting your server" success:@selector(deleteServerSuccess:) showSpinner:showSpinner];
 		}
 	} else if (actionSheet == publicIPActionSheet) {
 		/*
@@ -515,6 +513,7 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {	
+    showSpinner = (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
     [self.tableView reloadData];
 	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
 		self.noServersImage.frame = CGRectMake(102, 37, 500, 500);
@@ -525,6 +524,15 @@
 		self.noServersTitle.frame = CGRectMake(333, 710, 102, 22);
 		self.noServersMessage.frame = CGRectMake(228, 766, 323, 21);
 	}
+    
+    CGRect r = progressView.frame;    
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        r.origin.x = 43 + 678 - 388 - 10;
+    } else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+        r.origin.x = 43 + 678 - 388 - 10 - 63;
+    }                    
+    progressView.frame = r;
+    
 }
 
 #pragma mark -
@@ -556,12 +564,13 @@
     [super viewWillAppear:animated];
 }
 
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- }
- */
-/*
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    showSpinner = (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+
+}
+
+ /*
  - (void)viewWillDisappear:(BOOL)animated {
  [super viewWillDisappear:animated];
  }

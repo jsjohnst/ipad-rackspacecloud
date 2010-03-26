@@ -40,7 +40,6 @@
 
 + (id)storageRequestWithMethod:(NSString *)method containerName:(NSString *)containerName objectPath:(NSString *)objectPath {
 	NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", [ASICloudFilesRequest storageURL], containerName, objectPath];
-    NSLog(@"Storage URL String: %@", urlString);
 	ASICloudFilesObjectRequest *request = [[[ASICloudFilesObjectRequest alloc] initWithURL:[NSURL URLWithString:urlString]] autorelease];
 	[request setRequestMethod:method];
 	[request addRequestHeader:@"X-Auth-Token" value:[ASICloudFilesRequest authToken]];
@@ -138,8 +137,6 @@
 
 - (ASICloudFilesFolder *)buildFolder:(NSString *)path withFiles:(NSArray *)files andParent:(ASICloudFilesFolder *)parent {
     
-    NSLog(@"Entering buildFolder:%@", path);
-    
 	ASICloudFilesFolder *root = [[ASICloudFilesFolder alloc] init];
 	root.files = [[NSMutableArray alloc] init];
 	root.folders = [[NSMutableArray alloc] init];
@@ -169,10 +166,8 @@
     			// the file's not a folder object, but does it belong in a folder?
     			NSRange range = [file.name rangeOfString:@"/"];
     			if (range.location == NSNotFound) {
-					NSLog(@"  file name = %@", file.name);
     				[root.files addObject:file];
     			} else {
-					NSLog(@"  foldered file name = %@", file.name);
     				[folderedFiles addObject:file];
     			}
     		}
@@ -200,7 +195,6 @@
 	// go through each folder name, and recursively call this method
     for (int i = 0; i < [folderNames count]; i++) {
 		NSString *folderName = [folderNames objectAtIndex:i];
-		NSLog(@"folder = %@, foldered files count = %i", folderName, [folderedFiles count]);
         ASICloudFilesFolder *folder = [self buildFolder:folderName withFiles:folderedFiles andParent:root];
         [root.folders addObject:folder];
     }

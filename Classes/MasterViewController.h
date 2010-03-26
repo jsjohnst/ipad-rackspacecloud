@@ -17,6 +17,7 @@
 	UISplitViewController *splitViewController;	
 	UIPopoverController *popoverController;
 	UIBarButtonItem *rootPopoverBarButtonItem;
+    BOOL hasPreselected;
 }
 
 @property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;

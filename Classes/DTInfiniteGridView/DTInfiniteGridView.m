@@ -102,14 +102,14 @@
 	CGFloat newX = self.contentOffset.x;
 	CGFloat newY = self.contentOffset.y;
 	
-	//NSLog(@"%s:%f %f", _cmd, segmentWidth, self.contentOffset.x);
+	////NSLog(@"%s:%f %f", _cmd, segmentWidth, self.contentOffset.x);
 	
 	if (self.contentOffset.x < 2*segmentWidth)
 		newX = self.contentOffset.x + segmentWidth;
 	else if (self.contentOffset.x > 3*segmentWidth)
 		newX = self.contentOffset.x - segmentWidth;
 		
-	//NSLog(@"%s:%f", _cmd, newX);
+	////NSLog(@"%s:%f", _cmd, newX);
 		
 	self.contentOffset = CGPointMake(newX, newY);
 	
