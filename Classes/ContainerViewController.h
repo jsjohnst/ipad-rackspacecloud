@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "RackspaceCloudSplitViewDelegate.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@class ASICloudFilesContainer, ASICloudFilesFolder;
+@class ASICloudFilesContainer, ASICloudFilesFolder, ASICloudFilesObject;
 
-@interface ContainerViewController : RackspaceCloudSplitViewDelegate <UITableViewDataSource, UITableViewDelegate> {
+@interface ContainerViewController : RackspaceCloudSplitViewDelegate <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 
     // data
     ASICloudFilesContainer *container;
     ASICloudFilesFolder *rootFolder;
+    ASICloudFilesObject *selectedFile;
     
     // no files view
 	IBOutlet UIView *noFilesView;
@@ -48,5 +51,6 @@
 
 - (void)loadFiles;
 - (void)ttlSliderMoved:(id)sender;
+- (NSString *)currentPath;
 
 @end

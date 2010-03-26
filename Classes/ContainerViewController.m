@@ -160,6 +160,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	self.detailItem = @"Container Details";
+	self.navigationItem.title = @"Container Details";
     [super viewDidAppear:animated];
     [self loadFiles];
 }
@@ -495,23 +497,107 @@
 }
 
 #pragma mark -
+#pragma mark Action Sheet Delegate
+
+- (void)emailLinkToFile {
+    MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+    vc.mailComposeDelegate = self;		
+    [vc setSubject:selectedFile.name];
+    NSString *emailBody = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [selectedFile.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [vc setMessageBody:emailBody isHTML:NO];
+    [self presentModalViewController:vc animated:YES];
+    [vc release];
+}
+
+- (void)downloadFileToAttachSuccess:(ASICloudFilesObjectRequest *)request {
+    [self hideSpinnerView];
+    MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+    vc.mailComposeDelegate = self;
+    [vc setSubject:selectedFile.name];
+    
+    //NSString *urlString = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [self.file.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    //NSURL *url = [NSURL URLWithString:urlString];
+    //NSData *attachmentData = [NSData dataWithContentsOfURL:url];
+    
+    ASICloudFilesObject *object = [request object];
+    
+    [vc addAttachmentData:object.data mimeType:selectedFile.contentType fileName:selectedFile.name];
+    
+    // Fill out the email body text
+    NSString *emailBody = @"";
+    [vc setMessageBody:emailBody isHTML:NO];
+    
+    [self presentModalViewController:vc animated:YES];
+    [vc release];    
+}
+
+- (void)emailFileAsAttachment {
+    // TODO: container.name is failing
+    NSLog(@"container name: %@", container.name);
+    //NSLog(@"file name:      %@", file.name);
+    //NSLog(@"file path:      %@", file.fullPath);
+
+    NSLog(@"path: %@", [NSString stringWithFormat:@"%@%@", [self currentPath], selectedFile.name]);
+    
+    ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:[NSString stringWithFormat:@"%@%@", [self currentPath], selectedFile.name]];
+    [self request:request behavior:@"attaching your file" success:@selector(downloadFileToAttachSuccess:)];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (self.container.cdnEnabled) {
+        if (buttonIndex == 0) {
+            [self emailLinkToFile];
+        } else {
+            [self emailFileAsAttachment];
+        }
+    } else {
+        [self emailFileAsAttachment];
+    }
+}
+
+#pragma mark -
 #pragma mark Table view delegate
 
 - (NSString *)currentPath {
     NSString *path = @"";
-    int i = 1;
-    if (self.container.cdnURL != nil) {
-        path = [path stringByAppendingString:[NSString stringWithFormat:@"%@", self.container.cdnURL]];
-        i = 0;
-    }
+    int i = 0;
+//    int i = 1;
+//    if (self.container.cdnURL != nil) {
+//        path = [path stringByAppendingString:[NSString stringWithFormat:@"%@", self.container.cdnURL]];
+//        i = 0;
+//    }
     for (; i < [currentFolderNavigation count]; i++) {
         ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:i];
-        path = [path stringByAppendingString:[NSString stringWithFormat:@"%@/", folder.name]];
+        if (i == 0) {
+            path = [path stringByAppendingString:folder.name];
+        } else {
+            path = [path stringByAppendingString:[NSString stringWithFormat:@"%@/", folder.name]];
+        }
     }
     return path;
 }
 
+
+- (void)didSelectFile:(ASICloudFilesObject *)file {
+    //[self alert:@"File!" message:[NSString stringWithFormat:@"%@%@", [self currentPath], file.name]];
+    selectedFile = file;
+    UIActionSheet *as;
+    NSString *title = file.name;    
+    if (self.container.cdnEnabled) {
+        as = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Email Link to File", @"Attach to Email", nil];				
+    } else {
+        as = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Attach to Email", nil];				
+    }
+    as.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [as showInView:self.view];
+    
+}
+
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+	self.detailItem = @"Container Details";
+	self.navigationItem.title = @"Container Details";
     
     // if the section is >= 2 and not the last section it's a folder.
     // either push it on the stack, or position the stack to that folder and reload
@@ -527,8 +613,7 @@
             // it's a file!
             ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
             ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-            
-            [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
+            [self didSelectFile:file];
         } else {            
             
             if (offsetSection < [currentFolderNavigation count]) {
@@ -569,8 +654,7 @@
                         // it's a file!
                         ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
                         ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-                        
-                        [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
+                        [self didSelectFile:file];
                     }
                 } else {
                     while (offsetSection < ([currentFolderNavigation count] - 1)) {
@@ -589,8 +673,7 @@
                 // it's a file!
                 ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection - 1];
                 ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-                
-                [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
+                [self didSelectFile:file];
             }
         }
 	}
@@ -613,6 +696,13 @@
     ttlLabel.text = [self ttlToHours];
     
 	// TODO: set timer, and then make API call to update TTL
+}
+
+#pragma mark Mail Composer Delegate
+
+// Dismisses the email composition interface when users tap Cancel or Send.
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {	
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 

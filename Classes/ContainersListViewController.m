@@ -22,7 +22,7 @@
 
 @implementation ContainersListViewController
 
-@synthesize containerRootViewController;
+@synthesize containerViewController;
 
 -(void)preselectContainer {
 	if ([containers count] == 0) {
@@ -221,24 +221,23 @@
  */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
-    vc.container = [containers objectAtIndex:indexPath.row];
-    [vc loadFiles];
-
+	if (containerViewController != nil) {
+		[containerViewController release];
+	}
+//	serverDetailViewController = [[ServerDetailViewController alloc] initWithNibName:@"ServerDetailViewController" bundle:nil];
+//	serverDetailViewController.serversListViewController = self;
+//	serverDetailViewController.detailItem = @"Server Details";
+//	serverDetailViewController.server = [servers objectAtIndex:indexPath.row];
+//	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
+//    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
+    
+    containerViewController = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
+    containerViewController.container = [containers objectAtIndex:indexPath.row];
+    [containerViewController loadFiles];
     RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
-    //app.splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, vc, nil];
-    app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], vc, nil];
-
-    //[app.splitViewController
-
-    //app.splitViewController.delegate = vc;
-    // TODO: release vc and navcontroller
-
-    // TODO: restore this after handling didSelect
-    // [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-    [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-
-    //[vc loadFiles];
+    app.splitViewController.viewControllers = [NSArray arrayWithObjects:[app.splitViewController.viewControllers objectAtIndex:0], containerViewController, nil];
+    //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, containerViewController, nil];
+    //[containerViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 }
 /*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath2:(NSIndexPath *)indexPath {
@@ -277,6 +276,7 @@
 - (void)dealloc {
 	[containers release];
 	[containersDict release];
+    [containerViewController release];
     [super dealloc];
 }
 

@@ -29,7 +29,7 @@
 
 #pragma mark -
 #pragma mark Managing the popover controller
-
+/*
 // When setting the detail item, update the view and dismiss the popover controller if it's showing.
 - (void)setDetailItem:(id)newDetailItem {
     if (detailItem != newDetailItem) {
@@ -44,10 +44,11 @@
         [popoverController dismissPopoverAnimated:YES];
     }        
 }
+ */
 
 #pragma mark -
 #pragma mark Split view support
-
+/*
 - (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)pc {
     
     barButtonItem.title = @"Services";
@@ -61,15 +62,15 @@
     [navigationBar.topItem setLeftBarButtonItem:nil animated:YES];
     self.popoverController = nil;
 }
-
+*/
 #pragma mark -
 #pragma mark Memory management
-
+/*
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
     self.popoverController = nil;
 }
-
+*/
 - (void)dealloc {
     [popoverController release];
     [navigationBar release];
