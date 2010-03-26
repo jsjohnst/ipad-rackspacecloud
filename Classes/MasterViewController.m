@@ -145,7 +145,8 @@
 
 - (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc 
 {	
-	barButtonItem.title = @"Button Title";
+        
+	barButtonItem.title = self.navigationController.topViewController.navigationItem.title; //@"Button Title";
 	self.popoverController = pc;
 	self.rootPopoverBarButtonItem = barButtonItem;
 	UIViewController <SubstitutableDetailViewController> *detailVC = [splitViewController.viewControllers objectAtIndex:1];

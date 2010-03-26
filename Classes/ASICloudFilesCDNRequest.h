@@ -50,7 +50,7 @@
 // X-TTL: 86400
 // X-CDN-Enabled: True
 + (id)postRequestWithContainer:(NSString *)containerName;
-+ (id)postRequestWithContainer:(NSString *)containerName cdnEnabled:(BOOL)cdnEnabled ttl:(NSUInteger)ttl;
++ (id)postRequestWithContainer:(NSString *)containerName cdnEnabled:(BOOL)cdnEnabled ttl:(NSUInteger)ttl loggingEnabled:(BOOL)loggingEnabled;
 // returns: - (NSString *)cdnURI;
 
 

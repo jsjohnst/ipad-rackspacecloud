@@ -25,8 +25,11 @@
     
     // ui elements
     IBOutlet UITableView *tableView;
+    IBOutlet UISlider *ttlSlider;
+    UILabel *ttlLabel;
     
     NSMutableArray *currentFolderNavigation;
+    
 }
 
 // data
@@ -41,7 +44,9 @@
 
 // ui elements
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UISlider *ttlSlider;
 
 - (void)loadFiles;
+- (void)ttlSliderMoved:(id)sender;
 
 @end

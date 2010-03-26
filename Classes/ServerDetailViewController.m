@@ -268,7 +268,14 @@
 		if (progressView == nil) {
 			progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
 			CGRect r = progressView.frame;
-			r.origin.x += 260; // TODO: +63 more for portrait mode
+            
+            if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+                r.origin.x += 323;
+            } else { // UIInterfaceOrientationLandscapeLeft || UIInterfaceOrientationLandscapeRight	
+                r.origin.x += 260;
+            }                    
+            
+            
 			r.origin.y += 18;
 			r.size.width += 230;
 			progressView.frame = r;		
@@ -549,6 +556,7 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {	
+    [self.tableView reloadData];
 	if (fromInterfaceOrientation == UIInterfaceOrientationPortrait || fromInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
 		self.noServersImage.frame = CGRectMake(102, 37, 500, 500);
 		self.noServersTitle.frame = CGRectMake(301, 567, 102, 22);

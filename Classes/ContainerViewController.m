@@ -12,8 +12,10 @@
 #import "ASICloudFilesObjectRequest.h"
 #import "ASICloudFilesObject.h"
 #import "UISwitchCell.h"
+#import "SliderCell.h"
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+RackspaceCloud.h"
+#import "ASICloudFilesCDNRequest.h"
 
 
 @implementation ContainerViewController
@@ -25,7 +27,7 @@
 @synthesize noFilesView, noFilesImage, noFilesTitle, noFilesMessage;
 
 // ui elements
-@synthesize tableView;
+@synthesize tableView, ttlSlider;
 
 #pragma mark -
 #pragma mark HTTP Request Handlers
@@ -62,10 +64,64 @@
 	[self.tableView reloadData];
 }
 
+- (void)ttlUpdateSuccess:(ASICloudFilesCDNRequest *)request {
+    NSLog(@"TTL update response: %i", [request responseStatusCode]);
+    [self hideSpinnerView];
+}
+
+- (void)cdnEnableSuccess:(ASICloudFilesCDNRequest *)request {
+    NSLog(@"CDN enable response: %i", [request responseStatusCode]);
+    [self hideSpinnerView];
+    [self.tableView reloadData];
+}
+
+- (void)cdnLoggingSuccess:(ASICloudFilesCDNRequest *)request {
+    NSLog(@"CDN logging response: %i", [request responseStatusCode]);
+    [self hideSpinnerView];
+}
+
 - (void)loadFiles {
     rootFolder = nil;
 	[self request:[ASICloudFilesObjectRequest listRequestWithContainer:self.container.name] behavior:@"listing your files" success:@selector(listFilesSuccess:)];
 }
+
+#pragma mark -
+#pragma mark Switch Handlers
+
+- (void)cdnSwitchChanged:(id)sender {
+    UISwitch *uiSwitch = (UISwitch *)sender;
+	NSLog(@"cdn switch tapped %@", sender);
+    
+    // now, this is a little weird.  if a container has never been CDN enabled, you must enable with a PUT.
+    // if it has ever been CDN enabled, you must use post
+    
+    if (self.container.cdnEnabled) {
+        // definitely a POST
+        ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest postRequestWithContainer:self.container.name cdnEnabled:uiSwitch.on ttl:self.container.ttl loggingEnabled:self.container.logRetention];
+        [self request:request behavior:@"updating CDN attributes" success:@selector(cdnEnableSuccess:) showSpinner:YES];        
+    } else {
+        if (uiSwitch.on) {
+            ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest putRequestWithContainer:self.container.name];
+            [self request:request behavior:@"updating CDN attributes" success:@selector(cdnEnableSuccess:) showSpinner:YES];        
+            ASICloudFilesCDNRequest *postRequest = [ASICloudFilesCDNRequest postRequestWithContainer:self.container.name cdnEnabled:uiSwitch.on ttl:self.container.ttl loggingEnabled:self.container.logRetention];
+            [self request:postRequest behavior:@"updating CDN attributes" success:@selector(cdnEnableSuccess:) showSpinner:NO];        
+        } else {
+            ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest postRequestWithContainer:self.container.name cdnEnabled:uiSwitch.on ttl:self.container.ttl loggingEnabled:self.container.logRetention];
+            [self request:request behavior:@"updating CDN attributes" success:@selector(cdnEnableSuccess:) showSpinner:YES];        
+        }
+        
+    }
+    
+    self.container.cdnEnabled = uiSwitch.on;
+    
+}
+
+//- (void)logSwitchChanged:(id)sender {
+//    UISwitch *uiSwitch = (UISwitch *)sender;
+//	NSLog(@"log switch tapped %@, %i", sender, uiSwitch.on);
+//    ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest postRequestWithContainer:self.container.name cdnEnabled:self.container.cdnEnabled ttl:self.container.ttl loggingEnabled:uiSwitch.on];
+//    [self request:request behavior:@"updating the TTL" success:@selector(ttlUpdateSuccess:) showSpinner:YES];    
+//}
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -145,7 +201,6 @@
 	}
 }
 
-
 #pragma mark -
 #pragma mark Table view data source
 
@@ -182,7 +237,7 @@
 		return 2;
 	} else if (section == 1) {
         if (self.container.cdnEnabled) {
-            return 4;
+            return 3;
         } else {
             return 1;
         }
@@ -278,6 +333,54 @@
 	return cell;
 }
 
+- (float)ttlToPercentage {
+    return self.container.ttl / 259200.0;
+}
+
+- (NSInteger)ttlFromPercentage:(float)percentage {
+    return percentage * 259200;
+}
+
+- (NSString *)ttlToHours {
+    NSString *result = [NSString stringWithFormat:@"%.0f hours", self.container.ttl / 3600.0];
+    if ([result isEqualToString:@"1 hours"]) {
+        result = @"1 hour";
+    }
+    return result;
+}
+
+- (UITableViewCell *)sliderCell:(UITableView *)aTableView label:(NSString *)label action:(SEL)action value:(BOOL)value {
+	SliderCell *cell = (SliderCell *)[aTableView dequeueReusableCellWithIdentifier:label];
+	
+	if (cell == nil) {
+		//cell = [[SliderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:label delegate:self action:action value:value];
+        cell = [[SliderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:label];
+	}
+    
+    // handle orientation placement issues
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        CGRect rect = CGRectMake(310.0, 9.0, 330.0, 27.0);
+        cell.slider.frame = rect;
+    } else {
+        CGRect rect = CGRectMake(247.0, 9.0, 330.0, 27.0);
+        cell.slider.frame = rect;
+    }
+    
+
+    [cell.slider addTarget:self action:@selector(ttlSliderMoved:) forControlEvents:UIControlEventValueChanged];
+    [cell.slider addTarget:self action:@selector(ttlSliderFinished:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.slider.value = [self ttlToPercentage];
+    ttlSlider = cell.slider;
+    
+	cell.textLabel.text = label;
+    cell.detailTextLabel.text = [self ttlToHours]; // [NSString stringWithFormat:@"%d", container.ttl];
+	
+    ttlLabel = cell.detailTextLabel;
+    
+	return cell;
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -317,18 +420,23 @@
 		} else if (indexPath.row == 1) {
 			cell.textLabel.text = @"CDN URL";
 			cell.detailTextLabel.text = container.cdnURL; // TODO: tap with UIActionSheet to copy, email, shorten, etc
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		} else if (indexPath.row == 2) {
-			cell.textLabel.text = @"TTL";
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", container.ttl]; // TODO: UISlider
 			cell.accessoryType = UITableViewCellAccessoryNone;
-		} else {
-			return [self switchCell:aTableView label:@"CDN Logging Enabled" action:@selector(logSwitchChanged:) value:container.logRetention];			
+		} else if (indexPath.row == 2) {
+//			cell.textLabel.text = @"TTL";
+//			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", container.ttl]; // TODO: UISlider
+//			cell.accessoryType = UITableViewCellAccessoryNone;
+            return [self sliderCell:aTableView label:@"TTL" action:nil value:YES];
+            
+        // TODO: bring back log switch
+//		} else {
+//			return [self switchCell:aTableView label:@"CDN Logging Enabled" action:@selector(logSwitchChanged:) value:container.logRetention];			
 		}
 		
 		
 	} else if (indexPath.section >= 2) {
 		// either files or folders
+        cell.accessoryType = UITableViewCellAccessoryNone;
+
         NSInteger offsetSection = indexPath.section - 2;
 	    
 	    
@@ -391,7 +499,12 @@
 
 - (NSString *)currentPath {
     NSString *path = @"";
-    for (int i = 0; i < [currentFolderNavigation count]; i++) {
+    int i = 1;
+    if (self.container.cdnURL != nil) {
+        path = [path stringByAppendingString:[NSString stringWithFormat:@"%@", self.container.cdnURL]];
+        i = 0;
+    }
+    for (; i < [currentFolderNavigation count]; i++) {
         ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:i];
         path = [path stringByAppendingString:[NSString stringWithFormat:@"%@/", folder.name]];
     }
@@ -410,69 +523,98 @@
         // either files or folders
         NSInteger offsetSection = indexPath.section - 2;
 
-        if (offsetSection < [currentFolderNavigation count]) {
-            // it's a folder in the stack
-            if (indexPath.row > 0) {
-                // it's a subfolder
-
-                ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];
-                
-                if ([folder.folders count] > 0) {
-                
-                    ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
-                    
-                    if ([currentFolderNavigation count] == (offsetSection - 1)) {
-                        // we're at the deepest folder, so push on the stack
-                        NSLog(@"adding to currentFolderNavigation");
-                        [currentFolderNavigation addObject:currentFolder];
-                        NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
-                        [aTableView reloadData];
-                        
-                        // TODO: this is how to animate it
-                        //NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
-                        //NSIndexSet *sections = [NSindexSet indexSetWithIndexesInRange:NSMakeRange(0, count)];                    
-                        //[aTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
-                        
-                    } else {
-                        // we need to adjust the stack since we're going up the tree                    
-                        while (offsetSection < ([currentFolderNavigation count] - 1)) {
-                            NSLog(@"remove from folder nav");
-                            [currentFolderNavigation removeLastObject];
-                        }
-                        NSLog(@"adding to currentFolderNavigation");
-                        [currentFolderNavigation addObject:currentFolder];
-                        NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
-                        [aTableView reloadData];
-                    }
-                } else {
-                    // it's a file!
-                    ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
-                    ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-                    
-                    [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
-                }
-            } else {
-                while (offsetSection < ([currentFolderNavigation count] - 1)) {
-                    NSLog(@"remove from folder nav");
-                    [currentFolderNavigation removeLastObject];
-                }
-                NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
-                [aTableView reloadData];
-                // it's the root of the current folder in the section
-                // ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
-                // cell.textLabel.text = @"/";
-                // // TODO: include humanized size in folder object and detailText here
-                // cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
-            }
-        } else {
+        if ([self numberOfSectionsInTableView:aTableView] == 3) {
             // it's a file!
-            ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection - 1];
+            ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
             ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
             
             [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
+        } else {            
+            
+            if (offsetSection < [currentFolderNavigation count]) {
+                // it's a folder in the stack
+                if (indexPath.row > 0) {
+                    // it's a subfolder
+
+                    ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];
+                    
+                    if ([folder.folders count] > 0) {
+                    
+                        ASICloudFilesFolder *currentFolder = [folder.folders objectAtIndex:indexPath.row - 1];
+                        
+                        if ([currentFolderNavigation count] == (offsetSection - 1)) {
+                            // we're at the deepest folder, so push on the stack
+                            NSLog(@"adding to currentFolderNavigation");
+                            [currentFolderNavigation addObject:currentFolder];
+                            NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                            [aTableView reloadData];
+                            
+                            // TODO: this is how to animate it
+                            //NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
+                            //NSIndexSet *sections = [NSindexSet indexSetWithIndexesInRange:NSMakeRange(0, count)];                    
+                            //[aTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
+                            
+                        } else {
+                            // we need to adjust the stack since we're going up the tree                    
+                            while (offsetSection < ([currentFolderNavigation count] - 1)) {
+                                NSLog(@"remove from folder nav");
+                                [currentFolderNavigation removeLastObject];
+                            }
+                            NSLog(@"adding to currentFolderNavigation");
+                            [currentFolderNavigation addObject:currentFolder];
+                            NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                            [aTableView reloadData];
+                        }
+                    } else {
+                        // it's a file!
+                        ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
+                        ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+                        
+                        [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
+                    }
+                } else {
+                    while (offsetSection < ([currentFolderNavigation count] - 1)) {
+                        NSLog(@"remove from folder nav");
+                        [currentFolderNavigation removeLastObject];
+                    }
+                    NSLog(@"currentFolderNavigation now has %i items", [currentFolderNavigation count]);
+                    [aTableView reloadData];
+                    // it's the root of the current folder in the section
+                    // ASICloudFilesFolder *folder = [currentFolderNavigation objectAtIndex:offsetSection];            
+                    // cell.textLabel.text = @"/";
+                    // // TODO: include humanized size in folder object and detailText here
+                    // cell.detailTextLabel.text = [NSString stringWithFormat:@"%i files", [folder.files count]];
+                }
+            } else {
+                // it's a file!
+                ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection - 1];
+                ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+                
+                [self alert:@"File!" message:[NSString stringWithFormat:@"it's a file: %@%@", [self currentPath], file.name]];
+            }
         }
 	}
 }
+
+#pragma mark -
+#pragma mark Slider Handler
+
+// - (void)setValue:(float)value animated:(BOOL)animated
+
+- (void)ttlSliderFinished:(id)sender {
+    ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest postRequestWithContainer:self.container.name cdnEnabled:self.container.cdnEnabled ttl:self.container.ttl loggingEnabled:self.container.logRetention];
+    [self request:request behavior:@"updating the TTL" success:@selector(ttlUpdateSuccess:) showSpinner:YES];    
+}
+
+- (void)ttlSliderMoved:(id)sender {
+	float newTTL = ttlSlider.value;
+    self.container.ttl = [self ttlFromPercentage:newTTL];
+    //[self.tableView reloadData];
+    ttlLabel.text = [self ttlToHours];
+    
+	// TODO: set timer, and then make API call to update TTL
+}
+
 
 #pragma mark -
 #pragma mark Memory management
@@ -498,6 +640,7 @@
     [noFilesTitle release];
     [noFilesMessage release];
     [tableView release];
+    [ttlSlider release];
     [currentFolderNavigation release];
     
     [super dealloc];

@@ -125,12 +125,13 @@
 	return request;
 }
 
-+ (id)postRequestWithContainer:(NSString *)containerName cdnEnabled:(BOOL)cdnEnabled ttl:(NSUInteger)ttl {
++ (id)postRequestWithContainer:(NSString *)containerName cdnEnabled:(BOOL)cdnEnabled ttl:(NSUInteger)ttl loggingEnabled:(BOOL)loggingEnabled {
 	ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest cdnRequestWithMethod:@"POST" containerName:containerName];
 	if (ttl > 0) {
 		[request addRequestHeader:@"X-Ttl" value:[NSString stringWithFormat:@"%i", ttl]];
 	}
 	[request addRequestHeader:@"X-Cdn-Enabled" value:cdnEnabled ? @"True" : @"False"];
+    [request addRequestHeader:@"X-Log-Retention" value:loggingEnabled ? @"True" : @"False"];
 	return request;
 }
 

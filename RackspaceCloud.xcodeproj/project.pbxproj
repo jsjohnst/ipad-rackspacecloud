@@ -73,6 +73,10 @@
 		27425CC51138668500EB084A /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 27425CB71138668500EB084A /* NSString+UUID.m */; };
 		27425CDC113873E600EB084A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27425CDB113873E600EB084A /* libxml2.dylib */; };
 		27425E4B113A105900EB084A /* UISwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27425E4A113A105900EB084A /* UISwitchCell.m */; };
+		2755842C115C6A91005E4DCB /* Default-LandscapeLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 27558428115C6A91005E4DCB /* Default-LandscapeLeft.png */; };
+		2755842D115C6A91005E4DCB /* Default-LandscapeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 27558429115C6A91005E4DCB /* Default-LandscapeRight.png */; };
+		2755842E115C6A91005E4DCB /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 2755842A115C6A91005E4DCB /* Default-Portrait.png */; };
+		2755842F115C6A91005E4DCB /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 2755842B115C6A91005E4DCB /* Default-PortraitUpsideDown.png */; };
 		2757F44E112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */; };
 		2757F4871121057E00C55ED8 /* ASICloudServersImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F4861121057E00C55ED8 /* ASICloudServersImageRequest.m */; };
 		2757F54611210D1C00C55ED8 /* ASICloudServersFlavorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757F54511210D1C00C55ED8 /* ASICloudServersFlavorRequest.m */; };
@@ -146,10 +150,6 @@
 		27BC50CF11407B4800D7879A /* DTSnapGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC50C511407B4800D7879A /* DTSnapGridView.m */; };
 		27BC50D011407B4800D7879A /* DTSnapGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC50C711407B4800D7879A /* DTSnapGridViewCell.m */; };
 		27BC50D111407B4800D7879A /* DTInfiniteGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC50CA11407B4800D7879A /* DTInfiniteGridView.m */; };
-		27BC513C1142056400D7879A /* Default-LandscapeLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC51381142056400D7879A /* Default-LandscapeLeft.png */; };
-		27BC513D1142056400D7879A /* Default-LandscapeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC51391142056400D7879A /* Default-LandscapeRight.png */; };
-		27BC513F1142056400D7879A /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC513B1142056400D7879A /* Default-PortraitUpsideDown.png */; };
-		27BC5143114205BA00D7879A /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC5142114205BA00D7879A /* Default-Portrait.png */; };
 		27BC51991142EBCF00D7879A /* files500.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC51981142EBCF00D7879A /* files500.png */; };
 		27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */; };
 		27BE5FE211169BC900CA6704 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE5FE011169BC900CA6704 /* ContainersListViewController.m */; };
@@ -336,6 +336,10 @@
 		27425CDB113873E600EB084A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		27425E49113A105900EB084A /* UISwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISwitchCell.h; sourceTree = "<group>"; };
 		27425E4A113A105900EB084A /* UISwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISwitchCell.m; sourceTree = "<group>"; };
+		27558428115C6A91005E4DCB /* Default-LandscapeLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-LandscapeLeft.png"; sourceTree = "<group>"; };
+		27558429115C6A91005E4DCB /* Default-LandscapeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-LandscapeRight.png"; sourceTree = "<group>"; };
+		2755842A115C6A91005E4DCB /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		2755842B115C6A91005E4DCB /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
 		2757F44C112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageXMLParserDelegate.h; sourceTree = "<group>"; };
 		2757F44D112103E100C55ED8 /* ASICloudServersImageXMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersImageXMLParserDelegate.m; sourceTree = "<group>"; };
 		2757F4851121057E00C55ED8 /* ASICloudServersImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICloudServersImageRequest.h; sourceTree = "<group>"; };
@@ -442,10 +446,6 @@
 		27BC50C711407B4800D7879A /* DTSnapGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSnapGridViewCell.m; sourceTree = "<group>"; };
 		27BC50C911407B4800D7879A /* DTInfiniteGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTInfiniteGridView.h; sourceTree = "<group>"; };
 		27BC50CA11407B4800D7879A /* DTInfiniteGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTInfiniteGridView.m; sourceTree = "<group>"; };
-		27BC51381142056400D7879A /* Default-LandscapeLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-LandscapeLeft.png"; sourceTree = "<group>"; };
-		27BC51391142056400D7879A /* Default-LandscapeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-LandscapeRight.png"; sourceTree = "<group>"; };
-		27BC513B1142056400D7879A /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
-		27BC5142114205BA00D7879A /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		27BC51981142EBCF00D7879A /* files500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = files500.png; sourceTree = "<group>"; };
 		27BC523E114309AE00D7879A /* RSSTableViewDelegateAndDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSTableViewDelegateAndDataSource.h; sourceTree = "<group>"; };
 		27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSTableViewDelegateAndDataSource.m; sourceTree = "<group>"; };
@@ -1049,10 +1049,10 @@
 		27BC512F1142055700D7879A /* Launch Images */ = {
 			isa = PBXGroup;
 			children = (
-				27BC5142114205BA00D7879A /* Default-Portrait.png */,
-				27BC51381142056400D7879A /* Default-LandscapeLeft.png */,
-				27BC51391142056400D7879A /* Default-LandscapeRight.png */,
-				27BC513B1142056400D7879A /* Default-PortraitUpsideDown.png */,
+				27558428115C6A91005E4DCB /* Default-LandscapeLeft.png */,
+				27558429115C6A91005E4DCB /* Default-LandscapeRight.png */,
+				2755842A115C6A91005E4DCB /* Default-Portrait.png */,
+				2755842B115C6A91005E4DCB /* Default-PortraitUpsideDown.png */,
 			);
 			name = "Launch Images";
 			sourceTree = "<group>";
@@ -1410,10 +1410,6 @@
 				276E104B113F866D00E3DDCD /* rackspace1081.png in Resources */,
 				27BC5094113F8E4D00D7879A /* gentoo-large.png in Resources */,
 				27BC5095113F8E4D00D7879A /* gentoo-icon.png in Resources */,
-				27BC513C1142056400D7879A /* Default-LandscapeLeft.png in Resources */,
-				27BC513D1142056400D7879A /* Default-LandscapeRight.png in Resources */,
-				27BC513F1142056400D7879A /* Default-PortraitUpsideDown.png in Resources */,
-				27BC5143114205BA00D7879A /* Default-Portrait.png in Resources */,
 				27BC51991142EBCF00D7879A /* files500.png in Resources */,
 				2768BF671149744A00758718 /* FolderViewController.xib in Resources */,
 				27089D43114A2AC600A1BFE8 /* FileViewController.xib in Resources */,
@@ -1425,6 +1421,10 @@
 				271A912211584E9800B34C91 /* cloudserver2.png in Resources */,
 				271A91D011585A7800B34C91 /* ContainerNavigationController.xib in Resources */,
 				271A98B3115BCAA400B34C91 /* ContainerViewController.xib in Resources */,
+				2755842C115C6A91005E4DCB /* Default-LandscapeLeft.png in Resources */,
+				2755842D115C6A91005E4DCB /* Default-LandscapeRight.png in Resources */,
+				2755842E115C6A91005E4DCB /* Default-Portrait.png in Resources */,
+				2755842F115C6A91005E4DCB /* Default-PortraitUpsideDown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
