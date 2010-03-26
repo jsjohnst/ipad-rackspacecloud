@@ -53,7 +53,7 @@
 
 #pragma mark -
 #pragma mark Defined in SubstitutableDetailViewController protocol
-
+/*
 - (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem 
 {
 	[navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
@@ -63,7 +63,7 @@
 {
 	[navigationBar.topItem setLeftBarButtonItem:nil animated:NO];
 }
-
+*/
 
 #pragma mark -
 #pragma mark Memory management

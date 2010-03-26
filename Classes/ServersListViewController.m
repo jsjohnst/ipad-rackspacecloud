@@ -21,6 +21,12 @@
 
 @synthesize serverDetailViewController;
 
+// split view
+@synthesize splitViewController;
+@synthesize rootPopoverBarButtonItem;
+@synthesize popoverController;
+
+
 -(void)refreshServer:(ASICloudServersServer *)server {
     for (int i = 0; i < [servers count]; i++) {
         ASICloudServersServer *currentServer = [servers objectAtIndex:i];
@@ -43,7 +49,11 @@
 		serverDetailViewController.serversListViewController = self;
 		serverDetailViewController.detailItem = @"Server Details";
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-		//app.splitViewController.delegate = serverDetailViewController;
+		
+        // split view
+        //app.splitViewController.delegate = self;
+        //app.splitViewController.delegate = serverDetailViewController;
+        
         [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 	} else {
 		if (serverDetailViewController != nil) {
@@ -54,8 +64,12 @@
 		serverDetailViewController.detailItem = @"Server Details";
 		serverDetailViewController.server = [servers objectAtIndex:0];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-		//app.splitViewController.delegate = serverDetailViewController;
-		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+		
+        // split view
+        //app.splitViewController.delegate = self;
+        //app.splitViewController.delegate = serverDetailViewController;
+		
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
         [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 	}
     
@@ -96,6 +110,11 @@
 	self.navigationItem.title = @"Servers";
 	servers = [[NSMutableArray alloc] init];
 		
+    // split view
+    self.clearsSelectionOnViewWillAppear = NO;
+	self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+
+    
 	[self loadServers];
 }
 
@@ -177,11 +196,50 @@
     
 }
 
+#pragma mark -
+#pragma mark Size for popover
+// The size the view should be when presented in a popover.
+- (CGSize)contentSizeForViewInPopoverView {
+    return CGSizeMake(320.0, 600.0);
+}
+
+#pragma mark -
+#pragma mark SplitViewController Delegate methods
+
+- (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	
+    
+	barButtonItem.title = self.navigationController.topViewController.navigationItem.title; //@"Button Title";
+    
+    self.popoverController = pc;
+    
+	self.rootPopoverBarButtonItem = barButtonItem;
+	UIViewController <SubstitutableDetailViewController> *detailVC = [splitViewController.viewControllers objectAtIndex:1];
+    [detailVC showRootPopoverButtonItem:self.rootPopoverBarButtonItem];
+}
+
+- (void)splitViewController:(UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+    UIViewController <SubstitutableDetailViewController> *detailVC = [splitViewController.viewControllers objectAtIndex:1];
+    [detailVC invalidateRootPopoverButtonItem:self.rootPopoverBarButtonItem];
+    self.popoverController = nil;
+    self.rootPopoverBarButtonItem = nil;
+}
+
+- (void)splitViewController:(UISplitViewController*)svc popoverController:(UIPopoverController*)pc willPresentViewController:(UIViewController *)aViewController {
+    //NSLog(@"popover! %@, %@", pc, aViewController);
+}
+
 - (void)dealloc {
 	[servers release];
 	if (serverDetailViewController != nil) {
 		[serverDetailViewController release];
 	}
+    
+    // split view
+	self.rootPopoverBarButtonItem = nil;
+	self.popoverController = nil;
+	self.splitViewController = nil;
+   
+    
     [super dealloc];
 }
 

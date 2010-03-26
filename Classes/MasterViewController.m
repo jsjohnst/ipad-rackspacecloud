@@ -58,6 +58,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.opaque = YES;
+    
     [super viewWillAppear:animated];
 }
 
@@ -130,9 +131,16 @@
      */
 	
 	if (indexPath.row == 0) {
-		detailViewController.detailItem = @"Rackspace Cloud System Status";
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
-		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
+        UIViewController *vc = [self.splitViewController.viewControllers objectAtIndex:1];
+        [vc.view addSubview:app.detailViewController.view];
+        
+        /* // TODO: button bug may be here
+        
+		detailViewController.detailItem = @"Rackspace Cloud System Status";
+		//app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
+        app.splitViewController.viewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], app.detailViewController, nil];
+
 		//app.splitViewController.delegate = app.detailViewController;
         app.splitViewController.delegate = self;
         
@@ -140,6 +148,7 @@
             // force the button to stay
             [detailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
         }
+        /* */
         
 	} else if (indexPath.row == 1) {
 		ServersListViewController *vc = [[ServersListViewController alloc] initWithNibName:@"ServersListViewController" bundle:nil];
@@ -157,6 +166,7 @@
 #pragma mark SplitViewController Delegate methods
 
 - (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	
+    NSLog(@"splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	");
         
 	barButtonItem.title = self.navigationController.topViewController.navigationItem.title; //@"Button Title";
 
@@ -168,16 +178,17 @@
 }
 
 - (void)splitViewController:(UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+    NSLog(@"splitViewController:(UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {");
     UIViewController <SubstitutableDetailViewController> *detailVC = [splitViewController.viewControllers objectAtIndex:1];
     [detailVC invalidateRootPopoverButtonItem:self.rootPopoverBarButtonItem];
     self.popoverController = nil;
     self.rootPopoverBarButtonItem = nil;
 }
 
-- (void)splitViewController:(UISplitViewController*)svc popoverController:(UIPopoverController*)pc willPresentViewController:(UIViewController *)aViewController {
-    //NSLog(@"popover! %@, %@", pc, aViewController);
+- (void)splitViewController:(UISplitViewController*)svc popoverController:(UIPopoverController*)pc willPresentViewController:(UIViewController *)aViewController {    
+    NSLog(@"popover! %@, %@, %@", pc, aViewController, self.rootPopoverBarButtonItem);
+    //[popoverController presentPopoverFromBarButtonItem:self.rootPopoverBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
-
 
 #pragma mark -
 #pragma mark Memory management

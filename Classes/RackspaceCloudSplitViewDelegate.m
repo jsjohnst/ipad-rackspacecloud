@@ -18,11 +18,17 @@
 
 - (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem 
 {
-	[navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
+    NSLog(@"showRootPopoverButtonItem");
+    //if (navigationBar.topItem.leftBarButtonItem == nil) {
+        [navigationBar.topItem setLeftBarButtonItem:barButtonItem animated:NO];
+    //}
+    //navigationBar.topItem.leftBarButtonItem.width = 0.0;
 }
 
 - (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem
 {
+    NSLog(@"invalidateRootPopoverButtonItem");
+    //navigationBar.topItem.leftBarButtonItem.width = 0.0001;
 	[navigationBar.topItem setLeftBarButtonItem:nil animated:NO];
 }
 
