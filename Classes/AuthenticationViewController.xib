@@ -57,7 +57,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">rackspacecloud1081.png</string>
+							<string key="NSResourceName">rackspace1081.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="724786153">
@@ -1010,14 +1010,14 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>cloud-hosting.png</string>
-				<string>rackspacecloud1081.png</string>
+				<string>rackspace1081.png</string>
 				<string>silvergradient.png</string>
 				<string>trans100.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{279, 62}</string>
-				<string>{16, 16}</string>
+				<string>{1081, 1110}</string>
 				<string>{19, 681}</string>
 				<string>{16, 100}</string>
 			</object>

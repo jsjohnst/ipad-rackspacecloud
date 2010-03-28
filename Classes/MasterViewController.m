@@ -62,19 +62,32 @@
     [super viewWillAppear:animated];
 }
 
+- (void)preselect {
+    detailViewController.detailItem = @"Rackspace Cloud System Status";
+    RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
+    app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
+    app.splitViewController.delegate = self;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [detailViewController.tableView reloadData];
+    hasPreselected = YES;
+    selectedIndex = 0;
+}
+
 - (void)viewDidAppear:(BOOL)animated {    
     [super viewDidAppear:animated];
 
     // preselect system status
     /**/
     if (!hasPreselected) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(preselect) userInfo:nil repeats:NO];	
         detailViewController.detailItem = @"Rackspace Cloud System Status";
         RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
         app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, app.detailViewController, nil];
         app.splitViewController.delegate = self;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
         [detailViewController.tableView reloadData];
         hasPreselected = YES;
+        selectedIndex = 0;
     }
     /* */
 }
@@ -109,6 +122,9 @@
 	if (indexPath.row == 0) {
 		cell.textLabel.text = @"System Status";
 		cell.accessoryType = UITableViewCellAccessoryNone;
+//        if (selectedIndex == 0) {
+//            cell.selected = YES;
+//        }
 	} else if (indexPath.row == 1) {
 		cell.textLabel.text = @"Cloud Servers";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -132,8 +148,34 @@
 	
 	if (indexPath.row == 0) {
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
-        UIViewController *vc = [self.splitViewController.viewControllers objectAtIndex:1];
+        //UIViewController *vc = [self.splitViewController.viewControllers objectAtIndex:1];
+        if (detailViewController != nil) {
+            [detailViewController release];
+        }
+        detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
+        /*
+        CGRect rect = vc.view.frame;
         [vc.view addSubview:app.detailViewController.view];
+        
+        if (self.interfaceOrientation != UIInterfaceOrientationPortrait && self.interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown) {
+            rect.origin.x -= 321.0;
+        }
+        
+        
+        app.detailViewController.view.frame = rect;
+         */
+        
+        //vc = app.detailViewController;
+
+        app.splitViewController.viewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], detailViewController, nil];        
+        if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+            // force the button to stay
+            [detailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
+        }
+        
+        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, vc, nil];
+        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], app.detailViewController, nil];        
+        //app.splitViewController.viewControllers = [NSArray arrayWithObjects:[self.splitViewController.viewControllers objectAtIndex:0], [self.splitViewController.viewControllers objectAtIndex:1], nil];        
         
         /* // TODO: button bug may be here
         
@@ -149,6 +191,8 @@
             [detailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
         }
         /* */
+        
+        [popoverController dismissPopoverAnimated:YES];
         
 	} else if (indexPath.row == 1) {
 		ServersListViewController *vc = [[ServersListViewController alloc] initWithNibName:@"ServersListViewController" bundle:nil];
@@ -168,7 +212,7 @@
 - (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	
     NSLog(@"splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	");
         
-	barButtonItem.title = self.navigationController.topViewController.navigationItem.title; //@"Button Title";
+	barButtonItem.title = @"Services"; //self.navigationController.topViewController.navigationItem.title; //@"Button Title";
 
     self.popoverController = pc;
     

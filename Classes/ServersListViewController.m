@@ -194,6 +194,7 @@
         [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
     }
     
+    [app.masterViewController.popoverController dismissPopoverAnimated:YES];
 }
 
 #pragma mark -
@@ -208,7 +209,7 @@
 
 - (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	
     
-	barButtonItem.title = self.navigationController.topViewController.navigationItem.title; //@"Button Title";
+	barButtonItem.title = @"Services"; //self.navigationController.topViewController.navigationItem.title; //@"Button Title";
     
     self.popoverController = pc;
     

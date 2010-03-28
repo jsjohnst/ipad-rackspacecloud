@@ -18,6 +18,7 @@
 	UIPopoverController *popoverController;
 	UIBarButtonItem *rootPopoverBarButtonItem;
     BOOL hasPreselected;
+    NSInteger selectedIndex;
 }
 
 @property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;

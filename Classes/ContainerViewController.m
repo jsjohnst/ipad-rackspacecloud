@@ -503,7 +503,10 @@
     MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
     vc.mailComposeDelegate = self;		
     [vc setSubject:selectedFile.name];
-    NSString *emailBody = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [selectedFile.name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSString *name = [NSString stringWithFormat:@"%@%@", [self currentPath], selectedFile.name];
+    
+    NSString *emailBody = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [vc setMessageBody:emailBody isHTML:NO];
     [self presentModalViewController:vc animated:YES];
     [vc release];
@@ -532,7 +535,8 @@
 }
 
 - (void)emailFileAsAttachment {
-    ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:[NSString stringWithFormat:@"%@%@", [self currentPath], selectedFile.name]];
+    NSString *name = [NSString stringWithFormat:@"%@%@", [self currentPath], selectedFile.name];
+    ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest getObjectRequestWithContainer:self.container.name objectPath:[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [self request:request behavior:@"attaching your file" success:@selector(downloadFileToAttachSuccess:) showSpinner:showSpinner];
 }
 

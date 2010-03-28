@@ -140,6 +140,8 @@
 	self.navigationItem.rightBarButtonItem = refreshButton;
 	[refreshButton release];
 	
+    self.clearsSelectionOnViewWillAppear = NO;
+    
     [self loadContainers];
 }
 
@@ -216,6 +218,7 @@
         [containerViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
     }
     
+    [app.masterViewController.popoverController dismissPopoverAnimated:YES];
 }
 /*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath2:(NSIndexPath *)indexPath {
@@ -245,6 +248,13 @@
     // Override to allow orientations other than the default portrait orientation.
     //NSLog(@"container list shouldAutorotateToInterfaceOrientation");
     return YES;
+}
+
+#pragma mark -
+#pragma mark Size for popover
+// The size the view should be when presented in a popover.
+- (CGSize)contentSizeForViewInPopoverView {
+    return CGSizeMake(320.0, 600.0);
 }
 
 
