@@ -156,6 +156,10 @@
 		27BE5FE311169BC900CA6704 /* ContainersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */; };
 		27BE600D11169CEC00CA6704 /* ContainerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */; };
 		27BE600E11169CEC00CA6704 /* ContainerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27BE600C11169CEC00CA6704 /* ContainerDetailViewController.xib */; };
+		27D33F0E1162C73400556BCC /* rackspacecloud29.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D33F0C1162C73400556BCC /* rackspacecloud29.png */; };
+		27D33F0F1162C73400556BCC /* rackspacecloud50.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D33F0D1162C73400556BCC /* rackspacecloud50.png */; };
+		27D33F131162C7DF00556BCC /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D33F111162C7DF00556BCC /* Icon-Small-50.png */; };
+		27D33F141162C7DF00556BCC /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D33F121162C7DF00556BCC /* Icon-Small.png */; };
 		27D6674C111156F100654554 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66740111156F100654554 /* ASIAuthenticationDialog.m */; };
 		27D6674D111156F100654554 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66742111156F100654554 /* ASIFormDataRequest.m */; };
 		27D6674E111156F100654554 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66744111156F100654554 /* ASIHTTPRequest.m */; };
@@ -188,6 +192,12 @@
 		27D66E1B11129C1C00654554 /* ServerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D66E1911129C1C00654554 /* ServerDetailViewController.m */; };
 		27D66E1C11129C1C00654554 /* ServerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27D66E1A11129C1C00654554 /* ServerDetailViewController.xib */; };
 		27D66F1B11135FDA00654554 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D66F1A11135FDA00654554 /* MapKit.framework */; };
+		27FC8E58116E2CE700250D42 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC8E56116E2CE700250D42 /* SettingsViewController.m */; };
+		27FC8E59116E2CE700250D42 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC8E57116E2CE700250D42 /* SettingsViewController.xib */; };
+		27FC8FC5116E699700250D42 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC8FC3116E699700250D42 /* AccountViewController.m */; };
+		27FC8FC6116E699700250D42 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC8FC4116E699700250D42 /* AccountViewController.xib */; };
+		27FC9143116E8F5400250D42 /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9141116E8F5400250D42 /* LogoutViewController.m */; };
+		27FC9144116E8F5400250D42 /* LogoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC9142116E8F5400250D42 /* LogoutViewController.xib */; };
 		2804200B108E984D000629CD /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28042008108E984D000629CD /* MasterViewController.m */; };
 		2804200C108E984D000629CD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2804200A108E984D000629CD /* DetailViewController.m */; };
 		2804203C108E9BAB000629CD /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2804203B108E9BAB000629CD /* DetailView.xib */; };
@@ -455,6 +465,10 @@
 		27BE600A11169CEC00CA6704 /* ContainerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailViewController.h; sourceTree = "<group>"; };
 		27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailViewController.m; sourceTree = "<group>"; };
 		27BE600C11169CEC00CA6704 /* ContainerDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerDetailViewController.xib; sourceTree = "<group>"; };
+		27D33F0C1162C73400556BCC /* rackspacecloud29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspacecloud29.png; sourceTree = "<group>"; };
+		27D33F0D1162C73400556BCC /* rackspacecloud50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspacecloud50.png; sourceTree = "<group>"; };
+		27D33F111162C7DF00556BCC /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		27D33F121162C7DF00556BCC /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		27D6673F111156F100654554 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		27D66740111156F100654554 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		27D66741111156F100654554 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
@@ -508,6 +522,15 @@
 		27D66E1911129C1C00654554 /* ServerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerDetailViewController.m; sourceTree = "<group>"; };
 		27D66E1A11129C1C00654554 /* ServerDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerDetailViewController.xib; sourceTree = "<group>"; };
 		27D66F1A11135FDA00654554 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		27FC8E55116E2CE700250D42 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		27FC8E56116E2CE700250D42 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		27FC8E57116E2CE700250D42 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		27FC8FC2116E699700250D42 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		27FC8FC3116E699700250D42 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		27FC8FC4116E699700250D42 /* AccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountViewController.xib; sourceTree = "<group>"; };
+		27FC9140116E8F5400250D42 /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
+		27FC9141116E8F5400250D42 /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
+		27FC9142116E8F5400250D42 /* LogoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutViewController.xib; sourceTree = "<group>"; };
 		28042007108E984D000629CD /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		28042008108E984D000629CD /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		28042009108E984D000629CD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -587,6 +610,8 @@
 		273C7D12112CC826005F36C3 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				27D33F111162C7DF00556BCC /* Icon-Small-50.png */,
+				27D33F121162C7DF00556BCC /* Icon-Small.png */,
 				271A911F11584E9800B34C91 /* cloudfiles2.png */,
 				271A912011584E9800B34C91 /* cloudserver2.png */,
 				271A910D1158247600B34C91 /* cloudservers-icon.png */,
@@ -1108,6 +1133,7 @@
 		27D667801111582E00654554 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				27FC8E5A116E2CF000250D42 /* Settings */,
 				271A91B21158593200B34C91 /* Test */,
 				27B4473D11229E6B008A3BA6 /* Utilities */,
 				27D667811111583500654554 /* Authentication */,
@@ -1130,6 +1156,8 @@
 		27D66788111159A800654554 /* Rackspace Logos */ = {
 			isa = PBXGroup;
 			children = (
+				27D33F0C1162C73400556BCC /* rackspacecloud29.png */,
+				27D33F0D1162C73400556BCC /* rackspacecloud50.png */,
 				271A90A51157FF4000B34C91 /* cloudfiles.png */,
 				271A90A61157FF4000B34C91 /* cloudservers.png */,
 				276E104A113F866D00E3DDCD /* rackspace1081.png */,
@@ -1222,6 +1250,30 @@
 				27425B8D113731EE00EB084A /* RSSEmptyCell.xib */,
 			);
 			name = "Custom Table Cells";
+			sourceTree = "<group>";
+		};
+		27FC8E5A116E2CF000250D42 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				27FC8FBD116E66B700250D42 /* Actions */,
+				27FC8E55116E2CE700250D42 /* SettingsViewController.h */,
+				27FC8E56116E2CE700250D42 /* SettingsViewController.m */,
+				27FC8E57116E2CE700250D42 /* SettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		27FC8FBD116E66B700250D42 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				27FC8FC2116E699700250D42 /* AccountViewController.h */,
+				27FC8FC3116E699700250D42 /* AccountViewController.m */,
+				27FC8FC4116E699700250D42 /* AccountViewController.xib */,
+				27FC9140116E8F5400250D42 /* LogoutViewController.h */,
+				27FC9141116E8F5400250D42 /* LogoutViewController.m */,
+				27FC9142116E8F5400250D42 /* LogoutViewController.xib */,
+			);
+			name = Actions;
 			sourceTree = "<group>";
 		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
@@ -1425,6 +1477,13 @@
 				2755842D115C6A91005E4DCB /* Default-LandscapeRight.png in Resources */,
 				2755842E115C6A91005E4DCB /* Default-Portrait.png in Resources */,
 				2755842F115C6A91005E4DCB /* Default-PortraitUpsideDown.png in Resources */,
+				27D33F0E1162C73400556BCC /* rackspacecloud29.png in Resources */,
+				27D33F0F1162C73400556BCC /* rackspacecloud50.png in Resources */,
+				27D33F131162C7DF00556BCC /* Icon-Small-50.png in Resources */,
+				27D33F141162C7DF00556BCC /* Icon-Small.png in Resources */,
+				27FC8E59116E2CE700250D42 /* SettingsViewController.xib in Resources */,
+				27FC8FC6116E699700250D42 /* AccountViewController.xib in Resources */,
+				27FC9144116E8F5400250D42 /* LogoutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1529,6 +1588,9 @@
 				271A8F0D11572F4F00B34C91 /* ContainerNavigationController.m in Sources */,
 				271A9560115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m in Sources */,
 				271A98B2115BCAA400B34C91 /* ContainerViewController.m in Sources */,
+				27FC8E58116E2CE700250D42 /* SettingsViewController.m in Sources */,
+				27FC8FC5116E699700250D42 /* AccountViewController.m in Sources */,
+				27FC9143116E8F5400250D42 /* LogoutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1586,7 +1648,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rackspace Hosting";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Mayo";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1599,7 +1661,7 @@
 					"-ObjC",
 				);
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "789B7BFA-11BD-40E6-9E0F-67D72407FDAC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BA2A8EA6-841B-4BF7-834C-7208C989B24D";
 				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = armv7;

@@ -240,7 +240,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	if (section == 0) {
-		return 2;
+        return 2;
 	} else if (section == 1) {
         if (self.container.cdnEnabled) {
             return 3;
@@ -489,7 +489,12 @@
     		ASICloudFilesObject *file = [folder.files objectAtIndex:indexPath.row];
     		cell.textLabel.text = file.name;
     		cell.detailTextLabel.text = file.contentType;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            // TODO: restore when you have a device
+            //if ([MFMailComposeViewController canSendMail]) {
+            //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            //} else {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            //}
         }		
 	}
     
@@ -508,6 +513,8 @@
     
     NSString *emailBody = [NSString stringWithFormat:@"%@/%@", self.container.cdnURL, [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [vc setMessageBody:emailBody isHTML:NO];
+
+    vc.modalPresentationStyle = UIModalPresentationPageSheet;
     [self presentModalViewController:vc animated:YES];
     [vc release];
 }
@@ -530,6 +537,7 @@
     NSString *emailBody = @"";
     [vc setMessageBody:emailBody isHTML:NO];
     
+    vc.modalPresentationStyle = UIModalPresentationPageSheet;
     [self presentModalViewController:vc animated:YES];
     [vc release];    
 }
@@ -610,9 +618,14 @@
 
         if ([self numberOfSectionsInTableView:aTableView] == 3) {
             // it's a file!
-            ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
-            ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-            [self didSelectFile:file];
+            // TODO: restore when you have a device
+            /*
+            if ([MFMailComposeViewController canSendMail]) {
+                ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
+                ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+                [self didSelectFile:file];
+            }
+             */
         } else {            
             
             if (offsetSection < [currentFolderNavigation count]) {
@@ -651,9 +664,14 @@
                         }
                     } else {
                         // it's a file!
-                        ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
-                        ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-                        [self didSelectFile:file];
+                        // TODO: restore when you have a device
+                        /*
+                        if ([MFMailComposeViewController canSendMail]) {
+                            ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection];
+                            ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+                            [self didSelectFile:file];
+                        }
+                         */
                     }
                 } else {
                     while (offsetSection < ([currentFolderNavigation count] - 1)) {
@@ -670,9 +688,11 @@
                 }
             } else {
                 // it's a file!
-                ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection - 1];
-                ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
-                [self didSelectFile:file];
+                if ([MFMailComposeViewController canSendMail]) {
+                    ASICloudFilesFolder *fileFolder = [currentFolderNavigation objectAtIndex:offsetSection - 1];
+                    ASICloudFilesObject *file = [fileFolder.files objectAtIndex:indexPath.row];
+                    [self didSelectFile:file];
+                }
             }
         }
 	}

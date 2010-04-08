@@ -107,6 +107,10 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
 	username = [defaults stringForKey:@"username_preference"];
 	apiKey = [defaults stringForKey:@"api_key_preference"];
+    
+    // we don't actually need the lock password here, but it's introduced in version 1.1,
+    // so we're going to see if it exists so we can register the new 1.1 preferences
+    NSString *lockPassword = [defaults stringForKey:@"lock_password"];
 	
 	if (username == nil) {
 		username = @"";
@@ -116,10 +120,24 @@
 		NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
 									 @"", @"username_preference",
 									 @"", @"api_key_preference",
+                                     [NSNumber numberWithBool:NO], @"password_lock_enabled",
+                                     @"", @"lock_password",
+                                     [NSDictionary dictionary], @"secondary_accounts",
 									 nil];
 		[[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
+	} else if (lockPassword == nil) {
+		// settings haven't been created, so let's create them here
+		NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+									 username, @"username_preference",
+									 apiKey, @"api_key_preference",
+                                     [NSNumber numberWithBool:NO], @"password_lock_enabled",
+                                     @"", @"lock_password",
+                                     [NSDictionary dictionary], @"secondary_accounts",
+									 nil];
+		[[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+    }
 	
 	self.usernameTextField.text = username;
 	self.apiKeyTextField.text = apiKey;

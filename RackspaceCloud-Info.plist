@@ -8,10 +8,8 @@
 	<string>Rackspace</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string>rackspacecloud72.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.rackspacecloud.ipad</string>
+	<string>us.greenis.com.rackspacecloud.ipad</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -33,5 +31,19 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>rackspacecloud72.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small.png</string>
+	</array>
+	<key>Icon files</key>
+	<array>
+		<string>rackspacecloud72.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small.png</string>
+	</array>
+	<key>CFBundleIconFile</key>
+	<string>rackspacecloud72.png</string>
 </dict>
 </plist>

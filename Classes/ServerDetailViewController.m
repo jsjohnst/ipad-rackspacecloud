@@ -174,7 +174,8 @@
 	} else if (section == kPrivateIPSection) {
 		return [server.privateIpAddresses count];
 	} else if (section == kMetadataSection) {
-		return [[server.metadata allKeys] count];
+        return 0;
+		//return [[server.metadata allKeys] count];
 	} else {
 		return 0;
 	}
@@ -190,11 +191,11 @@
 	} else if (section == kPrivateIPSection) {
 		return @"Private IP Addresses";
 	} else if (section == kMetadataSection) {
-		if ([[server.metadata allKeys] count] > 0) {
-			return @"Server Metadata";
-		} else {
+//		if ([[server.metadata allKeys] count] > 0) {
+//			return @"Server Metadata";
+//		} else {
 			return @"";
-		}
+//		}
 	}
 	
 	return @"Actions";
@@ -334,6 +335,9 @@
 	} else if (indexPath.section == kActionSection) {
 		if (indexPath.row == 0) {
 			actionCell.textLabel.text = @"Reboot This Server";
+//        } else if (indexPath.row == 1) {
+//            // TODO: don't always show this?
+//            actionCell.textLabel.text = @"Launch SSH Client";
 		} else if (indexPath.row == 1) {
 			actionCell.textLabel.text = @"Rename This Server";
 		} else if (indexPath.row == 2) {
@@ -357,9 +361,15 @@
 		cell.detailTextLabel.text = @"";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if (indexPath.section == kMetadataSection) {
-		NSString *key = [[server.metadata allKeys] objectAtIndex:indexPath.row];
-		cell.textLabel.text = key;
-		cell.detailTextLabel.text = [server.metadata objectForKey:key];
+//        NSArray *arr = [server.metadata allKeys];
+//        for (int i = 0; i < [arr count]; i++) {
+//            NSLog(@"key: %@", [arr objectAtIndex:i]);
+//        }
+//		NSString *key = [[server.metadata allKeys] objectAtIndex:indexPath.row];
+//		cell.textLabel.text = key;
+//		cell.detailTextLabel.text = [server.metadata objectForKey:key];
+		cell.textLabel.text = @"meta";
+		cell.detailTextLabel.text = @"meta";
 	} else {
 		cell.textLabel.text = @"";
 		cell.detailTextLabel.text = @"";
@@ -387,6 +397,7 @@
 				className = @"RebootServerViewController";
 				break;
 			case 1:
+                //className = nil; // TODO: restore
 				className = @"RenameServerViewController";
 				break;
 			case 2:
@@ -406,18 +417,30 @@
 		}
 
 		if (className != nil) {
-			// it's a modal view controller, so show it
-			Class class = NSClassFromString(className);
-			UIViewController *vc = [[class alloc] initWithNibName:className bundle:nil];
-			vc.modalPresentationStyle = UIModalPresentationFormSheet;
-			SEL method = NSSelectorFromString(@"setServerDetailViewController:");
-			if ([vc respondsToSelector:method]) {
-				[vc performSelector:method withObject:self];
-			}
-			
-			[self presentModalViewController:vc animated:YES];
+            
+            // it's a modal view controller, so show it
+            Class class = NSClassFromString(className);
+            UIViewController *vc = [[class alloc] initWithNibName:className bundle:nil];
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+            SEL method = NSSelectorFromString(@"setServerDetailViewController:");
+            if ([vc respondsToSelector:method]) {
+                [vc performSelector:method withObject:self];
+            }
+            
+            [self presentModalViewController:vc animated:YES];
 		} else {
-			if (indexPath.row == 6) {
+//            if (indexPath.row == 1) {
+//                NSLog(@"ssh url: %@", [NSString stringWithFormat:@"%@%@", @"ssh://", [server.publicIpAddresses objectAtIndex:0]]);
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"ssh://", [server.publicIpAddresses objectAtIndex:0]]];                
+//                UIApplication *app = [UIApplication sharedApplication];
+//                
+//                if ([app canOpenURL:url]) {
+//                    [app openURL:url];
+//                } else {
+//                    NSLog(@"can't open the ssh client url");
+//                }
+//            } else 
+            if (indexPath.row == 6) {
 				NSString *title = @"Are you sure you want to delete this server?  This operation cannot be undone and you will lose all backup images.";
 				//NSString *deleteTitle = [NSString stringWithFormat:@"Permanently Delete Server %@", self.server.name];
 				NSString *deleteTitle = @"Delete This Server";

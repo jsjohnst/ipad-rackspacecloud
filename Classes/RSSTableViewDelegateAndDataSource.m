@@ -190,7 +190,6 @@ static UIImage *ukFlag = nil;
 + (CGFloat) findLabelHeight:(NSString*) text font:(UIFont *)font label:(UILabel *)label {
     CGSize textLabelSize = CGSizeMake(label.frame.size.width, 9000.0f);
     CGSize stringSize = [text sizeWithFont:font constrainedToSize:textLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    ////NSLog(@"String size height = %f", stringSize.height);
     return stringSize.height;
 }
 

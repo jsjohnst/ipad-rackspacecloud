@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SubstitutableDetailViewController.h"
 
-@class DetailViewController;
+@class DetailViewController, SubstitutableDetailViewController;
 
 @interface MasterViewController : UITableViewController <UISplitViewControllerDelegate> {
-    DetailViewController *detailViewController;
+    UIViewController<SubstitutableDetailViewController> *detailViewController;
 
 	UISplitViewController *splitViewController;	
 	UIPopoverController *popoverController;
@@ -21,7 +21,7 @@
     NSInteger selectedIndex;
 }
 
-@property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+@property (nonatomic, retain) IBOutlet UIViewController<SubstitutableDetailViewController> *detailViewController;
 
 @property(nonatomic, assign) IBOutlet UISplitViewController *splitViewController;
 @property(nonatomic, assign) UIPopoverController *popoverController;

@@ -12,9 +12,6 @@
 @class RSSTableViewDelegateAndDataSource;
 
 @interface DetailViewController : RackspaceCloudSplitViewDelegate {
-//@interface DetailViewController : RackspaceCloudSplitViewDelegate <SubstitutableDetailViewController> {
-//@interface DetailViewController : UIViewController <SubstitutableDetailViewController> {
-    
 	IBOutlet UITableView *tableView;	
 	RSSTableViewDelegateAndDataSource *tableViewDelegate;
 }
