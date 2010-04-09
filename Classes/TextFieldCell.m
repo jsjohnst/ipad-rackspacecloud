@@ -22,9 +22,6 @@
 		CGRect rect = CGRectInset(self.contentView.bounds, 18, 12);
 		rect.size.width += 180; // to account for ipad modal width
 		rect.origin.x += 23;
-		//rect.size.width -= 75; // to prevent scrolling off the side
-		//rect.size.height
-		//labelFont
 				
 		self.textField = [[UITextField alloc] initWithFrame:rect];
 		self.textField.returnKeyType = UIReturnKeyDone;

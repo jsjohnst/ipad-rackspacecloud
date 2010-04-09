@@ -20,34 +20,12 @@
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		// place the text field where the text label belongs	
-		//CGRect rect = CGRectInset(self.contentView.bounds, 18, 12);
         CGRect rect = CGRectMake(247.0, 9.0, 330.0, 27.0);
-		//rect.size.width += 220; // to account for ipad modal width
-		
-		//rect.size.width = self.contentView.frame.size.width + 50;
-		
-		
-		//rect.origin.x += 75;
-		//rect.size.width -= 75; // to prevent scrolling off the side
-		//rect.size.height
-		//labelFont
-		
-        
-		
 		self.slider = [[UISlider alloc] initWithFrame:rect];
-
-
 		self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
         self.slider.backgroundColor = [UIColor clearColor];
-		//self.backgroundColor = [UIColor clearColor];
 		self.textLabel.backgroundColor = [UIColor clearColor];
 		self.detailTextLabel.backgroundColor = [UIColor clearColor];
-        
-//		self.textField.returnKeyType = UIReturnKeyDone;
-//		self.textField.adjustsFontSizeToFitWidth = NO;
-//		self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-//		self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//		self.textField.font = [UIFont fontWithName:self.textField.font.fontName size:17.0];
 		[self addSubview:self.slider];		
     }
     return self;

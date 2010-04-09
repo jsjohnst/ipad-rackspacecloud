@@ -18,8 +18,6 @@
 
 @synthesize window, splitViewController, masterViewController, detailViewController, authenticationViewController;
 
-// TODO: error screen for when server/container list requests fail
-
 /**
  Returns the path to the application's documents directory.
  */
@@ -43,38 +41,17 @@
 	// TODO: UIWebView for Ping IP address?  make it 785px wide to fit justping.com properly
 	
     // Override point for customization after app launch    
-	// window.backgroundColor = [UIColor blackColor];
-
     authenticationViewController = [[AuthenticationViewController alloc] initWithNibName:@"AuthenticationViewController" bundle:nil];
-
-    
     masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    // root view is a nav controller for servers and files
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
     
-    detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
-    
-    
-    //masterViewController.detailViewController = detailViewController;
-
-    
+    detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];    
     splitViewController = [[UISplitViewController alloc] init];
     splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, detailViewController, nil];
-    //splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, authenticationViewController, nil];
-	
-    // TODO: hope this works
-    //splitViewController.delegate = detailViewController;
-    
     masterViewController.splitViewController = splitViewController;
-    
     splitViewController.delegate = masterViewController;
-    
-    
-    
-    // TODO: this may not work
-//	[window addSubview:splitViewController.view];
-//    //[splitViewController.view sendSubviewToBack:<#(UIView *)view#>
-	//[window addSubview:splitViewController.view];
-
     
 	// put the auth view controller on top
 	[window addSubview:authenticationViewController.view];

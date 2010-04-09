@@ -95,7 +95,6 @@
     [super viewDidAppear:animated];
 
     // preselect system status
-    /**/
     if (!hasPreselected) {
         [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(preselect) userInfo:nil repeats:NO];	
         ((DetailViewController *)detailViewController).detailItem = @"Rackspace Cloud System Status";
@@ -107,7 +106,6 @@
         hasPreselected = YES;
         selectedIndex = 0;
     }
-    /* */
 }
 
 #pragma mark -
@@ -140,9 +138,6 @@
 	if (indexPath.row == 0) {
 		cell.textLabel.text = @"System Status";
 		cell.accessoryType = UITableViewCellAccessoryNone;
-//        if (selectedIndex == 0) {
-//            cell.selected = YES;
-//        }
 	} else if (indexPath.row == 1) {
 		cell.textLabel.text = @"Cloud Servers";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -169,7 +164,6 @@
     /*
      When a row is selected, set the detail view controller's detail item to the item associated with the selected row.
      */
-	
 	if (indexPath.row == 0) {
 		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
         if (detailViewController != nil) {
@@ -196,7 +190,6 @@
         if (detailViewController != nil) {
             [detailViewController release];
         }
-//        detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
         
         SettingsViewController *vc = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
         detailViewController = vc;
@@ -217,7 +210,7 @@
 - (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	
     NSLog(@"splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc {	");
         
-	barButtonItem.title = @"Services"; //self.navigationController.topViewController.navigationItem.title; //@"Button Title";
+	barButtonItem.title = @"Services";
 
     self.popoverController = pc;
     
@@ -234,10 +227,9 @@
     self.rootPopoverBarButtonItem = nil;
 }
 
-- (void)splitViewController:(UISplitViewController*)svc popoverController:(UIPopoverController*)pc willPresentViewController:(UIViewController *)aViewController {    
-    NSLog(@"popover! %@, %@, %@", pc, aViewController, self.rootPopoverBarButtonItem);
-    //[popoverController presentPopoverFromBarButtonItem:self.rootPopoverBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
+//- (void)splitViewController:(UISplitViewController*)svc popoverController:(UIPopoverController*)pc willPresentViewController:(UIViewController *)aViewController {    
+//    NSLog(@"popover! %@, %@, %@", pc, aViewController, self.rootPopoverBarButtonItem);
+//}
 
 #pragma mark -
 #pragma mark Memory management

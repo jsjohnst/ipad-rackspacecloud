@@ -13,7 +13,6 @@
 
 @interface MasterViewController : UITableViewController <UISplitViewControllerDelegate> {
     UIViewController<SubstitutableDetailViewController> *detailViewController;
-
 	UISplitViewController *splitViewController;	
 	UIPopoverController *popoverController;
 	UIBarButtonItem *rootPopoverBarButtonItem;
