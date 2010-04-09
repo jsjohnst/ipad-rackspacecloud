@@ -46,20 +46,7 @@
         if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
             // force the button to stay
             [containerViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];        
-        }
-        
-        
-        /*
-        ContainerViewController *vc = [[ContainerViewController alloc] initWithNibName:@"ContainerViewController" bundle:nil];
-		vc.container = [containers objectAtIndex:0];
-		
-		RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];		
-		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:app.masterViewController];
-        [navigationController pushViewController:self animated:NO];
-		app.splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, vc, nil];
-		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-        [vc showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
-        */
+        }        
     }
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.opaque = YES;
