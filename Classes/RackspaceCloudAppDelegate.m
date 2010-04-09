@@ -3,7 +3,7 @@
 //  RackspaceCloud
 //
 //  Created by Michael Mayo on 1/27/10.
-//  Copyright Apple Inc 2010. All rights reserved.
+//  Copyright Rackspace Hosting 2010. All rights reserved.
 //
 
 #import "RackspaceCloudAppDelegate.h"

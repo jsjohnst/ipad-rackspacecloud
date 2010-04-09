@@ -3,7 +3,7 @@
 //  RackspaceCloud
 //
 //  Created by Michael Mayo on 3/25/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Copyright Rackspace Hosting 2010. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

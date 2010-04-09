@@ -2,7 +2,7 @@
 //  UIViewController+RackspaceCloud.h
 //
 //  Created by Michael Mayo on 2/19/10.
-//  Copyright 2010 Apple Inc. All rights reserved.
+//  Copyright Rackspace Hosting 2010. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
