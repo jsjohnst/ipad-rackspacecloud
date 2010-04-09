@@ -15,7 +15,6 @@
 #import "ASICloudFilesCDNRequest.h"
 #import "UIViewController+RackspaceCloud.h"
 #import "UIViewController+SpinnerView.h"
-#import "ContainerNavigationController.h"
 #import "MasterViewController.h"
 #import "ContainerViewController.h"
 
