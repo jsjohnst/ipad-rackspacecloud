@@ -3,7 +3,6 @@
 //  RackspaceCloud
 //
 //  Created by Michael Mayo on 2/4/10.
-//  Copyright Rackspace Hosting 2010. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
