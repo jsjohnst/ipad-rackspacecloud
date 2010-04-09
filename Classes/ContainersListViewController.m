@@ -7,7 +7,6 @@
 //
 
 #import "ContainersListViewController.h"
-#import "ContainerDetailViewController.h"
 #import "ContainerRootViewController.h"
 #import "RackspaceCloudAppDelegate.h"
 #import "ASICloudFilesRequest.h"

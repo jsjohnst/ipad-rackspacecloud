@@ -13,7 +13,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		27089D42114A2AC600A1BFE8 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27089D40114A2AC600A1BFE8 /* FileViewController.m */; };
 		27089D43114A2AC600A1BFE8 /* FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27089D41114A2AC600A1BFE8 /* FileViewController.xib */; };
-		271A8F0D11572F4F00B34C91 /* ContainerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A8F0C11572F4F00B34C91 /* ContainerNavigationController.m */; };
 		271A90A71157FF4000B34C91 /* cloudfiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A90A51157FF4000B34C91 /* cloudfiles.png */; };
 		271A90A81157FF4000B34C91 /* cloudservers.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A90A61157FF4000B34C91 /* cloudservers.png */; };
 		271A910E1158247600B34C91 /* cloudservers-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A910D1158247600B34C91 /* cloudservers-icon.png */; };
@@ -153,7 +152,6 @@
 		27BC5240114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC523F114309AE00D7879A /* RSSTableViewDelegateAndDataSource.m */; };
 		27BE5FE211169BC900CA6704 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE5FE011169BC900CA6704 /* ContainersListViewController.m */; };
 		27BE5FE311169BC900CA6704 /* ContainersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */; };
-		27BE600D11169CEC00CA6704 /* ContainerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */; };
 		27BE600E11169CEC00CA6704 /* ContainerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27BE600C11169CEC00CA6704 /* ContainerDetailViewController.xib */; };
 		27D33F0E1162C73400556BCC /* rackspacecloud29.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D33F0C1162C73400556BCC /* rackspacecloud29.png */; };
 		27D33F0F1162C73400556BCC /* rackspacecloud50.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D33F0D1162C73400556BCC /* rackspacecloud50.png */; };
@@ -231,8 +229,6 @@
 		27089D3F114A2AC600A1BFE8 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
 		27089D40114A2AC600A1BFE8 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
 		27089D41114A2AC600A1BFE8 /* FileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileViewController.xib; sourceTree = "<group>"; };
-		271A8F0B11572F4F00B34C91 /* ContainerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerNavigationController.h; sourceTree = "<group>"; };
-		271A8F0C11572F4F00B34C91 /* ContainerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerNavigationController.m; sourceTree = "<group>"; };
 		271A90A51157FF4000B34C91 /* cloudfiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudfiles.png; sourceTree = "<group>"; };
 		271A90A61157FF4000B34C91 /* cloudservers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudservers.png; sourceTree = "<group>"; };
 		271A910D1158247600B34C91 /* cloudservers-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloudservers-icon.png"; sourceTree = "<group>"; };
@@ -461,8 +457,6 @@
 		27BE5FDF11169BC900CA6704 /* ContainersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainersListViewController.h; sourceTree = "<group>"; };
 		27BE5FE011169BC900CA6704 /* ContainersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainersListViewController.m; sourceTree = "<group>"; };
 		27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainersListViewController.xib; sourceTree = "<group>"; };
-		27BE600A11169CEC00CA6704 /* ContainerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailViewController.h; sourceTree = "<group>"; };
-		27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailViewController.m; sourceTree = "<group>"; };
 		27BE600C11169CEC00CA6704 /* ContainerDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerDetailViewController.xib; sourceTree = "<group>"; };
 		27D33F0C1162C73400556BCC /* rackspacecloud29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspacecloud29.png; sourceTree = "<group>"; };
 		27D33F0D1162C73400556BCC /* rackspacecloud50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rackspacecloud50.png; sourceTree = "<group>"; };
@@ -590,13 +584,6 @@
 				1D6058910D05DD3D006BFB54 /* RackspaceCloud.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		271A940B115B11E600B34C91 /* test */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = test;
 			sourceTree = "<group>";
 		};
 		273C7D12112CC826005F36C3 /* Icons */ = {
@@ -1197,20 +1184,15 @@
 		27D66A28111220F200654554 /* Cloud Files */ = {
 			isa = PBXGroup;
 			children = (
-				271A940B115B11E600B34C91 /* test */,
 				276ED08A114F420000329215 /* File Actions */,
 				2768BF61114973A800758718 /* File Viewing and Navigation */,
 				27BE5FDF11169BC900CA6704 /* ContainersListViewController.h */,
 				27BE5FE011169BC900CA6704 /* ContainersListViewController.m */,
 				27BE5FE111169BC900CA6704 /* ContainersListViewController.xib */,
-				27BE600A11169CEC00CA6704 /* ContainerDetailViewController.h */,
-				27BE600B11169CEC00CA6704 /* ContainerDetailViewController.m */,
 				27BE600C11169CEC00CA6704 /* ContainerDetailViewController.xib */,
 				27B448BB1123B11D008A3BA6 /* ContainerRootViewController.h */,
 				27B448BC1123B11D008A3BA6 /* ContainerRootViewController.m */,
 				27B448BD1123B11D008A3BA6 /* ContainerRootViewController.xib */,
-				271A8F0B11572F4F00B34C91 /* ContainerNavigationController.h */,
-				271A8F0C11572F4F00B34C91 /* ContainerNavigationController.m */,
 				271A98AF115BCAA400B34C91 /* ContainerViewController.h */,
 				271A98B0115BCAA400B34C91 /* ContainerViewController.m */,
 				271A98B1115BCAA400B34C91 /* ContainerViewController.xib */,
@@ -1511,7 +1493,6 @@
 				27D66DF211129AF000654554 /* ServersListViewController.m in Sources */,
 				27D66E1B11129C1C00654554 /* ServerDetailViewController.m in Sources */,
 				27BE5FE211169BC900CA6704 /* ContainersListViewController.m in Sources */,
-				27BE600D11169CEC00CA6704 /* ContainerDetailViewController.m in Sources */,
 				27A9086F111BFFD200407B55 /* MMCommonLogEntry.m in Sources */,
 				27A90A79111FE26900407B55 /* ASICloudServersServer.m in Sources */,
 				27A90A7C111FE27200407B55 /* ASICloudServersFlavor.m in Sources */,
@@ -1577,7 +1558,6 @@
 				2768BF661149744A00758718 /* FolderViewController.m in Sources */,
 				27089D42114A2AC600A1BFE8 /* FileViewController.m in Sources */,
 				276ED08E114F421800329215 /* TweetLinkViewController.m in Sources */,
-				271A8F0D11572F4F00B34C91 /* ContainerNavigationController.m in Sources */,
 				271A9560115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m in Sources */,
 				271A98B2115BCAA400B34C91 /* ContainerViewController.m in Sources */,
 				27FC8E58116E2CE700250D42 /* SettingsViewController.m in Sources */,

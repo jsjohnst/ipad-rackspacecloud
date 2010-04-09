@@ -50,10 +50,6 @@
 		serverDetailViewController.detailItem = @"Server Details";
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
 		
-        // split view
-        //app.splitViewController.delegate = self;
-        //app.splitViewController.delegate = serverDetailViewController;
-        
         [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
 	} else {
 		if (serverDetailViewController != nil) {
@@ -64,10 +60,6 @@
 		serverDetailViewController.detailItem = @"Server Details";
 		serverDetailViewController.server = [servers objectAtIndex:0];
 		app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-		
-        // split view
-        //app.splitViewController.delegate = self;
-        //app.splitViewController.delegate = serverDetailViewController;
 		
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
         [serverDetailViewController showRootPopoverButtonItem:app.masterViewController.rootPopoverBarButtonItem];
@@ -187,7 +179,6 @@
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
 	
     app.splitViewController.viewControllers = [NSArray arrayWithObjects:self.navigationController, serverDetailViewController, nil];
-	//app.splitViewController.delegate = serverDetailViewController;
     
     if (self.interfaceOrientation == UIInterfaceOrientationPortrait || self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
         // force the button to stay

@@ -30,7 +30,6 @@
 
 -(void)updatePasswordRequestFinished:(ASICloudServersServerRequest *)request {
 	[self hideSpinnerView];
-	//NSLog(@"Rename Response: %i - %@", [request responseStatusCode], [request responseString]);
 	
 	if ([request responseStatusCode] == 204) {
 		[self.serverDetailViewController.tableView reloadData];
@@ -41,7 +40,6 @@
 }
 
 -(void)updatePasswordRequestFailed:(ASICloudServersServerRequest *)request {
-	//NSLog(@"Rename Server Request Failed");
 	[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"resetting your password"];
 }
 
@@ -106,10 +104,6 @@
 	}
 }
 
-//If you have lost or forgotten the root/administrator password for your Cloud Server, use the button below to reset it.
-
-//Your server will be gracefully shutdown, the root/administrator password will be updated and the server will be restarted. You will receive the new password via email.
-
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	if (section == 1) {
 		return @"The root password will be updated and the server will be restarted.  Please note that this process will only work if you have a user line for \"root\" in your passwd or shadow file.";
@@ -117,8 +111,6 @@
 		return @"";
 	}
 }
-
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -168,19 +160,6 @@
 
 #pragma mark -
 #pragma mark Memory management
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Relinquish ownership any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
-}
-
 
 - (void)dealloc {
 	[serverDetailViewController release];

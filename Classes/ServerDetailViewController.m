@@ -40,10 +40,8 @@
 
 @implementation ServerDetailViewController
 
-//@synthesize navigationBar, popoverController, detailItem;
 @synthesize tableView;
 @synthesize server;
-//@synthesize logoImageView;
 @synthesize backgroundImageView;
 @synthesize noServersView, noServersImage, noServersTitle, noServersMessage;
 @synthesize serversListViewController;
@@ -59,7 +57,6 @@
 -(id)initWithNoServersView {
     if ((self = [super initWithNibName:@"ServerDetailViewController" bundle:nil])) {
         // Custom initialization
-		//self.view.hidden = YES;
 		noServersView.hidden = NO;
 		[self.view bringSubviewToFront:self.noServersView];
     }
@@ -70,7 +67,6 @@
 #pragma mark HTTP Response Handlers
 
 -(void)loadServer {
-	//[self request:[ASICloudServersServerRequest getServerRequest:self.server.serverId] behavior:@"retrieving your server" success:@selector(getServerSuccess:) showSpinner:NO];
 	ASICloudServersServerRequest *request = [ASICloudServersServerRequest getServerRequest:self.server.serverId];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(getServerRequestFinished:)];
@@ -89,7 +85,6 @@
 }
 
 -(void)deleteServerRequestFinished:(ASICloudServersServerRequest *)request {
-	//NSLog(@"Delete Response: %i - %@", [request responseStatusCode], [request responseString]);
 	[self hideSpinnerView];
 	
 	if ([request responseStatusCode] == 202) {
@@ -104,7 +99,6 @@
 }
 
 -(void)getServerRequestFinished:(ASICloudServersServerRequest *)request {
-	//NSLog(@"Poll Server Response: %i - %@ Progress: %i", [request responseStatusCode], [request server].status, [request server].progress);
 	if ([request isSuccess]) {
         self.server = [request server];
 		ASICloudServersServerRequest *backupRequest = [ASICloudServersServerRequest listBackupScheduleRequest:self.server.serverId];
@@ -117,7 +111,6 @@
 }
 
 -(void)getServerRequestFailed:(ASICloudServersServerRequest *)request {
-    //NSLog(@"Poll Server Failed");
     [self.tableView reloadData]; // keep polling!
 }
 
@@ -149,7 +142,6 @@
 		return 6;
 	} else {
 		// show No Servers View
-		//self.logoImageView.image = nil;
 		self.backgroundImageView.image = nil;
 		self.tableView.backgroundView = nil;
 		noServersView.hidden = NO;
@@ -624,21 +616,13 @@
  */
 
 - (void)dealloc {
-//    [popoverController release];
-//    [navigationBar release];
-//    [detailItem release];
-	
 	[tableView release];
 	[server release];
-	
-	//[logoImageView release];
-	[backgroundImageView release];
-	
+	[backgroundImageView release];	
 	[noServersView release];
 	[noServersImage release];
 	[noServersTitle release];
 	[noServersMessage release];
-	
 	[serversListViewController release];
 	
 	if (progressView != nil) {
