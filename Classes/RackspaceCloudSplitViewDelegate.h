@@ -10,7 +10,6 @@
 #import "SubstitutableDetailViewController.h"
 
 
-//@interface RackspaceCloudSplitViewDelegate : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate> {
 @interface RackspaceCloudSplitViewDelegate : UIViewController <SubstitutableDetailViewController> {
     UIPopoverController *popoverController;
     UINavigationBar *navigationBar;

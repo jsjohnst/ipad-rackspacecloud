@@ -60,10 +60,9 @@
 	imageLoadAttempts = 0;
 	flavorLoadAttempts = 0;
 	
-	//statusToolbar
+    // turn the toolbar 90 degrees
 	CGAffineTransform transform = self.statusToolbar.transform;
-	self.statusToolbar.transform = CGAffineTransformRotate(transform, 4.71238898); //1.57079633);
-	//CGContextRotateCTM(myContext, radians(–45.));
+	self.statusToolbar.transform = CGAffineTransformRotate(transform, 4.71238898);
 	
 	statusView.backgroundColor = [UIColor clearColor];
 	self.tableView.backgroundView = nil; // clear background
@@ -84,20 +83,6 @@
     return YES;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 #pragma mark -
 #pragma mark Utilities
@@ -157,25 +142,9 @@
 }
 
 -(void)transitionToAppView {
-	
 	RackspaceCloudAppDelegate *app = [[UIApplication sharedApplication] delegate];
-	//app.splitViewController.view.alpha = 0.0;
-	[app.window addSubview:app.splitViewController.view];
-	
-    //[app.window makeKeyAndVisible];
-	
-    // the animation causes weirdness with the split view, so try again later
-    /**/
-//	[UIView beginAnimations:nil context:NULL];
-//	[UIView setAnimationDuration:0.5];
-//	[UIView setAnimationDelegate:self];
-//	[UIView setAnimationDidStopSelector:@selector(transitionComplete)];
-//	self.view.alpha = 0.0;
-//	app.splitViewController.view.alpha = 1.0;
-//	[UIView commitAnimations];
-    /* */
+	[app.window addSubview:app.splitViewController.view];	
     [self.view removeFromSuperview];
-	
 }
 
 #pragma mark -
@@ -226,10 +195,7 @@
 		[ASICloudFilesRequest setCdnManagementURL:[responseHeaders objectForKey:@"X-Cdn-Management-Url"]];
 		[ASICloudFilesRequest setServerManagementURL:[responseHeaders objectForKey:@"X-Server-Management-Url"]];	
 		self.smallAuthenticatingLabel.text = @"Loading server images...";
-        
-        
-        // TODO: restore
-        //[self transitionToAppView];
+                
 		[self loadImages];
 	} else {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:@"authenticating"];

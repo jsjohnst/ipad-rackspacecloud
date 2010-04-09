@@ -53,7 +53,6 @@
 }
 
 -(void)requestFailed:(ASICloudFilesRequest *)request {
-    //NSLog(@"request failed: %i", [request responseStatusCode]);
 	[self hideSpinnerView];	
     if ([[request.userInfo objectForKey:@"behavior"] boolValue]) {
 		[self alertForCloudServersResponseStatusCode:[request responseStatusCode] behavior:[request.userInfo objectForKey:@"behavior"]];

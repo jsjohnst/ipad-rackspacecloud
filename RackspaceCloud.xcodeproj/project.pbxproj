@@ -19,7 +19,6 @@
 		271A910E1158247600B34C91 /* cloudservers-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A910D1158247600B34C91 /* cloudservers-icon.png */; };
 		271A912111584E9800B34C91 /* cloudfiles2.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A911F11584E9800B34C91 /* cloudfiles2.png */; };
 		271A912211584E9800B34C91 /* cloudserver2.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A912011584E9800B34C91 /* cloudserver2.png */; };
-		271A91D011585A7800B34C91 /* ContainerNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */; };
 		271A9560115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A955F115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m */; };
 		271A98B2115BCAA400B34C91 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A98B0115BCAA400B34C91 /* ContainerViewController.m */; };
 		271A98B3115BCAA400B34C91 /* ContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271A98B1115BCAA400B34C91 /* ContainerViewController.xib */; };
@@ -239,7 +238,6 @@
 		271A910D1158247600B34C91 /* cloudservers-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloudservers-icon.png"; sourceTree = "<group>"; };
 		271A911F11584E9800B34C91 /* cloudfiles2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudfiles2.png; sourceTree = "<group>"; };
 		271A912011584E9800B34C91 /* cloudserver2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudserver2.png; sourceTree = "<group>"; };
-		271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerNavigationController.xib; sourceTree = "<group>"; };
 		271A955E115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RackspaceCloudSplitViewDelegate.h; sourceTree = "<group>"; };
 		271A955F115B3A6500B34C91 /* RackspaceCloudSplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RackspaceCloudSplitViewDelegate.m; sourceTree = "<group>"; };
 		271A9684115B49BB00B34C91 /* SubstitutableDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstitutableDetailViewController.h; sourceTree = "<group>"; };
@@ -592,14 +590,6 @@
 				1D6058910D05DD3D006BFB54 /* RackspaceCloud.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		271A91B21158593200B34C91 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				271A91CF11585A7800B34C91 /* ContainerNavigationController.xib */,
-			);
-			name = Test;
 			sourceTree = "<group>";
 		};
 		271A940B115B11E600B34C91 /* test */ = {
@@ -1136,7 +1126,6 @@
 			isa = PBXGroup;
 			children = (
 				27FC8E5A116E2CF000250D42 /* Settings */,
-				271A91B21158593200B34C91 /* Test */,
 				27B4473D11229E6B008A3BA6 /* Utilities */,
 				27D667811111583500654554 /* Authentication */,
 				27D66A27111220EC00654554 /* Cloud Servers */,
@@ -1474,7 +1463,6 @@
 				271A910E1158247600B34C91 /* cloudservers-icon.png in Resources */,
 				271A912111584E9800B34C91 /* cloudfiles2.png in Resources */,
 				271A912211584E9800B34C91 /* cloudserver2.png in Resources */,
-				271A91D011585A7800B34C91 /* ContainerNavigationController.xib in Resources */,
 				271A98B3115BCAA400B34C91 /* ContainerViewController.xib in Resources */,
 				2755842C115C6A91005E4DCB /* Default-LandscapeLeft.png in Resources */,
 				2755842D115C6A91005E4DCB /* Default-LandscapeRight.png in Resources */,

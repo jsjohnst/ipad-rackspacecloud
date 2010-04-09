@@ -86,8 +86,6 @@ static UIImage *ukFlag = nil;
 		[self appendFeedItems:rssParser.feedItems];
 	}
 	
-	////NSLog(@"Servers Feed Item Count: %i", [self.serversFeedItems count]);
-	
 	[rssParser release];
 	[xmlParser release];
 	[self.tableView reloadData];
@@ -108,8 +106,6 @@ static UIImage *ukFlag = nil;
 		[self appendFeedItems:rssParser.feedItems];
 	}	
 	
-	////NSLog(@"Files Feed Item Count: %i", [self.filesFeedItems count]);
-	
 	[rssParser release];
 	[xmlParser release];
 	[self.tableView reloadData];
@@ -129,8 +125,6 @@ static UIImage *ukFlag = nil;
 		self.sitesFeedItems = atomParser.feedItems;
 		[self appendFeedItems:atomParser.feedItems];
 	}
-	
-	////NSLog(@"Sites Feed Item Count: %i", [self.sitesFeedItems count]);
 	
 	[atomParser release];
 	[xmlParser release];	
@@ -196,9 +190,7 @@ static UIImage *ukFlag = nil;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	// make the background transparent here.  won't work in cellForRowAtIndexPath
     cell.backgroundColor = [UIColor clearColor];
-	// cell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
-	
-	
+		
 	// TODO: fix this in both rss views
 	// cell.imageView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
 	// cell.backgroundView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
@@ -212,7 +204,6 @@ static UIImage *ukFlag = nil;
 		UILabel *label = (UILabel *) [labels objectAtIndex:i];
 		CGRect rect = label.frame;
 		rect.size.width = cell.frame.size.width - 40 - 64;
-		////NSLog(@"width: %f", rect.size.width);
 		label.frame = rect;		
 	}
 	
@@ -306,9 +297,6 @@ static UIImage *ukFlag = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	////NSLog(@"feed item count = %i", [self.feedItems count]);
-	
-	
     tableView.backgroundView = nil; // clear background
     if (indexPath.section == 0) {
         return [self tableView:aTableView supportCellForRowAtIndexPath:indexPath];
@@ -323,6 +311,7 @@ static UIImage *ukFlag = nil;
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	// might be slower to make the extra cellForRowAtIndexPath call, but it's flexible and DRY
+    // who cares anyway?  it's not like we have lots of rows or anything
 	//return 700.0;
 	return ((UITableViewCell *)[self tableView:aTableView cellForRowAtIndexPath:indexPath]).frame.size.height;
 }
