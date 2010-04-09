@@ -74,7 +74,8 @@
     NSDictionary *secondaryAccounts = [defaults objectForKey:@"secondary_accounts"];
     
     if ([secondaryAccounts count] > 0) {
-        self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
+        // TODO: also render this the first time a secondary account is added
+        self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Switch User" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
     }
 
     [super viewWillAppear:animated];
