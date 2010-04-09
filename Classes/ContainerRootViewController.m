@@ -330,7 +330,7 @@
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		} else if (indexPath.row == 2) {
 			cell.textLabel.text = @"TTL";
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", container.ttl]; // TODO: UISlider
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", container.ttl];
 			cell.accessoryType = UITableViewCellAccessoryNone;
 		} else {
 			return [self switchCell:aTableView label:@"CDN Logging Enabled" action:@selector(logSwitchChanged:) value:container.logRetention];			

@@ -198,6 +198,7 @@
 		27FC8FC6116E699700250D42 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC8FC4116E699700250D42 /* AccountViewController.xib */; };
 		27FC9143116E8F5400250D42 /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9141116E8F5400250D42 /* LogoutViewController.m */; };
 		27FC9144116E8F5400250D42 /* LogoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC9142116E8F5400250D42 /* LogoutViewController.xib */; };
+		27FC92A3116FBD2200250D42 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27FC92A2116FBD2200250D42 /* Entitlements.plist */; };
 		2804200B108E984D000629CD /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28042008108E984D000629CD /* MasterViewController.m */; };
 		2804200C108E984D000629CD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2804200A108E984D000629CD /* DetailViewController.m */; };
 		2804203C108E9BAB000629CD /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2804203B108E9BAB000629CD /* DetailView.xib */; };
@@ -531,6 +532,7 @@
 		27FC9140116E8F5400250D42 /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
 		27FC9141116E8F5400250D42 /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
 		27FC9142116E8F5400250D42 /* LogoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutViewController.xib; sourceTree = "<group>"; };
+		27FC92A2116FBD2200250D42 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		28042007108E984D000629CD /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		28042008108E984D000629CD /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		28042009108E984D000629CD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -1313,6 +1315,7 @@
 				2804203B108E9BAB000629CD /* DetailView.xib */,
 				8D1107310486CEB800E47090 /* RackspaceCloud-Info.plist */,
 				27D669711111773400654554 /* Settings.bundle */,
+				27FC92A2116FBD2200250D42 /* Entitlements.plist */,
 			);
 			name = "Resources-iPad";
 			sourceTree = "<group>";
@@ -1484,6 +1487,7 @@
 				27FC8E59116E2CE700250D42 /* SettingsViewController.xib in Resources */,
 				27FC8FC6116E699700250D42 /* AccountViewController.xib in Resources */,
 				27FC9144116E8F5400250D42 /* LogoutViewController.xib in Resources */,
+				27FC92A3116FBD2200250D42 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1648,7 +1652,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Mayo";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Mayo";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1661,7 +1666,7 @@
 					"-ObjC",
 				);
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BA2A8EA6-841B-4BF7-834C-7208C989B24D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D6562BCE-33CD-4783-B303-569CF1A244BB";
 				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = armv7;
